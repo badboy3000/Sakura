@@ -1,0 +1,4 @@
+#Sat Jul 21 08:07:48 CST 2018
+base.0=/Users/yuistack/Documents/calibur/Sakura/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+renamed.0=classes.dex
+file.0=/Users/yuistack/Documents/calibur/Sakura/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex
