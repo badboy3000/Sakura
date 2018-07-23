@@ -1,143 +1,61 @@
-<style lang="scss">
-
-</style>
-
 <template>
   <f7-page
     :page-content="true"
+    :infinite-distance="50"
+    :infinite-preloader="source.loading"
+    infinite
+    ptr
     class="tab-layout-content-container"
+    @infinite="loadMore"
+    @ptr:refresh="getData"
   >
-    post page
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
+    <post-flow-item
+      v-for="item in source.list"
+      :key="item.id"
+      :item="item"
+    />
+    <no-more
+      :length="source.list.length"
+      :no-more="source.noMore"
+    />
   </f7-page>
 </template>
 
 <script>
+  import PostFlowItem from 'components/post/PostFlowItem.vue'
+
   export default {
     components: {
-
-    },
-    props: {
-
-    },
-    data () {
-      return {
-
-      }
+      PostFlowItem
     },
     computed: {
-
-    },
-    watch: {
-
+      source () {
+        return this.$store.state.trending.post.active
+      }
     },
     created () {
-
-    },
-    mounted () {
-
+      this.getData();
     },
     methods: {
-
+      async getData (refresh = false, done) {
+        try {
+          await this.$store.dispatch('trending/getTrending', {
+            type: 'post',
+            sort: 'active',
+            refresh
+          })
+        } catch (e) {
+          this.$toast.error(e)
+        } finally {
+          done && done()
+        }
+      },
+      loadMore () {
+        this.$store.dispatch('trending/loadMore', {
+          type: 'post',
+          sort: 'active'
+        })
+      }
     }
   }
 </script>

@@ -1,0 +1,53 @@
+@mixin avatar($size) {
+  width: $size;
+  height: $size;
+  border-radius: $size / 2;
+  border: 1px solid #e5e9ef;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@mixin border($color, $radio: 0px) {
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid $color;
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5);
+    transform-origin: left top;
+    border-radius: $radio;
+  }
+}
+
+@mixin twoline($line-height) {
+  line-height: $line-height;
+  max-height: $line-height * 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+@mixin border-bottom($margin: 0) {
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #F0F0F0;
+    transform: scaleY(0.5);
+    margin-left: $margin;
+    margin-right: $margin;
+  }
+}

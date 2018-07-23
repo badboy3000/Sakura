@@ -1,11 +1,30 @@
 export default [
   {
-    path: '/',
-    component: require('pages/user/sign.vue'),
+    path: '/launch',
+    component: require('pages/launch.vue'),
+  },
+  {
+    path: '/sign',
+    redirect: '/sign/in',
+    routes: [
+      {
+        path: 'in',
+        component: require('pages/sign/signIn.vue'),
+      },
+      {
+        path: 'up',
+        component: require('pages/sign/signUp.vue'),
+      },
+      {
+        path: 'forgot',
+        component: require('pages/sign/forgotPassword.vue'),
+      }
+    ]
   },
   {
     path: '/tabs',
     component: require('layouts/tabs.vue'),
+    /*
     routes: [
       {
         path: '/',
@@ -57,9 +76,9 @@ export default [
             component: require('pages/bangumi/timeline.vue')
           },
           {
-            path: 'tags',
-            id: 'bangumi-tags',
-            component: require('pages/bangumi/tags.vue')
+            path: 'category',
+            id: 'bangumi-category',
+            component: require('pages/bangumi/category.vue')
           },
         ],
       },
@@ -74,5 +93,10 @@ export default [
         component: require('pages/about/us.vue')
       },
     ]
+    */
+  },
+  {
+    path: '/bangumi/:id(\\d+)',
+    component: require('pages/bangumi/show.vue')
   }
 ]

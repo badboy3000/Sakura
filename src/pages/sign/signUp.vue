@@ -3,9 +3,9 @@
 </style>
 
 <template>
-  <div>
-    bangumi tags
-  </div>
+  <f7-page>
+    sign up
+  </f7-page>
 </template>
 
 <script>

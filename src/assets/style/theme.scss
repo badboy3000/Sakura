@@ -1,5 +1,10 @@
 @import "variables";
 
+input:-webkit-autofill {
+  box-shadow: 0 0 0 100px #fff inset !important;
+  background-color: #fff !important;
+}
+
 .tab,
 .page-current,
 .page-content >.tabs {
@@ -60,4 +65,13 @@
       }
     }
   }
+
+  .ptr-pull-up {
+    padding-top: 44px !important;
+    margin-top: -44px !important;
+  }
+}
+
+.mint-toast {
+  z-index: 100000 !important;
 }

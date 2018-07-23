@@ -1,40 +1,65 @@
-<style lang="scss">
-
-</style>
-
 <template>
-  <div>
-    review page
-  </div>
+  <f7-page
+    :page-content="true"
+    :infinite-distance="50"
+    :infinite-preloader="source.loading"
+    ptr
+    infinite
+    class="tab-layout-content-container"
+    @infinite="loadMore"
+    @ptr:refresh="getData"
+  >
+    <score-flow-item
+      v-for="item in source.list"
+      :key="item.id"
+      :item="item"
+      show="all"
+    />
+    <no-more
+      :length="source.list.length"
+      :no-more="source.noMore"
+    />
+  </f7-page>
 </template>
 
 <script>
+  import ScoreFlowItem from 'components/score/ScoreFlowItem.vue'
+
   export default {
     components: {
-
-    },
-    props: {
-
-    },
-    data () {
-      return {
-
-      }
+      ScoreFlowItem
     },
     computed: {
-
-    },
-    watch: {
-
+      source () {
+        return this.$store.state.trending.score.active
+      }
     },
     created () {
-
+      this.$channel.$on('the-world-tab-2-show', this.getData)
     },
-    mounted () {
-
+    beforeDestroy () {
+      this.$channel.$off('the-world-tab-2-show', this.getData)
     },
     methods: {
-
+      async getData (refresh = false, done) {
+        try {
+          await this.$store.dispatch('trending/getTrending', {
+            type: 'score',
+            sort: 'active',
+            refresh
+          })
+        } catch (e) {
+          this.$toast.error(e)
+        } finally {
+          done && done()
+        }
+      },
+      loadMore () {
+        this.$store.dispatch('trending/loadMore', {
+          type: 'score',
+          sort: 'active'
+        })
+      }
     }
   }
 </script>

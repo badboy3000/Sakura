@@ -36,7 +36,6 @@
     <f7-block inner>
       <f7-link @click="$f7router.back()">Go back via Router API</f7-link>
     </f7-block>
-
   </f7-page>
 </template>
 

@@ -1,5 +1,8 @@
 <template>
-  <f7-page hide-toolbar-on-scroll>
+  <f7-page
+    :page-content="true"
+    hide-toolbar-on-scroll
+  >
     <f7-toolbar
       ref="bar"
       tabbar
@@ -22,29 +25,52 @@
       <f7-tab
         id="world-post"
         tab-active
+        @tab:show="handleTabShow(0)"
+        @tab:hide="handleTabHide(0)"
       >
-        <f7-view url="/tabs/world/post"/>
+        <post-trending/>
       </f7-tab>
       <f7-tab
         id="world-image"
+        @tab:show="handleTabShow(1)"
+        @tab:hide="handleTabHide(1)"
       >
-        <f7-view url="/tabs/world/image"/>
+        <image-trending/>
       </f7-tab>
       <f7-tab
         id="world-review"
+        @tab:show="handleTabShow(2)"
+        @tab:hide="handleTabHide(2)"
       >
-        <f7-view url="/tabs/world/review"/>
+        <score-trending/>
       </f7-tab>
     </f7-tabs>
   </f7-page>
 </template>
 
 <script>
+  import PostTrending from './post.vue'
+  import ImageTrending from './image.vue'
+  import ScoreTrending from './review.vue'
+
   export default {
+    components: {
+      PostTrending,
+      ImageTrending,
+      ScoreTrending
+    },
     mounted () {
       this.$channel.$on('tab-switch', () => {
         this.$refs.bar.show(0)
       })
+    },
+    methods: {
+      handleTabShow (index) {
+        this.$channel.$emit(`the-world-tab-${index}-show`)
+      },
+      handleTabHide (index) {
+        this.$channel.$emit(`the-world-tab-${index}-hide`)
+      }
     }
   };
 </script>

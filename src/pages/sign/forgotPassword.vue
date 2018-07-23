@@ -4,7 +4,7 @@
 
 <template>
   <f7-page>
-    sign
+    forgot password
   </f7-page>
 </template>
 

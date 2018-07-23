@@ -20,11 +20,20 @@
     class="color-theme-pink"
   >
     <f7-statusbar/>
-    <f7-view
-      :main="true"
+    <f7-views
       :class="{ hiddenNavBorder, creatorDialogIsOpen, 'ios-edge': $theme.ios }"
-      url="/tabs"
-    />
+    >
+      <f7-view
+        :main="true"
+        url="/launch"
+      />
+      <f7-view
+        url="/tabs"
+      />
+      <f7-view
+        url="/bangumi/1"
+      />
+    </f7-views>
   </f7-app>
 </template>
 
@@ -49,6 +58,9 @@
         creatorDialogIsOpen: false
       }
     },
+    created () {
+      this.getLoginUser()
+    },
     mounted () {
       this.$channel.$on('tab-switch', (index) => {
         this.hiddenNavBorder = index < 2
@@ -56,6 +68,17 @@
       this.$channel.$on('toggle-creator', (isOpen) => {
         this.creatorDialogIsOpen = isOpen
       })
+      this.$channel.$on('clear-router-history', (ctx) => {
+        setTimeout(() => {
+          ctx.$f7router.clearPreviousHistory();
+        }, 0)
+      })
+    },
+    methods: {
+      async getLoginUser () {
+        await this.$store.dispatch('initialize');
+        this.$channel.$emit('init-D')
+      }
     }
   }
 </script>

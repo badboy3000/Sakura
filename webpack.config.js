@@ -17,12 +17,13 @@ let config = function (env) {
     entry: entryFile,
     
     resolve: {
-      extensions: ['.js', '.json', '.vue'],
+      extensions: ['.js', '.json', '.vue', '.scss'],
       modules: [path.join(__dirname, 'src'), 'node_modules'],
       alias: {
         'vue$': 'vue/dist/vue.common.js',
         'src': path.resolve(__dirname, 'src/'),
         'assets': path.resolve(__dirname, 'src/assets/'),
+        'api': path.resolve(__dirname, 'src/api/'),
         'pages': path.resolve(__dirname, 'src/pages/'),
         'layouts': path.resolve(__dirname, 'src/layouts/'),
         'components': path.resolve(__dirname, 'src/components/')
@@ -40,22 +41,18 @@ let config = function (env) {
     module: {
       rules: [
         {
-          test: /\.(png|jpe?g|gif)$/,
-          loader: 'file-loader',
+          test: /\.(png|jpg|gif|svg)$/,
+          loader: 'url-loader',
           options: {
-            name: '[name].[ext]?[hash]'
+            name: '[path][name].[hash:8].[ext]'
           }
         },
         {
-          test: /\.(woff2?|eot|ttf|otf|mp3|wav)(\?.*)?$/,
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
           loader: 'file-loader',
           options: {
-            name: '[name].[ext]?[hash]'
+            name: '[name].[hash:8].[ext]'
           }
-        },
-        {
-          test: /\.svg$/,
-          loader: 'url-loader'
         },
         {
           test: /\.scss$/,
@@ -71,11 +68,7 @@ let config = function (env) {
           options: {
             loaders: {
               js: {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['env'],
-                  plugins: ['transform-object-rest-spread']
-                }
+                loader: 'babel-loader'
               },
               scss: [
                 'vue-style-loader',
@@ -101,14 +94,9 @@ let config = function (env) {
         },
         {
           test: /\.js$/,
-          exclude: /node_modules(\/|\\)(?!(framework7|framework7-vue|template7|dom7)(\/|\\)).*/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env'],
-              plugins: [ 'transform-runtime', 'transform-object-rest-spread' ]
-            }
-          }
+          loader: 'babel-loader',
+          // exclude: /node_modules(\/|\\)(?!(framework7|framework7-vue|template7|dom7)(\/|\\)).*/,
+          exclude: /node_modules/
         }
       ]
     },

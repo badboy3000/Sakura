@@ -1,3 +1,12 @@
+<style lang="scss">
+  .nav-avatar {
+    @include avatar(32px)
+  }
+
+  .tabs-layout {
+  }
+</style>
+
 <template>
   <f7-page class="tabs-layout">
     <f7-navbar
@@ -6,9 +15,9 @@
       :no-shadow="hiddenBorder"
     >
       <f7-nav-left>
-        <f7-link
-          icon="fa fa-bars"
-        />
+        <div class="nav-avatar">
+          <img :src="$resize(avatar, { width: 100 })">
+        </div>
       </f7-nav-left>
       <div class="title">calibur.tv</div>
       <f7-nav-right>
@@ -18,28 +27,28 @@
         />
       </f7-nav-right>
     </f7-navbar>
-    <v-search v-model="openSearchDialog"/>
+    <search-dialog v-model="openSearchDialog"/>
     <f7-tabs>
       <f7-tab
         id="tab-world"
         tab-active
       >
-        <f7-view url="/tabs/world"/>
+        <the-world/>
       </f7-tab>
       <f7-tab
         id="tab-bangumi"
       >
-        <f7-view url="/tabs/bangumi"/>
+        <bangumi-area/>
       </f7-tab>
       <f7-tab
         id="tab-user"
       >
-        <f7-view url="/tabs/user"/>
+        <my-home/>
       </f7-tab>
       <f7-tab
         id="tab-about"
       >
-        <f7-view url="/tabs/about"/>
+        <about-page/>
       </f7-tab>
     </f7-tabs>
     <tab-bar/>
@@ -47,18 +56,33 @@
 </template>
 
 <script>
-  import TabBar from 'components/tabbar.vue'
-  import VSearch from 'components/search.vue'
+  import TabBar from 'components/Tabbar.vue'
+  import SearchDialog from 'components/Search.vue'
+  import TheWorld from 'pages/world/_container.vue'
+  import BangumiArea from 'pages/bangumi/_container.vue'
+  import MyHome from 'pages/user/self.vue'
+  import AboutPage from 'pages/about/us.vue'
 
   export default {
     components: {
       TabBar,
-      VSearch
+      SearchDialog,
+      TheWorld,
+      BangumiArea,
+      MyHome,
+      AboutPage
     },
     data () {
       return {
         hiddenBorder: true,
         openSearchDialog: false
+      }
+    },
+    computed: {
+      avatar () {
+        return this.$store.state.user
+          ? this.$store.state.user.avatar
+          : ''
       }
     },
     mounted () {
