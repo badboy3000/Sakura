@@ -5,8 +5,8 @@
 <template>
   <f7-page
     :page-content="true"
+    :infinite-preloader="false"
     :infinite-distance="50"
-    :infinite-preloader="loading"
     infinite
     class="tab-layout-content-container"
     @infinite="getData"
@@ -35,6 +35,7 @@
       </div>
     </div>
     <no-more
+      :loading="loading"
       :length="source.list.length"
       :no-more="source.noMore"
     />

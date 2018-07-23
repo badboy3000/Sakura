@@ -19,6 +19,8 @@ Vue.use({
 
     Vue.prototype.$alias = alias;
 
+    Vue.prototype.$width = window.innerWidth * 2
+
     Vue.prototype.$captcha = captcha;
 
     Vue.prototype.$cache = Cookies;

@@ -1,5 +1,5 @@
 <template>
-  <f7-page hide-toolbar-on-scroll>
+  <f7-page :page-content="true">
     <f7-toolbar
       ref="bar"
       tabbar

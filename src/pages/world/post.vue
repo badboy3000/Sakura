@@ -2,19 +2,22 @@
   <f7-page
     :page-content="true"
     :infinite-distance="50"
-    :infinite-preloader="source.loading"
+    :infinite-preloader="false"
     infinite
     ptr
     class="tab-layout-content-container"
     @infinite="loadMore"
     @ptr:refresh="getData"
   >
-    <post-flow-item
-      v-for="item in source.list"
-      :key="item.id"
-      :item="item"
-    />
+    <div>
+      <post-flow-item
+        v-for="item in source.list"
+        :key="item.id"
+        :item="item"
+      />
+    </div>
     <no-more
+      :loading="source.loading"
       :length="source.list.length"
       :no-more="source.noMore"
     />

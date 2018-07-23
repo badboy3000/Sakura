@@ -18,7 +18,6 @@ export default {
       noMore: false
     },
     tags: [],
-    info: null,
     post: {
       list: [],
       total: 0,
@@ -124,9 +123,6 @@ export default {
     SET_TOP_POST (state, data) {
       state.topPosts = data
     },
-    SET_BANGUMI_INFO (state, data) {
-      state.info = data
-    },
     SET_VIDEOS (state, data) {
       state.videos.list = data.videos
       state.videos.total = data.total
@@ -200,10 +196,8 @@ export default {
       })
       data && commit('SET_CATEGORY', { data, ids })
     },
-    async getBangumi ({ commit }, { ctx, id }) {
-      const api = new Api(ctx)
-      const data = await api.show(id)
-      data && commit('SET_BANGUMI_INFO', data)
+    async getInfo ({ commit }, { id }) {
+      return await Api.show(id)
     },
     async getVideos ({ commit }, { id, ctx }) {
       const api = new Api(ctx)

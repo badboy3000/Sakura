@@ -4,7 +4,7 @@
 
 <template>
   <f7-page :page-content="true">
-    <div class="preloader infinite-scroll-preloader"/>
+    bangumi cartoon flow
   </f7-page>
 </template>
 

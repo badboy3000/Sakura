@@ -19,6 +19,10 @@ input:-webkit-autofill {
 .tab-layout-content-container > .page-content {
   padding-top: 0 !important;
   padding-bottom: $tab-height !important;
+
+  &.ptr-content {
+    padding-bottom: 0 !important;
+  }
 }
 
 .toolbar-hidden {
@@ -69,6 +73,16 @@ input:-webkit-autofill {
   .ptr-pull-up {
     padding-top: 44px !important;
     margin-top: -44px !important;
+  }
+}
+
+.md {
+  .ptr-preloader {
+    top: -40px !important;
+  }
+
+  .tab-layout-content-container > .page-content.ptr-content {
+    padding-bottom: $tab-height !important;
   }
 }
 

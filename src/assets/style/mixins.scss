@@ -51,3 +51,8 @@
     margin-right: $margin;
   }
 }
+
+@mixin filter-blur($size: 5) {
+  filter: blur($size + px);
+  filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=$size, MakeShadow=false);
+}

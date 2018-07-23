@@ -20,20 +20,11 @@
     class="color-theme-pink"
   >
     <f7-statusbar/>
-    <f7-views
+    <f7-view
+      :main="true"
       :class="{ hiddenNavBorder, creatorDialogIsOpen, 'ios-edge': $theme.ios }"
-    >
-      <f7-view
-        :main="true"
-        url="/launch"
-      />
-      <f7-view
-        url="/tabs"
-      />
-      <f7-view
-        url="/bangumi/1"
-      />
-    </f7-views>
+      url="/launch"
+    />
   </f7-app>
 </template>
 

@@ -15,3 +15,7 @@ export const tags = () => {
 export const category = ({ id, page, take }) => {
   return http.get('bangumi/category', { id, page, take })
 }
+
+export const show = (id) => {
+  return http.get(`bangumi/${id}/show`)
+}
