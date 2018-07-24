@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 import Cookies from 'js-cookie';
 import BaseApi from 'api/_baseApi.js'
 import { refresh } from 'api/userApi.js'
-import trending from './trending'
+import flow from './flow'
 import bangumi from './bangumi'
-import world from './trending'
+import world from './flow'
 import post from './post'
 
 Vue.use(Vuex);
@@ -34,7 +34,7 @@ export default new Vuex.Store({
   },
   getters: {},
   modules: {
-    trending,
+    flow,
     bangumi,
     world,
     post

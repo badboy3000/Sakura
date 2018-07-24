@@ -3,9 +3,7 @@
 </style>
 
 <template>
-  <f7-page
-    :page-content="true"
-  >
+  <div>
     <f7-block
       v-if="loading"
       class="text-align-center"
@@ -61,7 +59,7 @@
         </f7-list-item>
       </f7-list>
     </div>
-  </f7-page>
+  </div>
 </template>
 
 <script>

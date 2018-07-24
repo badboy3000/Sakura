@@ -3,9 +3,7 @@
 </style>
 
 <template>
-  <f7-page
-    :page-content="true"
-  >
+  <div>
     bangumi role flow
     <p>111</p>
     <p>111</p>
@@ -37,7 +35,7 @@
     <p>111</p>
     <p>111</p>
     <p>111</p>
-  </f7-page>
+  </div>
 </template>
 
 <script>

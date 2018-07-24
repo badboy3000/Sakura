@@ -1,4 +1,4 @@
-import { fetch, meta } from 'api/trendingApi'
+import { fetch, meta } from 'api/flowApi'
 import { merge } from 'lodash'
 
 const trendingFlowStore = {
@@ -63,6 +63,7 @@ const actions = {
   },
   async getData ({ state, commit }, { sort, type, take, bangumiId = 0, refresh = false }) {
     if (bangumiId !== state.bangumiId) {
+      console.log('reset')
       commit('RESET_STATE', { type })
     }
     if (state[type][sort].noMore || state[type][sort].loading) {

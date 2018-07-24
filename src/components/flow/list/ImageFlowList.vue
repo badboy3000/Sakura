@@ -6,10 +6,8 @@
     infinite-scroll-distance="50"
     infinite-scroll-disabled="notFetch"
   >
-    <score-flow-item
-      v-for="item in source.list"
-      :key="item.id"
-      :item="item"
+    <image-waterfall
+      :list="source.list"
       show="all"
     />
     <no-more
@@ -21,12 +19,22 @@
 </template>
 
 <script>
-  import ScoreFlowItem from 'components/score/ScoreFlowItem.vue'
+  import ImageWaterfall from 'components/flow/item/ImageWaterfall.vue'
 
   export default {
-    name: 'ScoreFlowList',
+    name: 'ImageFlowList',
     components: {
-      ScoreFlowItem
+      ImageWaterfall
+    },
+    props: {
+      bangumiId: {
+        type: Number,
+        default: 0
+      },
+      userId: {
+        type: Number,
+        default: 0
+      }
     },
     data () {
       return {
@@ -35,19 +43,31 @@
     },
     computed: {
       source () {
-        return this.$store.state.world.score.active
+        if (this.bangumiId || this.userId) {
+          return this.$store.state.flow.image.active
+        }
+        return this.$store.state.world.image.active
       },
       notFetch () {
         return this.lock || this.source.loading || this.source.noMore
+      },
+      switchEvt () {
+        if (this.bangumiId) {
+          return 'bangumi-show-tab-1-switch'
+        }
+        if (this.userId) {
+          return 'user-show-tab-1-switch'
+        }
+        return 'the-world-tab-1-switch'
       }
     },
     mounted () {
-      this.$channel.$on('the-world-tab-2-switch', (isShow) => {
+      this.$channel.$on(this.switchEvt, (isShow) => {
         this.lock = !isShow
       })
     },
     beforeDestroy () {
-      this.$channel.$off('the-world-tab-2-switch')
+      this.$channel.$off(this.switchEvt)
     },
     methods: {
       loadMore () {
@@ -58,10 +78,13 @@
       },
       async getData (refresh) {
         try {
-          await this.$store.dispatch('world/getData', {
-            type: 'score',
+          const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
+          await this.$store.dispatch(action, {
+            type: 'image',
             sort: 'active',
-            refresh
+            refresh,
+            bangumiId: this.bangumiId,
+            userId: this.userId
           })
         } catch (e) {
           this.$toast.error(e)

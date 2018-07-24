@@ -1,9 +1,6 @@
 <template>
   <f7-page :page-content="true">
-    <f7-toolbar
-      ref="bar"
-      tabbar
-    >
+    <f7-toolbar tabbar>
       <f7-link
         tab-link="#bangumi-release"
         tab-link-active
@@ -46,20 +43,15 @@
 </template>
 
 <script>
-  import BangumiRelease from './release.vue'
-  import BangumiTimeline from './timeline.vue'
-  import BangumiCategory from './category.vue'
+  import BangumiRelease from 'pages/bangumi/release.vue'
+  import BangumiTimeline from 'pages/bangumi/timeline.vue'
+  import BangumiCategory from 'pages/bangumi/category.vue'
 
   export default {
     components: {
       BangumiRelease,
       BangumiTimeline,
       BangumiCategory
-    },
-    mounted () {
-      this.$channel.$on('tab-switch', () => {
-        this.$refs.bar.show(0)
-      })
     },
     methods: {
       handleTabShow (index) {

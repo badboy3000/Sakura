@@ -124,10 +124,10 @@
 <script>
   import TabBar from 'components/Tabbar.vue'
   import SearchDialog from 'components/Search.vue'
-  import TheWorld from 'pages/world/index.vue'
-  import BangumiArea from 'pages/bangumi/index.vue'
-  import AboutPage from 'pages/about/us.vue'
-  import MyHome from 'pages/user/self.vue'
+  import TheWorld from './world.vue'
+  import BangumiArea from './bangumi.vue'
+  import AboutPage from './about.vue'
+  import MyHome from './user.vue'
 
   export default {
     components: {

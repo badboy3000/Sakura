@@ -39,36 +39,36 @@
         @tab:show="handleTabShow(0)"
         @tab:hide="handleTabHide(0)"
       >
-        <post-trending/>
+        <post-flow-list/>
       </f7-tab>
       <f7-tab
         id="world-image"
         @tab:show="handleTabShow(1)"
         @tab:hide="handleTabHide(1)"
       >
-        <image-trending/>
+        <image-flow-list/>
       </f7-tab>
       <f7-tab
         id="world-review"
         @tab:show="handleTabShow(2)"
         @tab:hide="handleTabHide(2)"
       >
-        <score-trending/>
+        <score-flow-list/>
       </f7-tab>
     </f7-tabs>
   </div>
 </template>
 
 <script>
-  import PostTrending from './flows/post.vue'
-  import ImageTrending from './flows/image.vue'
-  import ScoreTrending from './flows/review.vue'
+  import PostFlowList from 'components/flow/list/PostFlowList'
+  import ImageFlowList from 'components/flow/list/ImageFlowList'
+  import ScoreFlowList from 'components/flow/list/ScoreFlowList'
 
   export default {
     components: {
-      PostTrending,
-      ImageTrending,
-      ScoreTrending
+      PostFlowList,
+      ImageFlowList,
+      ScoreFlowList
     },
     methods: {
       handleTabShow (index) {

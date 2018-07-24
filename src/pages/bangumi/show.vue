@@ -41,7 +41,7 @@
       :list="computedMenu"
       :active="0"
     />
-    <f7-page v-if="bangumi">
+    <template v-if="bangumi">
       <f7-tabs animated>
         <f7-tab
           id="bangumi-show-post"
@@ -50,7 +50,7 @@
           @tab:show="handleTabShow(0)"
           @tab:hide="handleTabHide(0)"
         >
-          <bangumi-post-flow :id="id"/>
+          <post-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-image"
@@ -58,7 +58,7 @@
           @tab:show="handleTabShow(1)"
           @tab:hide="handleTabHide(1)"
         >
-          <bangumi-image-flow :id="id"/>
+          <image-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-score"
@@ -66,7 +66,7 @@
           @tab:show="handleTabShow(2)"
           @tab:hide="handleTabHide(2)"
         >
-          <bangumi-score-flow :id="id"/>
+          <score-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           v-if="bangumi.has_video"
@@ -104,7 +104,7 @@
           <bangumi-setting :id="id"/>
         </f7-tab>
       </f7-tabs>
-    </f7-page>
+    </template>
     <f7-block
       v-else
       class="text-align-center"
@@ -116,9 +116,9 @@
 
 <script>
   import MenuBar from 'components/MenuBar.vue'
-  import BangumiPostFlow from 'components/bangumi/BangumiPostFlow.vue'
-  import BangumiImageFlow from 'components/bangumi/BangumiImageFlow.vue'
-  import BangumiScoreFlow from 'components/bangumi/BangumiScoreFlow.vue'
+  import PostFlowList from 'components/flow/list/PostFlowList'
+  import ImageFlowList from 'components/flow/list/ImageFlowList'
+  import ScoreFlowList from 'components/flow/list/ScoreFlowList'
   import BangumiVideoFlow from 'components/bangumi/BangumiVideoFlow.vue'
   import BangumiCartoonFlow from 'components/bangumi/BangumiCartoonFlow.vue'
   import BangumiRoleFlow from 'components/bangumi/BangumiRoleFlow.vue'
@@ -127,9 +127,9 @@
   export default {
     components: {
       MenuBar,
-      BangumiPostFlow,
-      BangumiImageFlow,
-      BangumiScoreFlow,
+      PostFlowList,
+      ImageFlowList,
+      ScoreFlowList,
       BangumiVideoFlow,
       BangumiCartoonFlow,
       BangumiRoleFlow,

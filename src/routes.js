@@ -23,7 +23,7 @@ export default [
   },
   {
     path: '/index',
-    component: require('pages/index.vue')
+    component: require('pages/homepage/index.vue')
   },
   {
     path: '/bangumi/:id(\\d+)',
