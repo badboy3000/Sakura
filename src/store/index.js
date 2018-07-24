@@ -5,6 +5,8 @@ import BaseApi from 'api/_baseApi.js'
 import { refresh } from 'api/userApi.js'
 import trending from './trending'
 import bangumi from './bangumi'
+import world from './trending'
+import post from './post'
 
 Vue.use(Vuex);
 
@@ -33,6 +35,8 @@ export default new Vuex.Store({
   getters: {},
   modules: {
     trending,
-    bangumi
+    bangumi,
+    world,
+    post
   }
 });

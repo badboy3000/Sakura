@@ -27,7 +27,7 @@
       }
     }
 
-    .tab.page-content {
+    .page-content {
       padding-top: 0 !important;
     }
   }
@@ -36,8 +36,8 @@
 <template>
   <f7-page id="bangumi-show">
     <f7-navbar
-      :title="bangumi ? bangumi.name : '···'"
-      back-link=""
+      title="title"
+      back-link
       sliding
     />
     <template v-if="bangumi">
@@ -51,9 +51,7 @@
         :list="computedMenu"
         :active="0"
       />
-      <f7-tabs
-        animated
-      >
+      <f7-tabs animated>
         <f7-tab
           id="bangumi-show-post"
           tab-active

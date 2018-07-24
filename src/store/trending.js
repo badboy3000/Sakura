@@ -27,8 +27,7 @@ const trendingFlowStore = {
 }
 
 const state = () => ({
-  sort: '',
-  type: '',
+  bangumiId: 0,
   post: merge({}, trendingFlowStore),
   image: merge({}, trendingFlowStore),
   score: merge({}, trendingFlowStore)
@@ -38,12 +37,13 @@ const mutations = {
   SET_META (state, { data, type }) {
     state[type].meta = data
   },
-  INIT_TRENDING_DATA (state, { data, type, sort }) {
+  INIT_TRENDING_DATA (state, { data, type, sort, bangumiId }) {
     state[type][sort].list = data.list
     state[type][sort].total = data.total
     state[type][sort].noMore = data.noMore
     state[type][sort].nothing = !data.list.length
     state[type][sort].loading = false
+    state.bangumiId = bangumiId
   },
   PUSH_TRENDING_DATA (state, { data, type, sort }) {
     const list = state[type][sort].list.concat(data.list)
@@ -64,13 +64,13 @@ const actions = {
     commit('SET_META', { data, type })
   },
   async getTrending ({ state, commit }, { type, sort, take, bangumiId = 0, refresh = false }) {
-    if (state[type][sort].list.length && !refresh) {
+    if (state[type][sort].list.length && !refresh && bangumiId === state.bangumiId) {
       return
     }
     if (state[type][sort].loading) {
       return
     }
-    commit('SET_TRENDING_LOADING', { type, sort })
+    commit('SET_TRENDING_LOADING', { type, sort });
     const data = await fetch({
       seenIds: '',
       minId: 0,
@@ -78,8 +78,8 @@ const actions = {
       take,
       type,
       bangumiId
-    })
-    commit('INIT_TRENDING_DATA', { data, type, sort })
+    });
+    commit('INIT_TRENDING_DATA', { data, type, sort, bangumiId })
   },
   async loadMore ({ state, commit }, { sort, type, take, bangumiId = 0 }) {
     if (state[type][sort].noMore || state[type][sort].loading) {

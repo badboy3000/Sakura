@@ -1,8 +1,8 @@
 <template>
   <f7-page
     :page-content="true"
-    :infinite-distance="50"
     :infinite-preloader="false"
+    :infinite-distance="50"
     infinite
     ptr
     class="tab-layout-content-container"
@@ -33,7 +33,7 @@
     },
     computed: {
       source () {
-        return this.$store.state.trending.post.active
+        return this.$store.state.world.post.active
       }
     },
     created () {
@@ -42,7 +42,7 @@
     methods: {
       async getData (refresh = false, done) {
         try {
-          await this.$store.dispatch('trending/getTrending', {
+          await this.$store.dispatch('world/getTrending', {
             type: 'post',
             sort: 'active',
             refresh
@@ -54,7 +54,7 @@
         }
       },
       loadMore () {
-        this.$store.dispatch('trending/loadMore', {
+        this.$store.dispatch('world/loadMore', {
           type: 'post',
           sort: 'active'
         })

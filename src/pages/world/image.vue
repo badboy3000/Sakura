@@ -31,7 +31,7 @@
     },
     computed: {
       source () {
-        return this.$store.state.trending.image.active
+        return this.$store.state.world.image.active
       }
     },
     created () {
@@ -43,7 +43,7 @@
     methods: {
       async getData (refresh = false, done) {
         try {
-          await this.$store.dispatch('trending/getTrending', {
+          await this.$store.dispatch('world/getTrending', {
             type: 'image',
             sort: 'active',
             refresh
@@ -55,7 +55,7 @@
         }
       },
       loadMore () {
-        this.$store.dispatch('trending/loadMore', {
+        this.$store.dispatch('world/loadMore', {
           type: 'image',
           sort: 'active'
         })

@@ -32,7 +32,7 @@
     },
     computed: {
       source () {
-        return this.$store.state.trending.score.active
+        return this.$store.state.world.score.active
       }
     },
     created () {
@@ -44,7 +44,7 @@
     methods: {
       async getData (refresh = false, done) {
         try {
-          await this.$store.dispatch('trending/getTrending', {
+          await this.$store.dispatch('world/getTrending', {
             type: 'score',
             sort: 'active',
             refresh
@@ -56,7 +56,7 @@
         }
       },
       loadMore () {
-        this.$store.dispatch('trending/loadMore', {
+        this.$store.dispatch('world/loadMore', {
           type: 'score',
           sort: 'active'
         })

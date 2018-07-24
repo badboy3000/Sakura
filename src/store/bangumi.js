@@ -18,18 +18,7 @@ export default {
       noMore: false
     },
     tags: [],
-    post: {
-      list: [],
-      total: 0,
-      noMore: false,
-      type: 'active',
-      top: []
-    },
-    video: {
-      list: [],
-      total: 0,
-      has_season: false
-    },
+    topic: [],
     role: {
       id: 0,
       list: [],
@@ -89,6 +78,9 @@ export default {
       state.category.total = data.total
       state.category.page++
     },
+    SET_TOPIC_POST (state, data) {
+      state.topic = data
+    },
     ADD_ROLE_STATE (state, { roleId, hasStar }) {
       state.roles.data.forEach((item, index) => {
         if (item.id === roleId) {
@@ -114,19 +106,6 @@ export default {
           }
         })
       }
-    },
-    SET_POSTS (state, data) {
-      state.posts.list = state.posts.list.concat(data.list)
-      state.posts.total = data.total
-      state.posts.noMore = data.noMore
-    },
-    SET_TOP_POST (state, data) {
-      state.topPosts = data
-    },
-    SET_VIDEOS (state, data) {
-      state.videos.list = data.videos
-      state.videos.total = data.total
-      state.videos.has_season = data.has_season
     },
     SET_ROLES (state, { data, bangumiId }) {
       state.roles.list = data
@@ -199,10 +178,10 @@ export default {
     async getInfo ({ commit }, { id }) {
       return await Api.show(id)
     },
-    async getVideos ({ commit }, { id, ctx }) {
+    async getTopPosts ({ commit }, { ctx, id }) {
       const api = new Api(ctx)
-      const data = await api.videos(id)
-      data && commit('SET_VIDEOS', data)
+      const data = await api.getTopPosts({ id })
+      commit('SET_TOPIC_POST', data)
     },
     async getRoles ({ state, commit }, { bangumiId, ctx }) {
       if (state.roles.id === bangumiId) {
@@ -273,11 +252,6 @@ export default {
         sort
       })
       data && commit('SET_BANGUMI_CARTOON', data)
-    },
-    async getTopPosts ({ commit }, { ctx, id }) {
-      const api = new Api(ctx)
-      const data = await api.getTopPosts({ id })
-      commit('SET_TOP_POST', data)
     }
   },
   getters: {}

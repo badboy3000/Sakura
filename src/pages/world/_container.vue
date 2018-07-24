@@ -63,9 +63,11 @@
     },
     methods: {
       handleTabShow (index) {
+        console.log('show', index);
         this.$channel.$emit(`the-world-tab-${index}-show`)
       },
       handleTabHide (index) {
+        console.log('hide', index);
         this.$channel.$emit(`the-world-tab-${index}-hide`)
       }
     }
