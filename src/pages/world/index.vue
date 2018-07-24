@@ -1,5 +1,5 @@
 <template>
-  <f7-page>
+  <div>
     <f7-toolbar
       ref="bar"
       tabbar
@@ -42,13 +42,13 @@
         <score-trending/>
       </f7-tab>
     </f7-tabs>
-  </f7-page>
+  </div>
 </template>
 
 <script>
-  import PostTrending from './post.vue'
-  import ImageTrending from './image.vue'
-  import ScoreTrending from './review.vue'
+  import PostTrending from './flows/post.vue'
+  import ImageTrending from './flows/image.vue'
+  import ScoreTrending from './flows/review.vue'
 
   export default {
     components: {

@@ -1,17 +1,9 @@
 <template>
-  <f7-page
-    id="image-trending"
-    :page-content="true"
-    :infinite-preloader="false"
-    :infinite-distance="50"
-    ptr
-    infinite
-    class="tab-layout-content-container"
-    @infinite="loadMore"
-    @ptr:refresh="getData"
-  >
-    <image-flow-list
-      :list="source.list"
+  <div>
+    <score-flow-item
+      v-for="item in source.list"
+      :key="item.id"
+      :item="item"
       show="all"
     />
     <no-more
@@ -19,32 +11,33 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </f7-page>
+  </div>
 </template>
 
 <script>
-  import ImageFlowList from 'components/image/ImageFlowList.vue'
+  import ScoreFlowItem from 'components/score/ScoreFlowItem.vue'
 
   export default {
+    name: 'ScoreFlowList',
     components: {
-      ImageFlowList
+      ScoreFlowItem
     },
     computed: {
       source () {
-        return this.$store.state.world.image.active
+        return this.$store.state.world.score.active
       }
     },
     created () {
-      this.$channel.$on('the-world-tab-1-show', this.getData)
+      this.$channel.$on('the-world-tab-2-show', this.getData)
     },
     beforeDestroy () {
-      this.$channel.$off('the-world-tab-1-show', this.getData)
+      this.$channel.$off('the-world-tab-2-show', this.getData)
     },
     methods: {
       async getData (refresh = false, done) {
         try {
           await this.$store.dispatch('world/getTrending', {
-            type: 'image',
+            type: 'score',
             sort: 'active',
             refresh
           })
@@ -56,7 +49,7 @@
       },
       loadMore () {
         this.$store.dispatch('world/loadMore', {
-          type: 'image',
+          type: 'score',
           sort: 'active'
         })
       }

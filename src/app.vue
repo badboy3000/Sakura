@@ -49,9 +49,6 @@
         creatorDialogIsOpen: false
       }
     },
-    created () {
-      this.getLoginUser()
-    },
     mounted () {
       this.$channel.$on('tab-switch', (index) => {
         this.hiddenNavBorder = index < 2
@@ -64,12 +61,6 @@
           ctx.$f7router.clearPreviousHistory();
         }, 0)
       })
-    },
-    methods: {
-      async getLoginUser () {
-        await this.$store.dispatch('initialize');
-        this.$channel.$emit('init-D')
-      }
     }
   }
 </script>

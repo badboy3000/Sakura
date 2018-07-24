@@ -27,20 +27,18 @@
       }
     },
     created () {
-      this.$channel.$on('init-D', this.redirect)
-    },
-    beforeDestroy () {
-      this.$channel.$off('init-D', this.redirect)
+      this.initialize()
     },
     methods: {
-      redirect () {
+      async initialize () {
+        await this.$store.dispatch('initialize');
         setTimeout(() => {
           if (this.isGuest) {
             this.$f7router.navigate('/sign', {
               animate: false
             })
           } else {
-            this.$f7router.navigate('/tabs', {
+            this.$f7router.navigate('/index', {
               animate: false
             })
           }

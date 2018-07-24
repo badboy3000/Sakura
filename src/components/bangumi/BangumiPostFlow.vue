@@ -1,6 +1,5 @@
 <template>
   <f7-page
-    :page-content="true"
     :infinite-preloader="false"
     :infinite-distance="50"
     infinite
@@ -83,7 +82,6 @@
         }
       },
       async loadMore () {
-        console.log('load more');
         if (this.loading) {
           return
         }

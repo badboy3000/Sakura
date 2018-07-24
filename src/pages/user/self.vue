@@ -3,9 +3,9 @@
 </style>
 
 <template>
-  <f7-page :page-content="false">
+  <f7-block>
     user show
-  </f7-page>
+  </f7-block>
 </template>
 
 <script>

@@ -1,6 +1,4 @@
 import { Toast, Indicator } from 'mint-ui'
-import 'mint-ui/lib/toast/style.css'
-import 'mint-ui/lib/indicator/style.css'
 
 const timeout = (duration) => new Promise((resolve) => {
   setTimeout(resolve, duration)

@@ -105,7 +105,7 @@
             }).then(async (token) => {
               this.$cache.set('JWT-TOKEN', token)
               await this.$store.dispatch('initialize')
-              this.$f7router.navigate('/tabs', {
+              this.$f7router.navigate('/index', {
                 animate: false
               })
               this.$channel.$emit('clear-router-history', this)

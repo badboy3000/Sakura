@@ -1,14 +1,5 @@
 <template>
-  <f7-page
-    :page-content="true"
-    :infinite-preloader="false"
-    :infinite-distance="50"
-    infinite
-    ptr
-    class="tab-layout-content-container"
-    @infinite="loadMore"
-    @ptr:refresh="getData"
-  >
+  <div>
     <div>
       <post-flow-item
         v-for="item in source.list"
@@ -21,13 +12,14 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </f7-page>
+  </div>
 </template>
 
 <script>
   import PostFlowItem from 'components/post/PostFlowItem.vue'
 
   export default {
+    name: 'PostFlowList',
     components: {
       PostFlowItem
     },
