@@ -1,16 +1,5 @@
-<style lang="scss">
-
-</style>
-
 <template>
-  <f7-page
-    :page-content="true"
-    :infinite-preloader="false"
-    :infinite-distance="50"
-    infinite
-    class="tab-layout-content-container"
-    @infinite="getData"
-  >
+  <div>
     <f7-block-title>标签列表</f7-block-title>
     <f7-block strong>
       <f7-chip
@@ -27,7 +16,13 @@
         @click="getData"
       />
     </f7-block>
-    <template v-if="source.list.length">
+    <div
+      v-infinite-scroll="getData"
+      v-if="source.list.length"
+      infinite-scroll-distance="50"
+      infinite-scroll-disabled="notFetch"
+      infinite-scroll-immediate-check="false"
+    >
       <f7-block-title>番剧列表</f7-block-title>
       <f7-list media-list>
         <f7-list-item
@@ -35,7 +30,7 @@
           :key="item.id"
           :title="item.name"
           :text="item.summary"
-          link="#"
+          :link="$alias.bangumi(item.id)"
         >
           <img
             slot="media"
@@ -44,13 +39,13 @@
           >
         </f7-list-item>
       </f7-list>
-    </template>
+    </div>
     <no-more
-      :loading="loading"
+      :loading="searching"
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </f7-page>
+  </div>
 </template>
 
 <script>
@@ -67,6 +62,9 @@
       },
       tags () {
         return this.$store.state.bangumi.tags
+      },
+      notFetch () {
+        return this.searching || this.source.noMore
       }
     },
     mounted () {

@@ -42,7 +42,7 @@
               animate: false
             })
           }
-          this.$channel.$emit('clear-router-history', this)
+//          this.$channel.$emit('clear-router-history', this)
         }, 0)
       }
     }
