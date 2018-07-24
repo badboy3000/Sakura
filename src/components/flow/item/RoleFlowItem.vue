@@ -3,13 +3,12 @@
 </style>
 
 <template>
-  <f7-block>
-    user show
-  </f7-block>
+
 </template>
 
 <script>
   export default {
+    name: 'RoleFlowItem',
     components: {
 
     },

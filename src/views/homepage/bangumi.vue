@@ -1,5 +1,5 @@
 <template>
-  <f7-page :page-content="true">
+  <div class="homepage-container">
     <f7-toolbar tabbar>
       <f7-link
         tab-link="#bangumi-release"
@@ -39,13 +39,13 @@
         <bangumi-category/>
       </f7-tab>
     </f7-tabs>
-  </f7-page>
+  </div>
 </template>
 
 <script>
-  import BangumiRelease from 'pages/bangumi/release.vue'
-  import BangumiTimeline from 'pages/bangumi/timeline.vue'
-  import BangumiCategory from 'pages/bangumi/category.vue'
+  import BangumiRelease from 'views/bangumi/release.vue'
+  import BangumiTimeline from 'views/bangumi/timeline.vue'
+  import BangumiCategory from 'views/bangumi/category.vue'
 
   export default {
     components: {
@@ -55,10 +55,10 @@
     },
     methods: {
       handleTabShow (index) {
-        this.$channel.$emit(`bangumi-tab-${index}-show`)
+        this.$channel.$emit(`bangumi-tab-${index}-switch`, true)
       },
       handleTabHide (index) {
-        this.$channel.$emit(`bangumi-tab-${index}-hide`)
+        this.$channel.$emit(`bangumi-tab-${index}-switch`, false)
       }
     }
   };

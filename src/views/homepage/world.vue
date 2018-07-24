@@ -1,22 +1,5 @@
-<style lang="scss">
-  #the-world {
-    height: 100%;
-    margin-top: -44px;
-    padding-top: 44px;
-
-    .tabs-animated-wrap {
-      padding-bottom: $tab-height;
-
-      .tab {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-    }
-  }
-</style>
-
 <template>
-  <div id="the-world">
+  <div class="homepage-container">
     <f7-toolbar tabbar>
       <f7-link
         tab-link="#world-post"

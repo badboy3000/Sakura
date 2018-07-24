@@ -1,5 +1,5 @@
 <style lang="scss">
-  #tab-container {
+  #bottom-fixed-tab-container {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -122,7 +122,7 @@
 </style>
 
 <template>
-  <div id="tab-container">
+  <div id="bottom-fixed-tab-container">
     <f7-link
       tab-link="#tab-world"
       class="tab-link-active"
@@ -248,6 +248,7 @@
       pageChange (index) {
         this.selectedIndex = index
         this.$channel.$emit('tab-switch', index)
+        this.$channel.$emit(`tab-switch-${index}`)
       },
       createBtnClick (isOpen) {
         this.$channel.$emit('toggle-creator', isOpen)

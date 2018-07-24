@@ -1,7 +1,7 @@
 export default [
   {
     path: '/launch',
-    component: require('pages/launch.vue'),
+    component: require('views/launch.vue'),
   },
   {
     path: '/sign',
@@ -9,24 +9,24 @@ export default [
     routes: [
       {
         path: 'in',
-        component: require('pages/sign/signIn.vue'),
+        component: require('views/sign/signIn.vue'),
       },
       {
         path: 'up',
-        component: require('pages/sign/signUp.vue'),
+        component: require('views/sign/signUp.vue'),
       },
       {
         path: 'forgot',
-        component: require('pages/sign/forgotPassword.vue'),
+        component: require('views/sign/forgotPassword.vue'),
       }
     ]
   },
   {
-    path: '/index',
-    component: require('pages/homepage/index.vue')
+    path: '/homepage',
+    component: require('views/homepage/index.vue')
   },
   {
     path: '/bangumi/:id(\\d+)',
-    component: require('pages/bangumi/show.vue')
+    component: require('views/bangumi/show.vue')
   }
 ]

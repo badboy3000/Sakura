@@ -1,15 +1,8 @@
-<style lang="scss">
-
-</style>
-
 <template>
-  <f7-page
-    :page-content="true"
-    :infinite-preloader="false"
-    :infinite-distance="50"
-    infinite
-    class="tab-layout-content-container"
-    @infinite="getData"
+  <div
+    v-infinite-scroll="getData"
+    infinite-scroll-distance="50"
+    infinite-scroll-disabled="notFetch"
   >
     <div>
       <div
@@ -39,31 +32,35 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </f7-page>
+  </div>
 </template>
 
 <script>
   export default {
     data () {
       return {
+        lock: true,
         loading: false
       }
     },
     computed: {
       source () {
         return this.$store.state.bangumi.timeline
+      },
+      notFetch () {
+        return this.lock || this.loading || this.source.noMore
       }
     },
     mounted () {
-      this.$channel.$on('bangumi-tab-1-show', () => {
-        if (!this.source.list.length) {
-          this.getData()
-        }
+      this.$channel.$on('bangumi-tab-1-switch', (isShow) => {
+        this.lock = !isShow
       })
+    },
+    beforeDestroy () {
+      this.$channel.$off('bangumi-tab-1-switch')
     },
     methods: {
       async getData () {
-        console.log('get data');
         if (this.loading) {
           return
         }

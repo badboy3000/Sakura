@@ -206,10 +206,10 @@
         }
       },
       handleTabShow (index) {
-        this.$channel.$emit(`bangumi-show-tab-${index}-show`)
+        this.$channel.$emit(`bangumi-show-tab-${index}-switch`, true)
       },
       handleTabHide (index) {
-        this.$channel.$emit(`bangumi-show-tab-${index}-hide`)
+        this.$channel.$emit(`bangumi-show-tab-${index}-switch`, false)
       }
     }
   }

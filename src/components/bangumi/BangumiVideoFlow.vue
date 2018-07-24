@@ -1,7 +1,3 @@
-<style lang="scss">
-
-</style>
-
 <template>
   <div>
     <f7-block
@@ -66,9 +62,6 @@
   import { videos as Api } from 'api/bangumiApi'
 
   export default {
-    components: {
-
-    },
     props: {
       id: {
         type: Number,
@@ -81,17 +74,13 @@
         loading: false
       }
     },
-    computed: {
-
-    },
-    watch: {
-
-    },
-    created () {
-
-    },
     mounted () {
-      this.$channel.$on('bangumi-show-tab-3-show', this.getData)
+      this.$channel.$on('bangumi-show-tab-3-switch', (isShow) => {
+        isShow && this.getData()
+      })
+    },
+    beforeDestroy () {
+      this.$channel.$off('bangumi-show-tab-3-switch')
     },
     methods: {
       async getData () {

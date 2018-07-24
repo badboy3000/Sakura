@@ -3,9 +3,9 @@
 </style>
 
 <template>
-  <f7-page :page-content="true">
+  <div class="homepage-container">
     <div class="preloader infinite-scroll-preloader"/>
-  </f7-page>
+  </div>
 </template>
 
 <script>

@@ -24,8 +24,19 @@
       }
     }
 
-    .the-world-container {
-      padding-bottom: $tab-height;
+    .homepage-container {
+      height: 100%;
+      margin-top: -44px;
+      padding-top: 44px;
+
+      .tabs-animated-wrap {
+        padding-bottom: $tab-height;
+
+        .tab {
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
     }
   }
 

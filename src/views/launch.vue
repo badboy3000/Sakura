@@ -38,7 +38,7 @@
               animate: false
             })
           } else {
-            this.$f7router.navigate('/index', {
+            this.$f7router.navigate('/homepage', {
               animate: false
             })
           }

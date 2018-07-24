@@ -3,7 +3,9 @@
 </style>
 
 <template>
-  <f7-page></f7-page>
+  <div class="homepage-container">
+    user show
+  </div>
 </template>
 
 <script>
