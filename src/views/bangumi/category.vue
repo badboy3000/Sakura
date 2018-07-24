@@ -70,15 +70,11 @@
       }
     },
     mounted () {
-      this.$channel.$on('bangumi-tab-2-show', () => {
-        if (!this.tags.length) {
-          this.getTags()
-        }
-      })
+      this.$channel.$on('bangumi-tab-2-switch', this.getTags)
     },
     methods: {
       async getTags () {
-        if (this.loading) {
+        if (this.loading || this.tags.length) {
           return
         }
         this.loading = true

@@ -57,11 +57,7 @@
       }
     },
     mounted () {
-      this.$channel.$on('tab-switch', (index) => {
-        if (index === 1) {
-          this.getData()
-        }
-      })
+      this.$channel.$on('tab-switch-1', this.getData)
     },
     methods: {
       async getData () {
