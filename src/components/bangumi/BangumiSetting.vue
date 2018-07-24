@@ -3,7 +3,9 @@
 </style>
 
 <template>
-  <div>
+  <f7-page
+    :page-content="true"
+  >
     bangumi setting
     <p>111</p>
     <p>111</p>
@@ -35,7 +37,7 @@
     <p>111</p>
     <p>111</p>
     <p>111</p>
-  </div>
+  </f7-page>
 </template>
 
 <script>

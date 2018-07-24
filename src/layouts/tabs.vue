@@ -3,12 +3,74 @@
     @include avatar(32px)
   }
 
-  .tabs-layout {
+  #calibur {
+    .tab,
+    .page-current,
+    .page-content >.tabs {
+      height: 100%;
+    }
+
+    .page-content >.tabs {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-layout-content-container > .page-content {
+      padding-top: 0 !important;
+      padding-bottom: $tab-height !important;
+
+      &.ptr-content {
+        padding-bottom: 0 !important;
+      }
+    }
+  }
+
+  .ios-edge #calibur {
+    .hide-toolbar-on-scroll {
+      padding-top: 44px !important;
+      padding-bottom: 0 !important;
+    }
+
+    .toolbar {
+      top: 0 !important;
+
+      &:before {
+        top: auto !important;
+        bottom: 0 !important;
+      }
+
+      &.toolbar-hidden {
+        transform: translate3d(0, -100%, 0) !important;
+
+        &:before {
+          bottom: -1px !important;
+        }
+
+        & + .hide-toolbar-on-scroll {
+          padding-top: 0 !important;
+        }
+      }
+    }
+
+    .ptr-pull-up {
+      padding-top: 44px !important;
+      margin-top: -44px !important;
+    }
+  }
+
+  .md-edge, #calibur {
+    .ptr-preloader {
+      top: -40px !important;
+    }
+
+    .tab-layout-content-container > .page-content.ptr-content {
+      padding-bottom: $tab-height !important;
+    }
   }
 </style>
 
 <template>
-  <f7-page class="tabs-layout">
+  <f7-page id="calibur">
     <f7-navbar
       ref="nav"
       :no-hairline="hiddenBorder"

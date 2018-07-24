@@ -26,32 +26,26 @@
         @include filter-blur();
       }
     }
-
-    .page-content {
-      padding-top: 0 !important;
-    }
   }
 </style>
 
 <template>
   <f7-page id="bangumi-show">
     <f7-navbar
-      title="title"
+      :title="bangumi ? bangumi.name : '加载中...'"
       back-link
       sliding
     />
-    <template v-if="bangumi">
-      <div class="banner">
-        <div
-          :style="{ backgroundImage: `url(${$resize(bangumi.banner, { width: $width, height: 400 })})` }"
-          class="background"
-        />
-      </div>
-      <menu-bar
-        :list="computedMenu"
-        :active="0"
-      />
-      <f7-tabs animated>
+    <menu-bar
+      v-if="bangumi"
+      :list="computedMenu"
+      :active="0"
+    />
+    <f7-page v-if="bangumi">
+      <f7-tabs
+        animated
+        swipeable
+      >
         <f7-tab
           id="bangumi-show-post"
           tab-active
@@ -113,7 +107,7 @@
           <bangumi-setting :id="id"/>
         </f7-tab>
       </f7-tabs>
-    </template>
+    </f7-page>
     <f7-block
       v-else
       class="text-align-center"

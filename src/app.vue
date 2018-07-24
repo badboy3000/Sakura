@@ -22,7 +22,7 @@
     <f7-statusbar/>
     <f7-view
       :main="true"
-      :class="{ hiddenNavBorder, creatorDialogIsOpen, 'ios-edge': $theme.ios }"
+      :class="{ hiddenNavBorder, creatorDialogIsOpen, 'ios-edge': $theme.ios, 'md-edge': $theme.md }"
       url="/launch"
     />
   </f7-app>
