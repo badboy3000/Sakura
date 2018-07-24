@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <mt-loadmore
+    v-infinite-scroll="loadMore"
+    ref="page"
+    :top-method="refresh"
+    infinite-scroll-distance="50"
+    infinite-scroll-disabled="notFetch"
+  >
     <score-flow-item
       v-for="item in source.list"
       :key="item.id"
@@ -11,7 +17,7 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </div>
+  </mt-loadmore>
 </template>
 
 <script>
@@ -22,21 +28,37 @@
     components: {
       ScoreFlowItem
     },
+    data () {
+      return {
+        lock: true
+      }
+    },
     computed: {
       source () {
         return this.$store.state.world.score.active
+      },
+      notFetch () {
+        return this.lock || this.source.loading || this.source.noMore
       }
     },
-    created () {
-      this.$channel.$on('the-world-tab-2-show', this.getData)
+    mounted () {
+      this.$channel.$on('the-world-tab-2-switch', (isShow) => {
+        this.lock = !isShow
+      })
     },
     beforeDestroy () {
-      this.$channel.$off('the-world-tab-2-show', this.getData)
+      this.$channel.$off('the-world-tab-2-switch')
     },
     methods: {
-      async getData (refresh = false, done) {
+      loadMore () {
+        this.getData(false)
+      },
+      refresh () {
+        this.getData(true)
+      },
+      async getData (refresh) {
         try {
-          await this.$store.dispatch('world/getTrending', {
+          await this.$store.dispatch('world/getData', {
             type: 'score',
             sort: 'active',
             refresh
@@ -44,14 +66,8 @@
         } catch (e) {
           this.$toast.error(e)
         } finally {
-          done && done()
+          refresh && this.$refs.page.onTopLoaded();
         }
-      },
-      loadMore () {
-        this.$store.dispatch('world/loadMore', {
-          type: 'score',
-          sort: 'active'
-        })
       }
     }
   }

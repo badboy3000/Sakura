@@ -29,7 +29,7 @@ import app from './app.vue'
 // Import Vuex Storage
 import store from './store/index.js'
 
-import 'assets/js/index'
+import 'src/utils'
 
 // Different F7-Vue plugin initialization with f7 v3.0
 Framework7.use(Framework7Vue)

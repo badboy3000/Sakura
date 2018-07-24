@@ -10,6 +10,16 @@
       color: $color-text-normal;
     }
   }
+
+  .no-more-loading {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  .no-more-shim {
+    height: 50px;
+  }
 </style>
 
 <template>
@@ -29,12 +39,16 @@
       没有更多了，休息一下吧
     </p>
   </div>
-  <f7-block
+  <div
     v-else-if="loading"
-    class="text-align-center"
+    class="no-more-loading"
   >
     <f7-preloader/>
-  </f7-block>
+  </div>
+  <div
+    v-else
+    class="no-more-shim"
+  />
 </template>
 
 <script>

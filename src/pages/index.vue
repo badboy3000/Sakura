@@ -23,6 +23,10 @@
         padding-bottom: 0 !important;
       }
     }
+
+    .the-world-container {
+      padding-bottom: $tab-height;
+    }
   }
 
   .ios-edge #calibur {

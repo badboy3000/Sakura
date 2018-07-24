@@ -1,9 +1,23 @@
+<style lang="scss">
+  #the-world {
+    height: 100%;
+    margin-top: -44px;
+    padding-top: 44px;
+
+    .tabs-animated-wrap {
+      padding-bottom: $tab-height;
+
+      .tab {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
+</style>
+
 <template>
-  <div>
-    <f7-toolbar
-      ref="bar"
-      tabbar
-    >
+  <div id="the-world">
+    <f7-toolbar tabbar>
       <f7-link
         tab-link="#world-post"
         tab-link-active
@@ -56,19 +70,12 @@
       ImageTrending,
       ScoreTrending
     },
-    mounted () {
-      this.$channel.$on('tab-switch', () => {
-        this.$refs.bar.show(0)
-      })
-    },
     methods: {
       handleTabShow (index) {
-        console.log('show', index);
-        this.$channel.$emit(`the-world-tab-${index}-show`)
+        this.$channel.$emit(`the-world-tab-${index}-switch`, true)
       },
       handleTabHide (index) {
-        console.log('hide', index);
-        this.$channel.$emit(`the-world-tab-${index}-hide`)
+        this.$channel.$emit(`the-world-tab-${index}-switch`, false)
       }
     }
   };

@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <mt-loadmore
+    v-infinite-scroll="loadMore"
+    ref="page"
+    :top-method="refresh"
+    infinite-scroll-distance="50"
+    infinite-scroll-disabled="notFetch"
+  >
     <div>
       <post-flow-item
         v-for="item in source.list"
@@ -12,7 +18,7 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </div>
+  </mt-loadmore>
 </template>
 
 <script>
@@ -23,18 +29,37 @@
     components: {
       PostFlowItem
     },
+    data () {
+      return {
+        lock: false
+      }
+    },
     computed: {
       source () {
         return this.$store.state.world.post.active
+      },
+      notFetch () {
+        return this.lock || this.source.loading || this.source.noMore
       }
     },
-    created () {
-      this.getData();
+    mounted () {
+      this.$channel.$on('the-world-tab-0-switch', (isShow) => {
+        this.lock = !isShow
+      })
+    },
+    beforeDestroy () {
+      this.$channel.$off('the-world-tab-0-switch')
     },
     methods: {
-      async getData (refresh = false, done) {
+      loadMore () {
+        this.getData(false)
+      },
+      refresh () {
+        this.getData(true)
+      },
+      async getData (refresh) {
         try {
-          await this.$store.dispatch('world/getTrending', {
+          await this.$store.dispatch('world/getData', {
             type: 'post',
             sort: 'active',
             refresh
@@ -42,14 +67,8 @@
         } catch (e) {
           this.$toast.error(e)
         } finally {
-          done && done()
+          refresh && this.$refs.page.onTopLoaded();
         }
-      },
-      loadMore () {
-        this.$store.dispatch('world/loadMore', {
-          type: 'post',
-          sort: 'active'
-        })
       }
     }
   }
