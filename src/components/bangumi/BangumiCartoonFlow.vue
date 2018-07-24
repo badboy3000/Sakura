@@ -3,9 +3,39 @@
 </style>
 
 <template>
-  <f7-page :page-content="true">
+  <div>
     bangumi cartoon flow
-  </f7-page>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+    <p>111</p>
+  </div>
 </template>
 
 <script>

@@ -19,3 +19,7 @@ export const category = ({ id, page, take }) => {
 export const show = (id) => {
   return http.get(`bangumi/${id}/show`)
 }
+
+export const videos = (id) => {
+  return http.get(`bangumi/${id}/videos`)
+}

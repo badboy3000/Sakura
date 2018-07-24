@@ -9,7 +9,6 @@
       width: 100%;
       height: $banner-height;
       overflow: hidden;
-      box-shadow: inset 0 0 15px 0 rgba(0,0,0,.5);
       z-index: 0;
 
       .background {
@@ -27,6 +26,10 @@
         @include filter-blur();
       }
     }
+
+    .tab.page-content {
+      padding-top: 0 !important;
+    }
   }
 </style>
 
@@ -34,7 +37,7 @@
   <f7-page id="bangumi-show">
     <f7-navbar
       :title="bangumi ? bangumi.name : '···'"
-      back-link="Back"
+      back-link=""
       sliding
     />
     <template v-if="bangumi">
@@ -43,65 +46,73 @@
           :style="{ backgroundImage: `url(${$resize(bangumi.banner, { width: $width, height: 400 })})` }"
           class="background"
         />
-        banner
       </div>
       <menu-bar
-        :list="menu"
+        :list="computedMenu"
         :active="0"
       />
       <f7-tabs
         animated
-        swipeable
       >
         <f7-tab
           id="bangumi-show-post"
           tab-active
+          class="page-content"
           @tab:show="handleTabShow(0)"
           @tab:hide="handleTabHide(0)"
         >
-          <bangumi-post-flow/>
+          <bangumi-post-flow :id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-image"
+          class="page-content"
           @tab:show="handleTabShow(1)"
           @tab:hide="handleTabHide(1)"
         >
-          <bangumi-image-flow/>
+          <bangumi-image-flow :id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-score"
+          class="page-content"
           @tab:show="handleTabShow(2)"
           @tab:hide="handleTabHide(2)"
         >
-          <bangumi-score-flow/>
+          <bangumi-score-flow :id="id"/>
         </f7-tab>
         <f7-tab
+          v-if="bangumi.has_video"
           id="bangumi-show-video"
+          class="page-content"
           @tab:show="handleTabShow(3)"
           @tab:hide="handleTabHide(3)"
         >
-          <bangumi-video-flow/>
+          <bangumi-video-flow :id="id"/>
         </f7-tab>
         <f7-tab
+          v-if="bangumi.has_cartoon"
           id="bangumi-show-cartoon"
+          class="page-content"
           @tab:show="handleTabShow(4)"
           @tab:hide="handleTabHide(4)"
         >
-          <bangumi-cartoon-flow/>
+          <bangumi-cartoon-flow :id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-role"
+          class="page-content"
           @tab:show="handleTabShow(5)"
           @tab:hide="handleTabHide(5)"
         >
-          <bangumi-role-flow/>
+          <bangumi-role-flow :id="id"/>
         </f7-tab>
         <f7-tab
+          v-if="bangumi.is_master"
           id="bangumi-show-setting"
+          class="page-content"
           @tab:show="handleTabShow(6)"
           @tab:hide="handleTabHide(6)"
         >
-          <bangumi-setting/>
+          <bangumi-setting :id="id"/>
         </f7-tab>
       </f7-tabs>
     </template>
@@ -138,8 +149,15 @@
     data () {
       return {
         loading: false,
-        bangumi: null,
-        menu: [
+        bangumi: null
+      }
+    },
+    computed: {
+      id () {
+        return +this.$f7route.params.id
+      },
+      computedMenu () {
+        const result = [
           {
             value: 'bangumi-show-post',
             label: '帖子'
@@ -151,29 +169,32 @@
           {
             value: 'bangumi-show-score',
             label: '漫评'
-          },
-          {
+          }
+        ];
+        if (this.bangumi.has_video) {
+          result.push({
             value: 'bangumi-show-video',
             label: '视频'
-          },
-          {
+          })
+        }
+        if (this.bangumi.has_cartoon) {
+          result.push({
             value: 'bangumi-show-cartoon',
             label: '漫画'
-          },
-          {
-            value: 'bangumi-show-role',
-            label: '偶像'
-          },
-          {
+          })
+        }
+        result.push({
+          value: 'bangumi-show-role',
+          label: '偶像'
+        })
+        if (this.bangumi.is_master) {
+          result.push({
             value: 'bangumi-show-setting',
             label: '设置'
-          }
-        ]
-      }
-    },
-    computed: {
-      id () {
-        return this.$f7route.params.id
+          })
+        }
+
+        return result
       }
     },
     created () {

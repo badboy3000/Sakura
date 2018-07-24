@@ -12,6 +12,10 @@
       color: $color-text-normal !important;
     }
 
+    .tab-link-active {
+      color: $theme-color !important;
+    }
+
     .tab-link-highlight {
       background-color: $color-text-normal !important;
     }
