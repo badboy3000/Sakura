@@ -42,10 +42,7 @@
       :active="0"
     />
     <f7-page v-if="bangumi">
-      <f7-tabs
-        animated
-        swipeable
-      >
+      <f7-tabs animated>
         <f7-tab
           id="bangumi-show-post"
           tab-active
