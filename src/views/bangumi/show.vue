@@ -206,6 +206,7 @@
         }
       },
       handleTabShow (index) {
+        console.log(this.$f7router.history);
         this.$channel.$emit(`bangumi-show-tab-${index}-switch`, true)
       },
       handleTabHide (index) {

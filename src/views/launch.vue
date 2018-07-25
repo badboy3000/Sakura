@@ -38,11 +38,11 @@
               animate: false
             })
           } else {
-            this.$f7router.navigate('/homepage', {
+            this.$f7router.navigate('/', {
               animate: false
             })
           }
-//          this.$channel.$emit('clear-router-history', this)
+          this.$channel.$emit('clear-router-history', this)
         }, 0)
       }
     }

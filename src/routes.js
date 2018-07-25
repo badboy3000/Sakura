@@ -22,7 +22,7 @@ export default [
     ]
   },
   {
-    path: '/homepage',
+    path: '/',
     component: require('views/homepage/index.vue')
   },
   {

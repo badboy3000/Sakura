@@ -105,7 +105,7 @@
                 userId: this.userId
               }),
               this.$store.dispatch('post/getBangumiTopic', {
-                bangumiId: this.id
+                bangumiId: this.bangumiId
               })
             ])
           } else {
