@@ -25,7 +25,7 @@
               :key="item.id"
               :title="item.name"
               :subtitle="`第${ item.part - col.base }话`"
-              link="#"
+              :link="$alias.video(item.id)"
             >
               <img
                 slot="media"
@@ -45,7 +45,7 @@
           :key="item.id"
           :title="item.name"
           :subtitle="`第${ item.part }话`"
-          link="#"
+          :link="$alias.video(item.id)"
         >
           <img
             slot="media"

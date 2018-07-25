@@ -6,13 +6,13 @@
     infinite-scroll-distance="50"
     infinite-scroll-disabled="notFetch"
   >
-    <div>
+    <f7-list>
       <post-flow-item
         v-for="item in posts"
         :key="item.id"
         :item="item"
       />
-    </div>
+    </f7-list>
     <no-more
       :loading="source.loading"
       :length="source.list.length"

@@ -6,12 +6,14 @@
     infinite-scroll-distance="50"
     infinite-scroll-disabled="notFetch"
   >
-    <score-flow-item
-      v-for="item in source.list"
-      :key="item.id"
-      :item="item"
-      show="all"
-    />
+    <f7-list>
+      <score-flow-item
+        v-for="item in source.list"
+        :key="item.id"
+        :item="item"
+        show="all"
+      />
+    </f7-list>
     <no-more
       :loading="source.loading"
       :length="source.list.length"

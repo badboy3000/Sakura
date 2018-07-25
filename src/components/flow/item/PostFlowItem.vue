@@ -153,7 +153,10 @@
 </style>
 
 <template>
-  <li class="post-flow-item">
+  <f7-list-item
+    class="post-flow-item"
+    link="#"
+  >
     <div class="header">
       <a
         v-if="item.user"
@@ -256,7 +259,7 @@
         v-text="item.bangumi.name"
       />
     </div>
-  </li>
+  </f7-list-item>
 </template>
 
 <script>

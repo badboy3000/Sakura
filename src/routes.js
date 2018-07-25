@@ -26,7 +26,31 @@ export default [
     component: require('views/homepage/index.vue')
   },
   {
+    path: '/user/:zone',
+    component: require('views/user/show.vue')
+  },
+  {
     path: '/bangumi/:id(\\d+)',
     component: require('views/bangumi/show.vue')
+  },
+  {
+    path: '/video/:id(\\d+)',
+    component: require('views/video/show.vue')
+  },
+  {
+    path: '/role/:id(\\d+)',
+    component: require('views/role/show.vue')
+  },
+  {
+    path: '/pins/:id(\\d+)',
+    component: require('views/image/show.vue')
+  },
+  {
+    path: '/post/:id(\\d+)',
+    component: require('views/post/show.vue')
+  },
+  {
+    path: '/review/:id(\\d+)',
+    component: require('views/score/show.vue')
   }
 ]

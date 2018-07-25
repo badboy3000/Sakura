@@ -2,7 +2,6 @@
   #image-waterfall-flow {
     margin-right: -5px;
     padding-top: 10px;
-    background-color: #fff;
 
     .vue-waterfall {
       width: 310px;
@@ -19,13 +18,13 @@
     .image {
       width: 100%;
       overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,.2);
-      background-color: #FAFAFA;
+      display: block;
 
       .image-box {
+        display: block;
         position: relative;
         overflow: hidden;
-        display: block;
+        border-radius: 5px;
 
         &.album-box:after {
           content: '';
@@ -35,7 +34,6 @@
           width: 100%;
           height: 50px;
           opacity: .3;
-          background-color: transparent;
           background-image: linear-gradient(transparent,rgba(0,0,0,.1) 20%,rgba(0,0,0,.2) 35%,rgba(0,0,0,.6) 65%,rgba(0,0,0,.9));
         }
 
@@ -78,7 +76,6 @@
       .intro {
         height: 55px;
         padding: 5px 15px;
-        background-color: #fff;
 
         .name, .social {
           height: 20px;
@@ -103,7 +100,6 @@
       .about {
         height: 51px;
         padding: 10px 15px;
-        border-top: 1px solid #F2F2F2;
 
         .user-avatar {
           @include avatar(30px);
@@ -166,9 +162,11 @@
         :key="item.id"
         width="145"
       >
-        <div class="image">
-          <a
-            :href="$alias.image(item.id)"
+        <f7-link
+          :href="$alias.image(item.id)"
+          class="image"
+        >
+          <div
             :class="{ 'album-box': item.is_album }"
             class="image-box"
           >
@@ -191,7 +189,7 @@
                 v-text="item.image_count"
               />
             </div>
-          </a>
+          </div>
           <div class="intro">
             <p
               class="name oneline"
@@ -271,7 +269,7 @@
               </div>
             </template>
           </div>
-        </div>
+        </f7-link>
       </waterfall-slot>
     </waterfall>
   </div>

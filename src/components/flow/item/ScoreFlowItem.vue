@@ -83,7 +83,10 @@
 </style>
 
 <template>
-  <div class="score-flow-item">
+  <f7-list-item
+    :link="$alias.score(item.id)"
+    class="score-flow-item"
+  >
     <div class="header">
       <v-time
         v-model="item.created_at"
@@ -143,7 +146,7 @@
         {{ item.comment_count }}
       </span>
     </div>
-  </div>
+  </f7-list-item>
 </template>
 
 <script>

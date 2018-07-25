@@ -2,7 +2,7 @@
   <f7-list-item
     :title="item.name"
     :text="item.intro"
-    link="#"
+    :link="$alias.cartoonRole(item.id)"
   >
     <img
       slot="media"
