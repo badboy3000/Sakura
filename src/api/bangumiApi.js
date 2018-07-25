@@ -23,3 +23,7 @@ export const show = (id) => {
 export const videos = (id) => {
   return http.get(`bangumi/${id}/videos`)
 }
+
+export const cartoon = ({ bangumiId, page }) => {
+  return http.get(`bangumi/${bangumiId}/cartoon`, { page })
+}

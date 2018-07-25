@@ -114,6 +114,8 @@
     .footer {
       height: 44px;
       line-height: 44px;
+      display: block;
+      width: 100%;
 
       .bangumi {
         color: #999;
@@ -154,8 +156,8 @@
 
 <template>
   <f7-list-item
+    :link="$alias.post(item.id)"
     class="post-flow-item"
-    link="#"
   >
     <div class="header">
       <a
@@ -178,10 +180,7 @@
           width="70"
         />
       </a>
-      <a
-        :href="$alias.post(item.id)"
-        class="name"
-      >
+      <div class="name">
         <div class="title">
           <div
             v-if="item.top_at"
@@ -198,12 +197,9 @@
         </div>
         <span>{{ item.user ? item.user.nickname : '发表于' }}&nbsp;·&nbsp;</span>
         <v-time v-model="item.created_at"/>
-      </a>
+      </div>
     </div>
-    <a
-      :href="$alias.post(item.id)"
-      class="body"
-    >
+    <div class="body">
       <p
         class="content"
         v-text="item.desc"
@@ -232,7 +228,7 @@
           />
         </div>
       </div>
-    </a>
+    </div>
     <div class="footer">
       <div class="stats">
         <span :class="{ 'done' : item.liked }">

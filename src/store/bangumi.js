@@ -30,7 +30,8 @@ export default {
       sort: 'desc',
       total: 0,
       list: [],
-      noMore: false
+      noMore: false,
+      bangumiId: 0
     }
   }),
   mutations: {
@@ -81,6 +82,28 @@ export default {
     SET_TOPIC_POST (state, data) {
       state.topic = data
     },
+    SET_BANGUMI_CARTOON (state, { data, bangumiId }) {
+      state.cartoon.list = state.cartoon.list.concat(data.list)
+      state.cartoon.noMore = data.noMore
+      state.cartoon.total = data.total
+      state.cartoon.page = state.cartoon.page + 1
+      state.cartoon.bangumiId = bangumiId
+    },
+    REVERSE_CARTOON (state, { sort }) {
+      state.cartoon.list = state.cartoon.list.reverse()
+      state.cartoon.sort = sort
+    },
+    RESET_CARTOON (state, { sort }) {
+      state.cartoon = {
+        page: 0,
+        take: 12,
+        sort,
+        total: 0,
+        list: [],
+        noMore: false
+      }
+    },
+    // there
     ADD_ROLE_STATE (state, { roleId, hasStar }) {
       state.roles.data.forEach((item, index) => {
         if (item.id === roleId) {
@@ -111,26 +134,6 @@ export default {
       state.roles.list = data
       state.roles.noMore = true
       state.roles.id = bangumiId
-    },
-    SET_BANGUMI_CARTOON (state, data) {
-      state.cartoon.list = state.cartoon.list.concat(data.list)
-      state.cartoon.noMore = data.noMore
-      state.cartoon.total = data.total
-      state.cartoon.page = state.cartoon.page + 1
-    },
-    REVERSE_CARTOON (state, { sort }) {
-      state.cartoon.list = state.cartoon.list.reverse()
-      state.cartoon.sort = sort
-    },
-    RESET_CARTOON (state, { sort }) {
-      state.cartoon = {
-        page: 0,
-        take: 12,
-        sort,
-        total: 0,
-        list: [],
-        noMore: false
-      }
     }
   },
   actions: {
@@ -183,6 +186,33 @@ export default {
       const data = await api.getTopPosts({ id })
       commit('SET_TOPIC_POST', data)
     },
+    async getCartoons ({ state, commit }, { bangumiId }) {
+      if (bangumiId !== state.cartoon.bangumiId) {
+        commit('RESET_CARTOON', { sort: state.cartoon.sort })
+      }
+      const data = await Api.cartoon({
+        bangumiId,
+        page: state.cartoon.page,
+        take: state.cartoon.take,
+        sort: state.cartoon.sort
+      })
+      data && commit('SET_BANGUMI_CARTOON', { data, bangumiId })
+    },
+    async changeCartoonSort ({ state, commit }, { bangumiId, sort }) {
+      if (state.cartoon.noMore) {
+        commit('REVERSE_CARTOON', { sort })
+        return
+      }
+      commit('RESET_CARTOON', { sort })
+      const data = await Api.cartoon({
+        take: state.cartoon.take,
+        page: 0,
+        bangumiId,
+        sort
+      })
+      data && commit('SET_BANGUMI_CARTOON', { data, bangumiId })
+    },
+    // there
     async getRoles ({ state, commit }, { bangumiId, ctx }) {
       if (state.roles.id === bangumiId) {
         return state.roles.data
@@ -227,31 +257,6 @@ export default {
         await api.star({ bangumiId, roleId })
         commit('ADD_ROLE_STATE', { roleId, hasStar })
       } catch (e) {}
-    },
-    async getCartoons ({ state, commit }, { ctx, bangumiId }) {
-      const api = new Api(ctx)
-      const data = await api.cartoon({
-        bangumiId,
-        page: state.cartoon.page,
-        take: state.cartoon.take,
-        sort: state.cartoon.sort
-      })
-      data && commit('SET_BANGUMI_CARTOON', data)
-    },
-    async changeCartoonSort ({ state, commit }, { ctx, bangumiId, sort }) {
-      if (state.cartoon.noMore) {
-        commit('REVERSE_CARTOON', { sort })
-        return
-      }
-      commit('RESET_CARTOON', { sort })
-      const api = new Api(ctx)
-      const data = await api.cartoon({
-        take: state.cartoon.take,
-        page: 0,
-        bangumiId,
-        sort
-      })
-      data && commit('SET_BANGUMI_CARTOON', data)
     }
   },
   getters: {}

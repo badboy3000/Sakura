@@ -84,7 +84,7 @@
           @tab:show="handleTabShow(4)"
           @tab:hide="handleTabHide(4)"
         >
-          <bangumi-cartoon-flow :id="id"/>
+          <cartoon-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-role"
@@ -120,7 +120,7 @@
   import ImageFlowList from 'components/flow/list/ImageFlowList'
   import ScoreFlowList from 'components/flow/list/ScoreFlowList'
   import BangumiVideoFlow from 'components/bangumi/BangumiVideoFlow.vue'
-  import BangumiCartoonFlow from 'components/bangumi/BangumiCartoonFlow.vue'
+  import CartoonFlowList from 'components/flow/list/CartoonFlowList'
   import RoleFlowList from 'components/flow/list/RoleFlowList'
   import BangumiSetting from 'components/bangumi/BangumiSetting.vue'
 
@@ -131,7 +131,7 @@
       ImageFlowList,
       ScoreFlowList,
       BangumiVideoFlow,
-      BangumiCartoonFlow,
+      CartoonFlowList,
       RoleFlowList,
       BangumiSetting
     },
@@ -179,7 +179,7 @@
         if (this.bangumi.is_master) {
           result.push({
             value: 'bangumi-show-setting',
-            label: '设置'
+            label: '管理'
           })
         }
 
@@ -206,7 +206,6 @@
         }
       },
       handleTabShow (index) {
-        console.log(this.$f7router.history);
         this.$channel.$emit(`bangumi-show-tab-${index}-switch`, true)
       },
       handleTabHide (index) {
