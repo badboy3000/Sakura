@@ -1,12 +1,5 @@
 <style lang="scss">
   .post-flow-item {
-    position: relative;
-    background-color: #ffffff;
-    padding-top: $container-padding;
-    padding-left: $container-padding;
-    padding-right: $container-padding;
-    @include border-bottom();
-
     .header {
       height: 35px;
       margin-bottom: 9px;
@@ -155,107 +148,114 @@
 </style>
 
 <template>
-  <f7-list-item
-    :link="$alias.post(item.id)"
-    class="post-flow-item"
-  >
-    <div class="header">
-      <a
-        v-if="item.user"
-        :href="$alias.user(item.user.zone)"
-        class="avatar"
-      >
-        <v-img
-          :src="item.user.avatar"
-          width="70"
-        />
-      </a>
-      <a
-        v-else
-        :href="$alias.bangumi(item.bangumi.id)"
-        class="face"
-      >
-        <v-img
-          :src="item.bangumi.avatar"
-          width="70"
-        />
-      </a>
-      <div class="name">
-        <div class="title">
-          <div
-            v-if="item.top_at"
-            class="top_badge"
-          >置顶</div>
-          <div
-            v-if="item.is_nice"
-            class="nice_badge"
-          >精</div>
-          <p
-            class="oneline"
-            v-text="item.title"
-          />
-        </div>
-        <span>{{ item.user ? item.user.nickname : '发表于' }}&nbsp;·&nbsp;</span>
-        <v-time v-model="item.created_at"/>
-      </div>
-    </div>
-    <div class="body">
-      <p
-        class="content"
-        v-text="item.desc"
-      />
-      <div
-        v-if="item.images.length"
-        class="images clearfix"
-      >
-        <v-img
-          v-if="item.images.length === 1"
-          :src="item.images[0].url"
-          class="image-full bg"
-          height="190"
-          mode="2"
-          tag="div"
-        />
-        <div
-          v-else
-          class="image-list"
+  <div class="post-flow-item">
+    <!--
+    <f7-list-item
+      :link="$alias.post(item.id)"
+    >
+    -->
+    <f7-list-item
+      :link="$alias.post(187)"
+    >
+      <div class="header">
+        <a
+          v-if="item.user"
+          :href="$alias.user(item.user.zone)"
+          class="avatar"
         >
           <v-img
-            v-for="(image, index) in imageFilter(item.images)"
-            :key="index"
-            :src="image.url"
-            width="110"
+            :src="item.user.avatar"
+            width="70"
           />
+        </a>
+        <a
+          v-else
+          :href="$alias.bangumi(item.bangumi.id)"
+          class="face"
+        >
+          <v-img
+            :src="item.bangumi.avatar"
+            width="70"
+          />
+        </a>
+        <div class="name">
+          <div class="title">
+            <div
+              v-if="item.top_at"
+              class="top_badge"
+            >置顶</div>
+            <div
+              v-if="item.is_nice"
+              class="nice_badge"
+            >精</div>
+            <p
+              class="oneline"
+              v-text="item.title"
+            />
+          </div>
+          <span>{{ item.user ? item.user.nickname : '发表于' }}&nbsp;·&nbsp;</span>
+          <v-time v-model="item.created_at"/>
         </div>
       </div>
-    </div>
-    <div class="footer">
-      <div class="stats">
-        <span :class="{ 'done' : item.liked }">
-          <i class="iconfont icon-guanzhu"/>
-          {{ $func.shortenNumber(item.like_count) }}
-        </span>
-        <span :class="{ 'done' : item.marked }">
-          <i class="iconfont icon-shoucang"/>
-          {{ $func.shortenNumber(item.mark_count) }}
-        </span>
-        <span :class="{ 'done' : item.commented }">
-          <i class="iconfont icon-pinglun1"/>
-          {{ $func.shortenNumber(item.comment_count) }}
-        </span>
-        <span>
-          <i class="iconfont icon-yuedu"/>
-          {{ $func.shortenNumber(item.view_count) }}
-        </span>
+      <div class="body">
+        <p
+          class="content"
+          v-text="item.desc"
+        />
+        <div
+          v-if="item.images.length"
+          class="images clearfix"
+        >
+          <v-img
+            v-if="item.images.length === 1"
+            :src="item.images[0].url"
+            class="image-full bg"
+            height="190"
+            mode="2"
+            tag="div"
+          />
+          <div
+            v-else
+            class="image-list"
+          >
+            <v-img
+              v-for="(image, index) in imageFilter(item.images)"
+              :key="index"
+              :src="image.url"
+              width="110"
+            />
+          </div>
+        </div>
       </div>
-      <a
-        v-if="item.bangumi && item.user"
-        :href="$alias.bangumi(item.bangumi.id)"
-        class="bangumi oneline"
-        v-text="item.bangumi.name"
-      />
-    </div>
-  </f7-list-item>
+      <div class="footer">
+        <div class="stats">
+          <span :class="{ 'done' : item.liked }">
+            <i class="iconfont icon-guanzhu"/>
+            {{ $func.shortenNumber(item.like_count) }}
+          </span>
+          <span :class="{ 'done' : item.marked }">
+            <i class="iconfont icon-shoucang"/>
+            {{ $func.shortenNumber(item.mark_count) }}
+          </span>
+          <span :class="{ 'done' : item.commented }">
+            <i class="iconfont icon-pinglun1"/>
+            {{ $func.shortenNumber(item.comment_count) }}
+          </span>
+          <span>
+            <i class="iconfont icon-yuedu"/>
+            {{ $func.shortenNumber(item.view_count) }}
+          </span>
+        </div>
+        <a
+          v-if="item.bangumi && item.user"
+          :href="$alias.bangumi(item.bangumi.id)"
+          class="bangumi oneline"
+          v-text="item.bangumi.name"
+        />
+      </div>
+    </f7-list-item>
+    <div class="hr"/>
+  </div>
 </template>
 
 <script>

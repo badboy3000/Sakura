@@ -7,6 +7,7 @@ import flow from './flow'
 import bangumi from './bangumi'
 import world from './flow'
 import post from './post'
+import comment from './comment'
 
 Vue.use(Vuex);
 
@@ -34,6 +35,7 @@ export default new Vuex.Store({
   },
   getters: {},
   modules: {
+    comment,
     flow,
     bangumi,
     world,

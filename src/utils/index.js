@@ -7,7 +7,8 @@ import TimeAgo from 'assets/js/timeago'
 import alias from 'assets/js/alias'
 import func from 'assets/js/func'
 import resize from 'assets/js/imageResize'
-import NoMore from 'components/NoMore.vue'
+import NoMore from 'components/NoMore'
+import 'src/mixins/computeImageAspect'
 
 import {
   InfiniteScroll,

@@ -6,7 +6,7 @@
     infinite-scroll-distance="50"
     infinite-scroll-disabled="notFetch"
   >
-    <f7-list>
+    <f7-list class="no-arrow">
       <post-flow-item
         v-for="item in posts"
         :key="item.id"

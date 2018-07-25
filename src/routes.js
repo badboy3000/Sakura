@@ -34,6 +34,10 @@ export default [
     component: require('views/bangumi/show.vue')
   },
   {
+    path: '/comment/:id(\\d+)',
+    component: require('components/comment/show.vue')
+  },
+  {
     path: '/video/:id(\\d+)',
     component: require('views/video/show.vue')
   },

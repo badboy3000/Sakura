@@ -5,6 +5,7 @@ class Http {
     const http = axios.create({
       // baseURL: process.env.API_HOST,
       baseURL: 'http://127.0.0.1:3099/',
+      // baseURL: 'https://api.calibur.tv/',
       headers: { Accept: 'application/x.api.latest+json' },
       timeout: 10000
     })

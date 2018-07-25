@@ -32,7 +32,7 @@
 <template>
   <f7-page id="bangumi-show">
     <f7-navbar
-      :title="bangumi ? bangumi.name : '加载中...'"
+      :title="bangumi ? bangumi.name : ''"
       back-link
       sliding
     />

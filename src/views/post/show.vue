@@ -5,41 +5,89 @@
 <template>
   <f7-page>
     <f7-navbar
-      title="post show"
+      :title="post ? post.title : ''"
       back-link
       sliding
     />
+    <div class="hr"/>
+    <comment-main
+      :id="id"
+      :only-see-master="onlySeeMaster"
+      :bottom-append-comment="false"
+      :master-id="masterId"
+      type="post"
+      empty-text=""
+    />
+    <!--
+      <div slot="header"/>
+      <post-comment-item
+        slot="comment-item"
+        slot-scope="{ comment }"
+        :post="comment"
+        :master-id="masterId"
+        :preview="post.preview_images"
+      />
+      <post-comment-form
+        :id="id"
+        slot="reply-form"
+        slot-scope="{ close }"
+        type="post"
+        @close="close"
+      />
+    </comment-main>
+    -->
   </f7-page>
 </template>
 
 <script>
+  import { getPostInfo } from 'api/postApi'
+  import CommentMain from 'components/comment/CommentMain'
+  import PostCommentItem from 'components/flow/item/PostCommentItem'
+
   export default {
     name: 'PostShow',
     components: {
-
-    },
-    props: {
-
+      CommentMain,
+      PostCommentItem
     },
     data () {
       return {
-
+        postLoaded: false,
+        commentLoaded: false,
+        bangumi: null,
+        post: null,
+        master: null,
+        onlySeeMaster: false
       }
     },
     computed: {
-
-    },
-    watch: {
-
+      id () {
+        return +this.$f7route.params.id
+      },
+      masterId () {
+        return this.master
+          ? this.master.id
+          : 0
+      }
     },
     created () {
-
-    },
-    mounted () {
-
+      this.getData()
     },
     methods: {
-
+      async getData () {
+        try {
+          const data = await getPostInfo({
+            id: this.id,
+            only: this.onlySeeMaster
+          })
+          this.bangumi = data.bangumi
+          this.master = data.user
+          this.post = data.post
+          this.postLoaded = true
+        } catch (e) {
+          this.$toast.error(e)
+        }
+      }
     }
   }
 </script>
