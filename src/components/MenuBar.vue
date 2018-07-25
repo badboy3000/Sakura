@@ -2,6 +2,8 @@
   <f7-toolbar
     tabbar
     scrollable
+    no-hairline
+    no-shadow
   >
     <f7-link
       v-for="(item, index) in list"

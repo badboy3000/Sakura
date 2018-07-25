@@ -167,10 +167,6 @@
       <div class="hr"/>
       <h3 class="sub-title">
         评论{{ total ? `(${total})` : '' }}
-        <button
-          class="write-btn"
-          @click="writeComment"
-        >写评论</button>
       </h3>
     </slot>
     <!-- 主列表的 list -->
@@ -183,38 +179,25 @@
     >
       <!-- 每条主评论 -->
       <f7-list-item
-        v-for="comment in list"
+        v-for="comment in source.list"
         :key="comment.id"
         link="#"
         class="comment-item-wrap"
         @click="handleMainCommentClick(comment)"
       >
         <!-- 主评论的内容 -->
-        <slot
+        <comment-item
+          :type="type"
           :comment="comment"
-          :reply="handleSubCommentReply"
-          name="comment-item"
-        >
-          <comment-item
-            :type="type"
-            :comment="comment"
-            :master-id="masterId"
-          />
-        </slot>
+          :master-id="masterId"
+        />
       </f7-list-item>
     </f7-list>
-    <div id="comment-list-footer">
-      <button
-        v-if="bottomAppendComment"
-        class="append-comment-btn"
-        @click="writeComment"
-      >写评论</button>
-    </div>
     <p
       class="no-content"
       v-text="emptyText"
     />
-    <create-comment-bar/>
+    <create-comment-bar @submit="createMainComment"/>
   </div>
 </template>
 
@@ -251,75 +234,30 @@
       masterId: {
         required: true,
         type: Number
-      },
-      bottomAppendComment: {
-        type: Boolean,
-        default: true
       }
     },
     data () {
       return {
-        loadingMainComment: false,
-        focusCommentId: 0,
-        openFocusCommentDrawer: false,
-        loadingSubComment: false,
-        replyForm: {
-          id: '',
-          content: '',
-          targetUserId: 0,
-          targetUserName: '',
-          open: false,
-          replying: false,
-          liking: false
-        },
-        openCreateCommentDrawer: false
+        loading: false
       }
     },
     computed: {
-      store () {
+      source () {
         return this.$store.state.comment
       },
-      list () {
-        return this.store.list
-      },
-      noMore () {
-        return this.store.noMore
-      },
       total () {
-        return this.store.total
-      },
-      focusComment () {
-        return this.focusCommentId
-          ? this.list.filter(_ => _.id === this.focusCommentId)[0]
-          : null
-      },
-      currentUserId () {
-        return this.$store.state.login
-          ? this.$store.state.user.id
-          : 0
+        return this.source.total
       },
       notFetch () {
-        return this.loadingMainComment || this.noMore
+        return this.loading || this.source.noMore
       }
-    },
-    mounted () {
-      this.$channel.$on('open-create-comment-drawer', () => {
-        if (!this.currentUserId) {
-          this.$channel.$emit('sign-in')
-          return
-        }
-        this.openCreateCommentDrawer = true
-      })
-      this.$channel.$on('reply-comment', ({ id, targetUserId, targetUserName }) => {
-        this.handleSubCommentReply({ id, targetUserId, targetUserName })
-      })
     },
     methods: {
       async loadMoreMainComment () {
-        if (this.loadingMainComment) {
+        if (this.loading) {
           return
         }
-        this.loadingMainComment = true
+        this.loading = true
         try {
           await this.$store.dispatch('comment/getMainComments', {
             ctx: this,
@@ -330,93 +268,11 @@
         } catch (e) {
           this.$toast.error(e)
         } finally {
-          this.loadingMainComment = false
+          this.loading = false
         }
       },
-      commentToComment (data) {
-        this.handleSubCommentReply({
-          id: data.parent_id,
-          targetUserId: data.from_user_id,
-          targetUserName: data.from_user_name
-        })
-      },
-      handleCommentBtnClick () {
-        this.handleSubCommentReply({
-          id: this.focusComment.parent_id,
-          targetUserId: this.focusComment.from_user_id,
-          targetUserName: this.focusComment.from_user_name
-        })
-      },
-      handleSubCommentReply ({ id, targetUserId, targetUserName }) {
-        if (!this.currentUserId) {
-          this.$channel.$emit('sign-in')
-          return
-        }
-        this.replyForm.id = id
-        this.replyForm.targetUserId = targetUserId
-        this.replyForm.targetUserName = targetUserName
-        this.replyForm.open = true
-        setTimeout(() => { document.body.scrollTop = 0 }, 200)
-      },
-      async toggleFocusCommentLike () {
-        if (!this.currentUserId) {
-          this.$channel.$emit('sign-in')
-          return
-        }
-        if (this.replyForm.liking) {
-          return
-        }
-        this.replyForm.liking = true
-        try {
-          await this.$store.dispatch('comment/toggleLikeMainComment', {
-            ctx: this,
-            type: this.type,
-            id: this.focusCommentId
-          })
-        } catch (e) {
-        } finally {
-          this.replyForm.liking = false
-        }
-      },
-      handleReplyDrawerClose () {
-        document.getElementById('reply-comment-textarea').style.display = 'none'
-      },
-      async handleReplySubmit () {
-        if (!this.currentUserId) {
-          this.$channel.$emit('sign-in')
-          return
-        }
-        if (!this.replyForm.content) {
-          return
-        }
-        if (this.replyForm.replying) {
-          return
-        }
-        this.replyForm.replying = true
-        this.$toast.loading('提交中...')
-        try {
-          await this.$store.dispatch('comment/createSubComment', {
-            ctx: this,
-            id: this.replyForm.id,
-            type: this.type,
-            content: this.replyForm.content,
-            targetUserId: this.replyForm.targetUserId
-          })
-          this.replyForm.open = false
-          this.replyForm.content = ''
-          this.$toast.success('回复成功')
-        } catch (e) {
-          this.$toast.error(e)
-        } finally {
-          this.replyForm.replying = false
-          this.handleReplyDrawerClose()
-        }
-      },
-      writeComment () {
-        this.$channel.$emit('open-create-comment-drawer')
-      },
-      closeCommentDrawer () {
-        this.openCreateCommentDrawer = false
+      async createMainComment (content) {
+        // submitting 的时候不要阻塞页面
       },
       handleMainCommentClick (comment) {
         this.$f7router.navigate(`/comment/${comment.id}`, {

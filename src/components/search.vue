@@ -25,7 +25,10 @@
     @popup:closed="popupOpened = false"
   >
     <f7-page>
-      <f7-navbar>
+      <f7-navbar
+        no-hairline
+        no-shadow
+      >
         <f7-nav-left>&nbsp;</f7-nav-left>
         <div style="width: 100%">
           <f7-searchbar

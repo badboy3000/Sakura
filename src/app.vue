@@ -1,8 +1,4 @@
 <style lang="scss">
-  .hiddenNavBorder .navbar:after {
-    content: none;
-  }
-
   .creatorDialogIsOpen {
     .navbar {
       z-index: 0;
@@ -22,7 +18,7 @@
     <f7-statusbar/>
     <f7-view
       :main="true"
-      :class="{ hiddenNavBorder, creatorDialogIsOpen, 'ios-edge': $theme.ios, 'md-edge': $theme.md }"
+      :class="{ creatorDialogIsOpen, 'ios-edge': $theme.ios, 'md-edge': $theme.md }"
       url="/launch"
     />
   </f7-app>
@@ -45,14 +41,10 @@
           name: 'calibur.tv',
           id: 'io.framework7.testapp',
         },
-        hiddenNavBorder: true,
         creatorDialogIsOpen: false
       }
     },
     mounted () {
-      this.$channel.$on('tab-switch', (index) => {
-        this.hiddenNavBorder = index < 2
-      })
       this.$channel.$on('toggle-creator', (isOpen) => {
         this.creatorDialogIsOpen = isOpen
       })

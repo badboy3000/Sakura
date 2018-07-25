@@ -18,37 +18,17 @@
       type="post"
       empty-text=""
     />
-    <!--
-      <div slot="header"/>
-      <post-comment-item
-        slot="comment-item"
-        slot-scope="{ comment }"
-        :post="comment"
-        :master-id="masterId"
-        :preview="post.preview_images"
-      />
-      <post-comment-form
-        :id="id"
-        slot="reply-form"
-        slot-scope="{ close }"
-        type="post"
-        @close="close"
-      />
-    </comment-main>
-    -->
   </f7-page>
 </template>
 
 <script>
   import { getPostInfo } from 'api/postApi'
   import CommentMain from 'components/comment/CommentMain'
-  import PostCommentItem from 'components/flow/item/PostCommentItem'
 
   export default {
     name: 'PostShow',
     components: {
-      CommentMain,
-      PostCommentItem
+      CommentMain
     },
     data () {
       return {

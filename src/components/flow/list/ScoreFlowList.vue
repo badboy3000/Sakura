@@ -6,7 +6,7 @@
     infinite-scroll-distance="50"
     infinite-scroll-disabled="notFetch"
   >
-    <f7-list>
+    <f7-list class="no-arrow">
       <score-flow-item
         v-for="item in source.list"
         :key="item.id"

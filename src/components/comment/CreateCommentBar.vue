@@ -50,10 +50,11 @@
       ref="chat"
       :attachments-visible="attachmentsVisible"
       :sheet-visible="sheetVisible"
-      placeholder="我也说一句..."
+      :placeholder="placeholder"
       @submit="onSubmit"
       @send="onSubmit"
       @focus="handleInputFocus"
+      @blur="handleInputBlur"
       @click.stop.prevent
     >
       <div
@@ -139,20 +140,31 @@
           'http://lorempixel.com/200/300/cats/8/',
           'http://lorempixel.com/400/300/cats/9/',
           'http://lorempixel.com/300/150/cats/10/'
-        ]
+        ],
+        saveValue: ''
       }
     },
     computed: {
       attachmentsVisible() {
         return this.focused && this.attachments.length > 0;
+      },
+      placeholder () {
+        return this.saveValue || this.attachments.length
+          ? '有草稿待发送'
+          : '我也说一句...'
       }
     },
     methods: {
       handleInputFocus () {
-        this.focused = true
+        this.focused = true;
+        this.$refs.chat.setValue(this.saveValue);
+      },
+      handleInputBlur () {
+        this.saveValue = this.$refs.chat.getValue();
       },
       handleMaskClick () {
-        this.focused = false
+        this.$refs.chat.clear();
+        this.focused = false;
         this.sheetVisible = false
       },
       handleAttachment(image) {
@@ -168,6 +180,7 @@
       },
       onSubmit () {
         console.log(this.$refs.chat.getValue());
+        this.$emit('submit')
       }
     }
   }

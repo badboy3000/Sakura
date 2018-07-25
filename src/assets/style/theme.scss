@@ -37,3 +37,10 @@ input:-webkit-autofill {
 .md .list.no-arrow .item-content {
   padding-right: 16px;
 }
+
+.navbar ,
+.searchbar {
+  &:after {
+    content: none !important;
+  }
+}

@@ -1,6 +1,10 @@
 <template>
   <div class="homepage-container">
-    <f7-toolbar tabbar>
+    <f7-toolbar
+      tabbar
+      no-hairline
+      no-shadow
+    >
       <f7-link
         tab-link="#bangumi-release"
         tab-link-active

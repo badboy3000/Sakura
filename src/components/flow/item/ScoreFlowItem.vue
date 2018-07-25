@@ -1,12 +1,5 @@
 <style lang="scss">
   .score-flow-item {
-    padding-bottom: 10px;
-    padding-top: $container-padding;
-
-    &:not(:last-child) {
-      border-bottom: 1px solid #f4f5f7;
-    }
-
     .header {
       margin-bottom: 10px;
 
@@ -83,70 +76,70 @@
 </style>
 
 <template>
-  <f7-list-item
-    :link="$alias.score(item.id)"
-    class="score-flow-item"
-  >
-    <div class="header">
-      <v-time
-        v-model="item.created_at"
-        class="created-at"
-      />
-      <div
-        class="about"
-      >
-        <a
-          v-if="show !== 'bangumi'"
-          :href="$alias.bangumi(item.bangumi.id)"
-        >
-          <div class="bangumi-avatar">
-            <img :src="$resize(item.bangumi.avatar, { width: 50 })">
-          </div>
-          <span
-            class="name"
-            v-text="item.bangumi.name"
-          />
-        </a>
-        <a
-          v-else
-          :href="$alias.user(item.user.zone)"
-        >
-          <div class="user-avatar">
-            <img :src="$resize(item.user.avatar, { width: 50 })">
-          </div>
-          <span
-            class="name"
-            v-text="item.user.nickname"
-          />
-        </a>
-        <el-rate
-          v-if="starCount"
-          v-model="starCount"
-          disabled
+  <div class="score-flow-item">
+    <f7-list-item :link="$alias.score(item.id)">
+      <div class="header">
+        <v-time
+          v-model="item.created_at"
+          class="created-at"
         />
-        <el-rate
-          v-else
-          v-model="zero"
-          disabled
-        />
+        <div
+          class="about"
+        >
+          <a
+            v-if="show !== 'bangumi'"
+            :href="$alias.bangumi(item.bangumi.id)"
+          >
+            <div class="bangumi-avatar">
+              <img :src="$resize(item.bangumi.avatar, { width: 50 })">
+            </div>
+            <span
+              class="name"
+              v-text="item.bangumi.name"
+            />
+          </a>
+          <a
+            v-else
+            :href="$alias.user(item.user.zone)"
+          >
+            <div class="user-avatar">
+              <img :src="$resize(item.user.avatar, { width: 50 })">
+            </div>
+            <span
+              class="name"
+              v-text="item.user.nickname"
+            />
+          </a>
+          <el-rate
+            v-if="starCount"
+            v-model="starCount"
+            disabled
+          />
+          <el-rate
+            v-else
+            v-model="zero"
+            disabled
+          />
+        </div>
       </div>
-    </div>
-    <a
-      :href="$alias.score(item.id)"
-      class="intro"
-      v-text="item.intro"
-    />
-    <div class="footer">
-      <span>
-        <i class="iconfont icon-guanzhu"/>
-        {{ item.like_count }}
-      </span>
-      <span>
-        <i class="iconfont icon-pinglun1"/>
-        {{ item.comment_count }}
-      </span>
-    </div>
-  </f7-list-item>
+      <a
+        :href="$alias.score(item.id)"
+        class="intro"
+        v-text="item.intro"
+      />
+      <div class="footer">
+        <span>
+          <i class="iconfont icon-guanzhu"/>
+          {{ item.like_count }}
+        </span>
+        <span>
+          <i class="iconfont icon-pinglun1"/>
+          {{ item.comment_count }}
+        </span>
+      </div>
+    </f7-list-item>
+    <div class="hr"/>
+  </div>
 </template>
 
 <script>

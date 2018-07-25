@@ -12,19 +12,6 @@
     justify-content: space-around;
     align-items: center;
 
-    &:before {
-      content: '';
-      position: absolute;
-      background-color: #c4c4c4;
-      display: block;
-      top: 0;
-      left: 0;
-      height: 1px;
-      width: 100%;
-      transform-origin: 50% 0;
-      transform: scaleY(0.5);
-    }
-
     >* {
       flex-grow: 1;
     }
