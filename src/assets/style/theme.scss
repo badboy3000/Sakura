@@ -44,3 +44,45 @@ input:-webkit-autofill {
     content: none !important;
   }
 }
+
+.sign-container {
+  background-color: $theme-color !important;
+
+  .form-container {
+    width: 280px;
+    margin: 0 auto;
+
+    .list {
+      background-color: #fff;
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .submit-btn {
+      background-color: $color-yellow !important;
+      height: 44px;
+      line-height: 44px;
+      border-radius: 22px;
+      box-shadow: none;
+      font-weight: bold;
+    }
+
+    .sign-left-btn {
+      float: left;
+    }
+
+    .sign-right-btn {
+      float: right;
+    }
+
+    .sign-center-btn {
+      color: #fff;
+    }
+
+    .sign-left-btn,
+    .sign-right-btn {
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+}

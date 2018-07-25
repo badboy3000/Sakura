@@ -34,13 +34,9 @@
         await this.$store.dispatch('initialize');
         setTimeout(() => {
           if (this.isGuest) {
-            this.$f7router.navigate('/sign', {
-              animate: false
-            })
+            this.$f7router.navigate('/sign')
           } else {
-            this.$f7router.navigate('/', {
-              animate: false
-            })
+            this.$f7router.navigate('/')
           }
           this.$channel.$emit('clear-router-history', this)
         }, 0)

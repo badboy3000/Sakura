@@ -12,6 +12,7 @@
 
 <template>
   <f7-app
+    ref="app"
     :params="f7params"
     class="color-theme-pink"
   >

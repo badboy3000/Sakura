@@ -1,32 +1,8 @@
-<style lang="scss">
-  #sign-in {
-    background-color: $theme-color;
-
-    .form-container {
-      width: 280px;
-      margin: 0 auto;
-
-      .list {
-        background-color: #fff;
-        border-radius: 7px;
-        overflow: hidden;
-      }
-
-      .submit-btn {
-        background-color: $color-yellow;
-        height: 44px;
-        line-height: 44px;
-        border-radius: 22px;
-        box-shadow: none;
-        letter-spacing: 3px;
-        font-weight: bold;
-      }
-    }
-  }
-</style>
-
 <template>
-  <f7-page id="sign-in">
+  <f7-page
+    id="sign-in"
+    class="sign-container"
+  >
     <div class="form-container">
       <f7-list
         inline-labels
@@ -63,7 +39,28 @@
         round
         class="submit-btn"
         @click="submit"
-      >登录</f7-button>
+      >
+        <f7-preloader
+          v-if="loading"
+          :size="20"
+          color="white"
+        />
+        登录
+      </f7-button>
+      <f7-block>
+        <f7-link
+          class="sign-left-btn"
+          href="/sign/forgot"
+        >
+          忘记密码？
+        </f7-link>
+        <f7-link
+          class="sign-right-btn"
+          href="/sign/up"
+        >
+          注册
+        </f7-link>
+      </f7-block>
     </div>
   </f7-page>
 </template>
@@ -87,7 +84,7 @@
           this.$toast.info('请填写 11 位手机号');
           return
         }
-        if (!secret || secret.length < 6 || secret.length > 16 || !/^[a-z0-9]+$/i.test(secret)) {
+        if (!secret || secret.length < 6 || secret.length > 16) {
           this.$toast.info('密码错误');
           return
         }
