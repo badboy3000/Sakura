@@ -30,7 +30,8 @@ const state = () => ({
   bangumiId: 0,
   post: merge({}, trendingFlowStore),
   image: merge({}, trendingFlowStore),
-  score: merge({}, trendingFlowStore)
+  score: merge({}, trendingFlowStore),
+  role: merge({}, trendingFlowStore)
 })
 
 const mutations = {
@@ -63,7 +64,6 @@ const actions = {
   },
   async getData ({ state, commit }, { sort, type, take, bangumiId = 0, refresh = false }) {
     if (bangumiId !== state.bangumiId) {
-      console.log('reset')
       commit('RESET_STATE', { type })
     }
     if (state[type][sort].noMore || state[type][sort].loading) {

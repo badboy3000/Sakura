@@ -6,12 +6,14 @@
     infinite-scroll-distance="50"
     infinite-scroll-disabled="notFetch"
   >
-    <role-flow-item
-      v-for="item in source.list"
-      :key="item.id"
-      :item="item"
-      show="all"
-    />
+    <f7-list media-list>
+      <role-flow-item
+        v-for="item in source.list"
+        :key="item.id"
+        :item="item"
+        show="trending"
+      />
+    </f7-list>
     <no-more
       :loading="source.loading"
       :length="source.list.length"
@@ -46,9 +48,9 @@
     computed: {
       source () {
         if (this.bangumiId || this.userId) {
-          return this.$store.state.flow.score.active
+          return this.$store.state.flow.role.hot
         }
-        return this.$store.state.world.score.active
+        return this.$store.state.world.role.hot
       },
       notFetch () {
         return this.lock || this.source.loading || this.source.noMore
@@ -65,7 +67,7 @@
     },
     mounted () {
       this.$channel.$on(this.switchEvt, (isShow) => {
-        this.lock = !isShow
+        this.lock = isShow === undefined ? false : !isShow
       })
     },
     beforeDestroy () {

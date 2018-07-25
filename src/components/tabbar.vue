@@ -198,20 +198,20 @@
       </div>
     </circle-menu>
     <f7-link
-      tab-link="#tab-about"
+      tab-link="#tab-role-trending"
       @click="pageChange(2)"
     >
       <f7-icon
         v-if="selectedIndex === 2"
-        f7="paper_plane_fill"
+        f7="heart_fill"
         size="20"
       />
       <f7-icon
         v-else
         size="20"
-        f7="paper_plane"
+        f7="heart"
       />
-      <span>关于</span>
+      <span>偶像</span>
     </f7-link>
     <f7-link
       tab-link="#tab-user"

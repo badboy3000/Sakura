@@ -118,14 +118,14 @@
         <bangumi-area/>
       </f7-tab>
       <f7-tab
+        id="tab-role-trending"
+      >
+        <cartoon-role-trending/>
+      </f7-tab>
+      <f7-tab
         id="tab-user"
       >
         <my-home/>
-      </f7-tab>
-      <f7-tab
-        id="tab-about"
-      >
-        <about-page/>
       </f7-tab>
     </f7-tabs>
     <tab-bar/>
@@ -137,7 +137,7 @@
   import SearchDialog from 'components/Search.vue'
   import TheWorld from './world.vue'
   import BangumiArea from './bangumi.vue'
-  import AboutPage from './about.vue'
+  import CartoonRoleTrending from './role.vue'
   import MyHome from './user.vue'
 
   export default {
@@ -146,7 +146,7 @@
       SearchDialog,
       TheWorld,
       BangumiArea,
-      AboutPage,
+      CartoonRoleTrending,
       MyHome
     },
     data () {

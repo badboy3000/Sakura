@@ -92,7 +92,7 @@
           @tab:show="handleTabShow(5)"
           @tab:hide="handleTabHide(5)"
         >
-          <bangumi-role-flow :id="id"/>
+          <role-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           v-if="bangumi.is_master"
@@ -121,7 +121,7 @@
   import ScoreFlowList from 'components/flow/list/ScoreFlowList'
   import BangumiVideoFlow from 'components/bangumi/BangumiVideoFlow.vue'
   import BangumiCartoonFlow from 'components/bangumi/BangumiCartoonFlow.vue'
-  import BangumiRoleFlow from 'components/bangumi/BangumiRoleFlow.vue'
+  import RoleFlowList from 'components/flow/list/RoleFlowList'
   import BangumiSetting from 'components/bangumi/BangumiSetting.vue'
 
   export default {
@@ -132,7 +132,7 @@
       ScoreFlowList,
       BangumiVideoFlow,
       BangumiCartoonFlow,
-      BangumiRoleFlow,
+      RoleFlowList,
       BangumiSetting
     },
     data () {
