@@ -87,10 +87,11 @@
         }
         this.loading = true
         try {
-          this.source = await getVideoInfo(this.id)
+          this.source = await getVideoInfo({
+            videoId: this.id
+          })
           this.playVideo()
         } catch (e) {
-          console.log(e);
           this.$toast.error(e)
         } finally {
           this.loading = false

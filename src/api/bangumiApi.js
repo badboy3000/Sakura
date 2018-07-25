@@ -16,12 +16,12 @@ export const category = ({ id, page, take }) => {
   return http.get('bangumi/category', { id, page, take })
 }
 
-export const show = (id) => {
-  return http.get(`bangumi/${id}/show`)
+export const getBangumiInfo = ({ bangumiId }) => {
+  return http.get(`bangumi/${bangumiId}/show`)
 }
 
-export const videos = (id) => {
-  return http.get(`bangumi/${id}/videos`)
+export const videos = ({ bangumiId }) => {
+  return http.get(`bangumi/${bangumiId}/videos`)
 }
 
 export const cartoon = ({ bangumiId, page }) => {

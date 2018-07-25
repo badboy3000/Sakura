@@ -1,9 +1,9 @@
 import http from './_baseApi'
 
-export const getBangumiTopic = (id) => {
-  return http.get(`bangumi/${id}/posts/top`)
+export const getBangumiTopic = ({ bangumiId }) => {
+  return http.get(`bangumi/${bangumiId}/posts/top`)
 }
 
-export const getPostInfo = ({ id, only }) => {
-  return http.get(`post/${id}/show`, { only })
+export const getPostInfo = ({ postId, only }) => {
+  return http.get(`post/${postId}/show`, { only })
 }

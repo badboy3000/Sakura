@@ -12,7 +12,7 @@ export default {
   },
   actions: {
     async getBangumiTopic ({ commit }, { bangumiId }) {
-      const data = await Api.getBangumiTopic(bangumiId);
+      const data = await Api.getBangumiTopic({ bangumiId });
       commit('SET_TOPIC_POST', data)
     }
   },

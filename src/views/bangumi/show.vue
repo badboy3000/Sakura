@@ -197,7 +197,7 @@
         this.loading = true;
         try {
           this.bangumi = await this.$store.dispatch('bangumi/getInfo', {
-            id: this.id
+            bangumiId: this.id
           })
         } catch (e) {
           this.$toast.error(e)

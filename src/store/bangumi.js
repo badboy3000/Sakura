@@ -178,8 +178,8 @@ export default {
       })
       data && commit('SET_CATEGORY', { data, ids })
     },
-    async getInfo ({ commit }, { id }) {
-      return await Api.show(id)
+    async getInfo ({ commit }, { bangumiId }) {
+      return await Api.getBangumiInfo({ bangumiId })
     },
     async getTopPosts ({ commit }, { ctx, id }) {
       const api = new Api(ctx)

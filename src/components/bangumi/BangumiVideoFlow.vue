@@ -89,7 +89,9 @@
         }
         this.loading = true
         try {
-          this.source = await Api(this.id)
+          this.source = await Api({
+            bangumiId: this.id
+          })
         } catch (e) {
           this.$toast.error(e)
         } finally {

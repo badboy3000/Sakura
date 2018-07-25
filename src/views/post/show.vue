@@ -57,7 +57,7 @@
       async getData () {
         try {
           const data = await getPostInfo({
-            id: this.id,
+            postId: this.id,
             only: this.onlySeeMaster
           })
           this.bangumi = data.bangumi
