@@ -77,6 +77,7 @@
         this.getData(true)
       },
       async getData (refresh) {
+        this.lock = true
         try {
           const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
           await this.$store.dispatch(action, {
@@ -90,6 +91,10 @@
           this.$toast.error(e)
         } finally {
           refresh && this.$refs.page.onTopLoaded();
+          // 瀑布流渲染太慢了，导致多次发请求
+          setTimeout(() => {
+            this.lock = false
+          }, 2000)
         }
       }
     }

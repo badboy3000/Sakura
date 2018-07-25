@@ -13,11 +13,15 @@
     <comment-main
       :id="id"
       :only-see-master="onlySeeMaster"
-      :bottom-append-comment="false"
       :master-id="masterId"
       type="post"
-      empty-text=""
     />
+    <f7-block
+      v-if="loading"
+      class="text-align-center"
+    >
+      <f7-preloader/>
+    </f7-block>
   </f7-page>
 </template>
 
@@ -32,8 +36,7 @@
     },
     data () {
       return {
-        postLoaded: false,
-        commentLoaded: false,
+        loading: true,
         bangumi: null,
         post: null,
         master: null,
@@ -63,9 +66,10 @@
           this.bangumi = data.bangumi
           this.master = data.user
           this.post = data.post
-          this.postLoaded = true
         } catch (e) {
           this.$toast.error(e)
+        } finally {
+          this.loading = false
         }
       }
     }

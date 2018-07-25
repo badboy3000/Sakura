@@ -5,6 +5,6 @@ export const getCaptcha = () => {
 }
 
 
-export const getImageInfo = ({ id }) => {
-  return http.get(`image/${id}/show`)
+export const getImageInfo = ({ imageId }) => {
+  return http.get(`image/${imageId}/show`)
 }

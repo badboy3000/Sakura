@@ -9,16 +9,30 @@
       back-link
       sliding
     />
+    <div class="hr"/>
+    <comment-main
+      :id="id"
+      :only-see-master="false"
+      :master-id="masterId"
+      type="video"
+    />
+    <f7-block
+      v-if="loading"
+      class="text-align-center"
+    >
+      <f7-preloader/>
+    </f7-block>
   </f7-page>
 </template>
 
 <script>
   import { getVideoInfo } from 'api/videoApi'
+  import CommentMain from 'components/comment/CommentMain'
 
   export default {
     name: 'VideoShow',
     components: {
-
+      CommentMain
     },
     data () {
       return {
@@ -35,6 +49,14 @@
           ? this.source.bangumi
           : null
       },
+      video () {
+        return this.source.info
+      },
+      masterId () {
+        return this.source
+          ? this.video.user_id
+          : 0
+      },
       useOtherSiteSource () {
         if (!this.bangumi) {
           return false
@@ -42,7 +64,7 @@
         if (this.bangumi.others_site_video) {
           return true
         }
-        const resource = this.source.info.resource
+        const resource = this.video.resource
         if (!resource) {
           return true
         }
@@ -56,7 +78,7 @@
         if (!this.source) {
           return ''
         }
-        const video = this.source.info
+        const video = this.video
         if (!video) {
           return ''
         }
@@ -71,17 +93,11 @@
             : video.url
       }
     },
-    watch: {
-
-    },
     created () {
-      this.getInfo()
-    },
-    mounted () {
-
+      this.getData()
     },
     methods: {
-      async getInfo () {
+      async getData () {
         if (this.loading) {
           return
         }

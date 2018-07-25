@@ -5,12 +5,6 @@
     .sub-title {
       margin-top: 15px;
       margin-bottom: 15px;
-
-      .write-btn {
-        float: right;
-        font-weight: bold;
-        font-size: 13px;
-      }
     }
 
     .comment-item-wrap {
@@ -18,145 +12,14 @@
         width: 100%;
       }
     }
+  }
 
-    #comment-list-footer {
-      margin-left: -$container-padding;
-      margin-right: -$container-padding;
-    }
+  .ios-edge #comment-wrap {
+    padding-bottom: 44px;
+  }
 
-    .focus-comment-drawer {
-      .reply {
-        .user {
-          padding-top: 5px;
-
-          .avatar {
-            float: left;
-            margin-right: 9px;
-            @include avatar(35px)
-          }
-
-          .summary {
-            overflow: hidden;
-
-            .nickname {
-              font-size: 14px;
-              color: #333;
-            }
-
-            .info {
-              line-height: 16px;
-              font-size: 12px;
-              color: #999;
-
-              span {
-                margin-right: 5px;
-              }
-            }
-          }
-        }
-
-        .content {
-          font-size: 16px;
-          line-height: 24px;
-          padding-top: 16px;
-          margin-bottom: 16px;
-          color: #000;
-
-          .image-area {
-            margin: 16px 0;
-
-            img {
-              width: 100%;
-              height: auto;
-            }
-          }
-        }
-
-        .social {
-          margin-bottom: 15px;
-          font-size: 12px;
-
-          .reply-liked-btn {
-            color: $color-blue-deep;
-          }
-
-          button {
-            color: #666;
-            margin-left: 3px;
-          }
-        }
-      }
-
-      .total {
-        height: 40px;
-        line-height: 40px;
-        color: #000;
-        font-size: 16px;
-      }
-
-      .comments {
-        li {
-          padding: 17px 0 13px;
-          position: relative;
-          @include border-bottom();
-
-          .from-user {
-            .avatar {
-              float: left;
-              display: block;
-              margin-right: 9px;
-              @include avatar(35px);
-            }
-
-            .summary {
-              overflow: hidden;
-
-              .users {
-                font-size: 14px;
-                margin-bottom: 6px;
-                margin-top: 2px;
-                line-height: 14px;
-
-                .nickname {
-                  color: $color-blue-deep;
-                }
-              }
-
-              .info {
-                font-size: 12px;
-                line-height: 12px;
-                color: #999;
-              }
-            }
-          }
-
-          .main {
-            margin-left: 45px;
-            padding-top: 10px;
-
-            .content {
-              font-size: 14px;
-              line-height: 21px;
-              word-break: break-all;
-            }
-          }
-        }
-      }
-    }
-
-    .append-comment-btn {
-      width: 100%;
-      padding: 15px 0;
-      font-size: 13px;
-    }
-
-    .no-content {
-      text-align: center;
-      margin-top: 30px;
-      margin-bottom: 30px;
-      font-size: 12px;
-      color: #99a2aa;
-    }
+  .md-edge #comment-wrap {
+    padding-bottom: 48px;
   }
 </style>
 
@@ -173,6 +36,7 @@
     <f7-list
       v-infinite-scroll="loadMoreMainComment"
       id="comment-list-wrap"
+      infinite-scroll-immediate-check="false"
       infinite-scroll-distance="50"
       infinite-scroll-disabled="notFetch"
       class="no-arrow"
@@ -193,9 +57,11 @@
         />
       </f7-list-item>
     </f7-list>
-    <p
-      class="no-content"
-      v-text="emptyText"
+    <no-more
+      :loading="loading && !!source.list.length"
+      :length="source.list.length"
+      :no-more="source.noMore"
+      :nothing-text="emptyText"
     />
     <create-comment-bar @submit="createMainComment"/>
   </div>
@@ -251,6 +117,9 @@
       notFetch () {
         return this.loading || this.source.noMore
       }
+    },
+    created () {
+      this.loadMoreMainComment();
     },
     methods: {
       async loadMoreMainComment () {

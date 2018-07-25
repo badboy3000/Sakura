@@ -149,14 +149,7 @@
 
 <template>
   <div class="post-flow-item">
-    <!--
-    <f7-list-item
-      :link="$alias.post(item.id)"
-    >
-    -->
-    <f7-list-item
-      :link="$alias.post(187)"
-    >
+    <f7-list-item :link="$alias.post(item.id)">
       <div class="header">
         <a
           v-if="item.user"

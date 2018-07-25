@@ -2,6 +2,7 @@ import * as Api from 'api/commentApi'
 import { orderBy } from 'lodash'
 
 const state = () => ({
+  id: 0,
   type: '',
   sort: 'desc',
   fetchId: 0,
@@ -12,15 +13,15 @@ const state = () => ({
 })
 
 const mutations = {
-  RESET_STATE (state, { type }) {
-    state = {
-      type,
-      fetchId: '',
-      list: [],
-      total: 0,
-      noMore: false,
-      submitting: false
-    }
+  RESET_STATE (state) {
+    state.id = 0
+    state.type = ''
+    state.sort = 'desc'
+    state.fetchId = 0
+    state.list = []
+    state.total = 0
+    state.noMore = false
+    state.submitting = false
   },
   INIT_FETCH_TYPE (state, { type }) {
     state.type = type
@@ -28,10 +29,11 @@ const mutations = {
       state.sort = 'asc'
     }
   },
-  SET_MAIN_COMMENTS (state, { comments, seeReplyId }) {
+  SET_MAIN_COMMENTS (state, { comments, seeReplyId, id }) {
     if (!comments.list.length) {
       state.noMore = comments.noMore
       state.total = comments.total
+      state.id = id
       return
     }
     const formatComments = comments.list.map(item => {
@@ -60,6 +62,7 @@ const mutations = {
     state.list = orderBy(state.list.concat(formatComments), 'id', state.sort)
     state.noMore = hasNew ? comments.noMore : true
     state.total = hasNew ? comments.total : state.list.length
+    state.id = id
   },
   SET_SUB_COMMENTS (state, { comments, parentId }) {
     let parentComment = null
@@ -148,17 +151,13 @@ const mutations = {
 
 const actions = {
   async getMainComments ({ state, commit }, { type, id, onlySeeMaster, seeReplyId }) {
-    if (state.type) {
-      if (state.type === type) {
-        if (state.noMore) {
-          return
-        }
-      } else {
-        commit('RESET_STATE', { type })
-      }
-    } else {
-      commit('INIT_FETCH_TYPE', { type })
+    if (state.type && state.id && (state.type !== type || state.id !== id)) {
+      commit('RESET_STATE');
     }
+    if (state.noMore) {
+      return
+    }
+    commit('INIT_FETCH_TYPE', { type })
     const comments = await Api.getMainCommentList({
       type,
       id,
@@ -166,7 +165,7 @@ const actions = {
       seeReplyId,
       fetchId: state.fetchId
     })
-    comments && commit('SET_MAIN_COMMENTS', { comments, seeReplyId })
+    commit('SET_MAIN_COMMENTS', { comments, seeReplyId, id })
   },
   async getSubComments ({ state, commit }, { type, parentId }) {
     const store = state.list.filter(_ => _.id === parentId)[0].comments

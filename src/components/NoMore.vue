@@ -28,16 +28,16 @@
     class="no-more"
   >
     <slot v-if="length === 0">
-      <p class="no-more-txt">
-        还什么都没有
-      </p>
+      <p
+        class="no-more-txt"
+        v-text="nothingText"
+      />
     </slot>
     <p
       v-else
       class="no-more-txt"
-    >
-      没有更多了，休息一下吧
-    </p>
+      v-text="noMoreText"
+    />
   </div>
   <div
     v-else-if="loading"
@@ -66,6 +66,14 @@
       noMore: {
         required: true,
         type: Boolean
+      },
+      noMoreText: {
+        type: String,
+        default: '没有更多了，休息一下吧'
+      },
+      nothingText: {
+        type: String,
+        default: '还什么都没有'
       }
     }
   }

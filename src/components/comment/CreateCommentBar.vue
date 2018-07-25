@@ -25,6 +25,10 @@
       pointer-events: all;
     }
 
+    .messagebar-area + a {
+      display: none;
+    }
+
     .submit-btn {
       flex-shrink: 0;
     }
@@ -68,7 +72,10 @@
           :icon-color="sheetVisible ? 'pink' : 'gray'"
           @click="sheetVisible = !sheetVisible"
         />
-        <f7-icon f7="social_github"/>
+        <f7-link
+          icon-f7="social_github"
+          icon-color="gray"
+        />
       </div>
       <div slot="send-link"/>
       <slot>
@@ -82,9 +89,18 @@
           v-else
           class="other"
         >
-          <f7-icon :f7="liked ? 'heart-fill' : 'heart'"/>
-          <f7-icon :f7="rewarded ? 'money_dollar_fill' : 'money_dollar'"/>
-          <f7-icon :f7="marked ? 'star_fill' : 'star'"/>
+          <f7-link
+            :icon-f7="liked ? 'heart-fill' : 'heart'"
+            icon-color="gray"
+          />
+          <f7-link
+            :icon-f7="rewarded ? 'money_dollar_fill' : 'money_dollar'"
+            icon-color="gray"
+          />
+          <f7-link
+            :icon-f7="marked ? 'star_fill' : 'star'"
+            icon-color="gray"
+          />
         </div>
       </slot>
       <f7-messagebar-attachments>
