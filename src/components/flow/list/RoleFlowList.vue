@@ -6,7 +6,10 @@
     infinite-scroll-distance="50"
     infinite-scroll-disabled="notFetch"
   >
-    <f7-list media-list>
+    <f7-list
+      media-list
+      class="no-arrow"
+    >
       <role-flow-item
         v-for="item in source.list"
         :key="item.id"

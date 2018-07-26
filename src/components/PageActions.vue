@@ -11,7 +11,9 @@
     >
       <f7-actions-group>
         <slot/>
-        <f7-actions-button>举报</f7-actions-button>
+        <f7-actions-button>
+          {{ org ? '报错' : '举报' }}
+        </f7-actions-button>
       </f7-actions-group>
       <f7-actions-group>
         <f7-actions-button>取消</f7-actions-button>
@@ -31,6 +33,10 @@
       type: {
         required: true,
         type: String
+      },
+      org: {
+        default: false,
+        type: Boolean
       }
     },
     data () {

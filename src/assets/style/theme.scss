@@ -21,12 +21,16 @@ input:-webkit-autofill {
 
   .item-inner {
     display: block;
-    background-image: none;
-    padding-right: 0 !important;
 
     &:after {
       content: none;
     }
+  }
+
+  .item-inner,
+  .item-title-row {
+    background-image: none !important;
+    padding-right: 0 !important;
   }
 }
 

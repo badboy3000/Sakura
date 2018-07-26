@@ -196,7 +196,7 @@ export default {
         take: state.cartoon.take,
         sort: state.cartoon.sort
       })
-      data && commit('SET_BANGUMI_CARTOON', { data, bangumiId })
+      commit('SET_BANGUMI_CARTOON', { data, bangumiId })
     },
     async changeCartoonSort ({ state, commit }, { bangumiId, sort }) {
       if (state.cartoon.noMore) {

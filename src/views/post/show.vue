@@ -98,13 +98,7 @@
       </page-actions>
     </f7-navbar>
     <f7-block
-      v-if="loading"
-      class="text-align-center"
-    >
-      <f7-preloader/>
-    </f7-block>
-    <f7-block
-      v-else
+      v-if="source"
       class="post"
     >
       <h1 class="title">
@@ -171,6 +165,12 @@
         </div>
       </div>
     </f7-block>
+    <f7-block
+      v-else
+      class="text-align-center"
+    >
+      <f7-preloader/>
+    </f7-block>
     <div class="hr"/>
     <comment-main
       :id="id"
@@ -191,10 +191,7 @@
     name: 'PostShow',
     data () {
       return {
-        loading: true,
-        bangumi: null,
-        post: null,
-        master: null,
+        source: null,
         onlySeeMaster: false
       }
     },
@@ -202,8 +199,17 @@
       id () {
         return +this.$f7route.params.id
       },
+      bangumi () {
+        return this.source.bangumi
+      },
+      master () {
+        return this.source.user
+      },
+      post () {
+        return this.source.post
+      },
       masterId () {
-        return this.master
+        return this.source
           ? this.master.id
           : 0
       },
@@ -211,38 +217,27 @@
         return this.$store.state.comment.total + 1
       },
       liked () {
-        return this.post ? this.post.liked : false
+        return this.source ? this.post.liked : false
       },
       marked () {
-        return this.post ? this.post.marked : false
+        return this.source ? this.post.marked : false
       }
     },
     created () {
       this.getData()
     },
     methods: {
-      toggleLike () {
-
-      },
-      toggleMark () {
-
-      },
       switchOnlySeeMaster () {
         this.onlySeeMaster = !this.onlySeeMaster
       },
       async getData () {
         try {
-          const data = await getPostInfo({
+          this.source = await getPostInfo({
             postId: this.id,
             only: this.onlySeeMaster
           })
-          this.bangumi = data.bangumi
-          this.master = data.user
-          this.post = data.post
         } catch (e) {
           this.$toast.error(e)
-        } finally {
-          this.loading = false
         }
       }
     }
