@@ -1,40 +1,91 @@
 <style lang="scss">
+  #home {
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: $tab-height;
 
+    .homepage-container {
+      height: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .colorful {
+      .col {
+        text-align: center;
+      }
+
+      .menu-item {
+        flex-direction: column;
+
+        span {
+          margin-left: 0;
+          font-size: 11px;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
 </style>
 
 <template>
-  <div class="homepage-container">
-    user show
+  <div id="home">
+    <div class="homepage-container">
+      <f7-block class="colorful">
+        <f7-row>
+          <f7-col>
+            <f7-link
+              :href="$alias.user(user.zone)"
+              color="gray"
+              class="menu-item"
+            >
+              <f7-icon
+                f7="home_fill"
+                size="35"
+                color="pink"
+              />
+              <span>我的主页</span>
+            </f7-link>
+          </f7-col>
+          <f7-col/>
+          <f7-col/>
+          <f7-col/>
+        </f7-row>
+      </f7-block>
+      <div class="hr"/>
+      <f7-block-title>每日签到</f7-block-title>
+      <f7-list>
+        <f7-list-item :title="`${user.coin}`">
+          <f7-icon
+            slot="media"
+            f7="money_dollar_fill"
+            color="yellow"
+            size="29"
+          />
+          <day-sign-btn slot="after"/>
+        </f7-list-item>
+        <f7-block-footer>
+          <p>每日签到赚金币，1 金币 = 1 人民币，满 100 金币可提现 (。・∀・)ノ</p>
+        </f7-block-footer>
+      </f7-list>
+      <div class="hr"/>
+      <user-setting-form/>
+    </div>
   </div>
 </template>
 
 <script>
+  import DaySignBtn from 'components/button/DaySignBtn'
+  import UserSettingForm from 'components/form/UserSettingForm'
+
   export default {
     components: {
-
-    },
-    props: {
-
-    },
-    data () {
-      return {
-
-      }
+      DaySignBtn,
+      UserSettingForm
     },
     computed: {
-
-    },
-    watch: {
-
-    },
-    created () {
-
-    },
-    mounted () {
-
-    },
-    methods: {
-
+      user () {
+        return this.$store.state.user
+      }
     }
   }
 </script>

@@ -15,6 +15,12 @@ input:-webkit-autofill {
   z-index: 100000 !important;
 }
 
+.mint-datetime {
+  .mint-datetime-action {
+    color: $theme-color;
+  }
+}
+
 .list.no-arrow {
   margin-top: 0;
   margin-bottom: 0;

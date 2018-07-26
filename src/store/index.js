@@ -22,6 +22,9 @@ export default new Vuex.Store({
     },
     USE_COIN (state) {
       state.user.coin && state.user.coin--
+    },
+    UPDATE_USER_INFO (state, { key, value }) {
+      state.user[key] = value
     }
   },
   actions: {

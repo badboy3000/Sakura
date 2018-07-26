@@ -31,3 +31,15 @@ export const resetPassword = ({ method, access, authCode, secret }) => {
 export const logout = () => {
   return http.post('door/logout')
 };
+
+export const daySign = () => {
+  return http.post('user/daySign')
+};
+
+export const settingProfile = (params) => {
+  return http.post('user/setting/profile', params)
+};
+
+export const settingImage = ({ type, url }) => {
+  return http.post('user/setting/image', { type, url })
+};

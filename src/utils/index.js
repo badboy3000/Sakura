@@ -16,13 +16,15 @@ import JsonContent from 'components/jsonEditor/JsonContent'
 
 import {
   InfiniteScroll,
-  Loadmore
+  Loadmore,
+  DatetimePicker
 } from 'mint-ui';
 
 import { Rate } from 'element-ui';
 
 Vue.use(InfiniteScroll);
 Vue.component(Rate.name, Rate);
+Vue.component(DatetimePicker.name, DatetimePicker);
 Vue.component(JsonContent.name, JsonContent);
 Vue.component(CommentMain.name, CommentMain);
 Vue.component(PageActions.name, PageActions);

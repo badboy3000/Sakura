@@ -72,9 +72,9 @@
         <bangumi-area/>
       </f7-tab>
       <f7-tab
-        id="tab-role-trending"
+        id="tab-notification"
       >
-        <cartoon-role-trending/>
+        <notification/>
       </f7-tab>
       <f7-tab
         id="tab-user"
@@ -87,12 +87,13 @@
 </template>
 
 <script>
-  import TabBar from 'components/Tabbar.vue'
-  import SearchDialog from 'components/Search.vue'
-  import TheWorld from './world.vue'
-  import BangumiArea from './bangumi.vue'
-  import CartoonRoleTrending from './role.vue'
-  import MyHome from './user.vue'
+  import TabBar from 'components/Tabbar'
+  import SearchDialog from 'components/Search'
+  import TheWorld from './world'
+  import BangumiArea from './bangumi'
+  import Notification from './notification'
+  import CartoonRoleTrending from './role'
+  import MyHome from './user'
 
   export default {
     components: {
@@ -100,7 +101,7 @@
       SearchDialog,
       TheWorld,
       BangumiArea,
-      CartoonRoleTrending,
+      Notification,
       MyHome
     },
     data () {

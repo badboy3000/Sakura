@@ -8,13 +8,16 @@
       <f7-link
         tab-link="#bangumi-release"
         tab-link-active
-      >放映表</f7-link>
+      >新番时间表</f7-link>
       <f7-link
         tab-link="#bangumi-timeline"
       >时间轴</f7-link>
       <f7-link
         tab-link="#bangumi-category"
-      >标签云</f7-link>
+      >番剧索引</f7-link>
+      <f7-link
+        tab-link="#cartoon-role-trending"
+      >偶像排行榜</f7-link>
     </f7-toolbar>
     <f7-tabs
       animated
@@ -42,20 +45,29 @@
       >
         <bangumi-category/>
       </f7-tab>
+      <f7-tab
+        id="cartoon-role-trending"
+        @tab:show="handleTabShow(3)"
+        @tab:hide="handleTabHide(3)"
+      >
+        <cartoon-role-trending/>
+      </f7-tab>
     </f7-tabs>
   </div>
 </template>
 
 <script>
-  import BangumiRelease from 'views/bangumi/release.vue'
-  import BangumiTimeline from 'views/bangumi/timeline.vue'
-  import BangumiCategory from 'views/bangumi/category.vue'
+  import BangumiRelease from 'views/bangumi/release'
+  import BangumiTimeline from 'views/bangumi/timeline'
+  import BangumiCategory from 'views/bangumi/category'
+  import CartoonRoleTrending from 'views/role/trending'
 
   export default {
     components: {
       BangumiRelease,
       BangumiTimeline,
-      BangumiCategory
+      BangumiCategory,
+      CartoonRoleTrending
     },
     methods: {
       handleTabShow (index) {

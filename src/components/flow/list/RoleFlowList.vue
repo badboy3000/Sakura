@@ -65,7 +65,7 @@
         if (this.userId) {
           return 'user-show-tab-2-switch'
         }
-        return 'tab-switch-2'
+        return 'bangumi-tab-3-switch'
       }
     },
     mounted () {

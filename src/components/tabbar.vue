@@ -6,7 +6,7 @@
     width: 100%;
     height: $tab-height;
     background-color: #fff;
-    z-index: 1;
+    z-index: 999;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -79,7 +79,7 @@
       justify-content: center;
       align-items: center;
 
-      i, span {
+      i, div {
         color: #929292;
       }
 
@@ -88,7 +88,7 @@
         margin-top: 2px;
       }
 
-      span {
+      div {
         margin-left: 0;
         letter-spacing: .01em;
         text-overflow: ellipsis;
@@ -100,7 +100,7 @@
       }
 
       &.tab-link-active {
-        i, span {
+        i, div {
           color: $theme-color;
         }
       }
@@ -116,32 +116,20 @@
       @click="pageChange(0)"
     >
       <f7-icon
-        v-if="selectedIndex === 0"
-        f7="compass_fill"
+        :f7="selectedIndex ? 'compass_fill' : 'compass'"
         size="20"
       />
-      <f7-icon
-        v-else
-        size="20"
-        f7="compass"
-      />
-      <span>社区</span>
+      <div>社区</div>
     </f7-link>
     <f7-link
       tab-link="#tab-bangumi"
       @click="pageChange(1)"
     >
       <f7-icon
-        v-if="selectedIndex === 1"
-        f7="videocam_fill"
+        :f7="selectedIndex ? 'videocam_fill' : 'videocam'"
         size="20"
       />
-      <f7-icon
-        v-else
-        size="20"
-        f7="videocam"
-      />
-      <span>番剧</span>
+      <div>番剧</div>
     </f7-link>
     <circle-menu
       :number="3"
@@ -185,36 +173,26 @@
       </div>
     </circle-menu>
     <f7-link
-      tab-link="#tab-role-trending"
+      tab-link="#tab-notification"
       @click="pageChange(2)"
     >
       <f7-icon
-        v-if="selectedIndex === 2"
-        f7="heart_fill"
+        :f7="selectedIndex === 2 ? 'bell_fill' : 'bell'"
         size="20"
-      />
-      <f7-icon
-        v-else
-        size="20"
-        f7="heart"
-      />
-      <span>偶像</span>
+      >
+        <f7-badge color="red">7</f7-badge>
+      </f7-icon>
+      <div>消息</div>
     </f7-link>
     <f7-link
       tab-link="#tab-user"
       @click="pageChange(3)"
     >
       <f7-icon
-        v-if="selectedIndex === 3"
-        f7="home_fill"
+        :f7="selectedIndex ? 'home_fill' : 'home'"
         size="20"
       />
-      <f7-icon
-        v-else
-        size="20"
-        f7="home"
-      />
-      <span>我的</span>
+      <div>我</div>
     </f7-link>
   </div>
 </template>
