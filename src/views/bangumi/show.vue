@@ -73,7 +73,7 @@
           @tab:show="handleTabShow(2)"
           @tab:hide="handleTabHide(2)"
         >
-          <score-flow-list :bangumi-id="id"/>
+          <bangumi-score-flow :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           v-scroll-emit="200"
@@ -130,7 +130,7 @@
   import MenuBar from 'components/MenuBar'
   import PostFlowList from 'components/flow/list/PostFlowList'
   import ImageFlowList from 'components/flow/list/ImageFlowList'
-  import ScoreFlowList from 'components/flow/list/ScoreFlowList'
+  import BangumiScoreFlow from 'components/bangumi/BangumiScoreFlow'
   import BangumiVideoFlow from 'components/bangumi/BangumiVideoFlow'
   import CartoonFlowList from 'components/flow/list/CartoonFlowList'
   import RoleFlowList from 'components/flow/list/RoleFlowList'
@@ -142,7 +142,7 @@
       MenuBar,
       PostFlowList,
       ImageFlowList,
-      ScoreFlowList,
+      BangumiScoreFlow,
       BangumiVideoFlow,
       CartoonFlowList,
       RoleFlowList,

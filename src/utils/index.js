@@ -13,6 +13,7 @@ import 'src/directives/scrollEmiter'
 import CommentMain from 'components/comment/CommentMain'
 import PageActions from 'components/PageActions'
 import JsonContent from 'components/jsonEditor/JsonContent'
+import VCharts from 'v-charts'
 
 import {
   InfiniteScroll,
@@ -22,6 +23,7 @@ import {
 
 import { Rate } from 'element-ui';
 
+Vue.use(VCharts);
 Vue.use(InfiniteScroll);
 Vue.component(Rate.name, Rate);
 Vue.component(DatetimePicker.name, DatetimePicker);
