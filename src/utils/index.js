@@ -11,13 +11,18 @@ import NoMore from 'components/NoMore'
 import 'src/mixins/computeImageAspect'
 import CommentMain from 'components/comment/CommentMain'
 import PageActions from 'components/PageActions'
+import JsonContent from 'components/jsonEditor/JsonContent'
 
 import {
   InfiniteScroll,
   Loadmore
 } from 'mint-ui';
 
+import { Rate } from 'element-ui';
+
 Vue.use(InfiniteScroll);
+Vue.component(Rate.name, Rate);
+Vue.component(JsonContent.name, JsonContent);
 Vue.component(CommentMain.name, CommentMain);
 Vue.component(PageActions.name, PageActions);
 Vue.component(Loadmore.name, Loadmore);

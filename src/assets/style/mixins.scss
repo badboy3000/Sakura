@@ -1,3 +1,22 @@
+%clearfix {
+  &:after {
+    content: '';
+    clear: both;
+    display: table;
+  }
+
+  &:before {
+    content: '';
+    clear: both;
+    display: table;
+  }
+}
+
+%breakWord {
+  word-break: break-word !important;
+  word-break: break-all;
+}
+
 @mixin avatar($size) {
   width: $size;
   height: $size;

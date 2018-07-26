@@ -50,11 +50,16 @@
         @click="handleMainCommentClick(comment)"
       >
         <!-- 主评论的内容 -->
-        <comment-item
-          :type="type"
+        <slot
           :comment="comment"
-          :master-id="masterId"
-        />
+          name="comment-item"
+        >
+          <comment-item
+            :type="type"
+            :comment="comment"
+            :master-id="masterId"
+          />
+        </slot>
       </f7-list-item>
     </f7-list>
     <no-more
