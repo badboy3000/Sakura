@@ -8,6 +8,7 @@ import bangumi from './bangumi'
 import world from './flow'
 import post from './post'
 import comment from './comment'
+import role from './role'
 
 Vue.use(Vuex);
 
@@ -18,6 +19,9 @@ export default new Vuex.Store({
   mutations: {
     SET_LOGGED_USER (state, user) {
       state.user = user
+    },
+    USE_COIN (state) {
+      state.user.coin && state.user.coin--
     }
   },
   actions: {
@@ -39,6 +43,7 @@ export default new Vuex.Store({
     flow,
     bangumi,
     world,
-    post
+    post,
+    role
   }
 });

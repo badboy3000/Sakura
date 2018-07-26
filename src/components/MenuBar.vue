@@ -1,5 +1,25 @@
+<style lang="scss">
+  .md-edge .custom-scroll-nav {
+    background-color: #fff !important;
+
+    .tab-link {
+      color: $color-text-normal !important;
+      transition-duration: 0s !important;
+    }
+
+    .tab-link-active {
+      color: $theme-color !important;
+    }
+
+    .tab-link-highlight {
+      background-color: $theme-color !important;
+    }
+  }
+</style>
+
 <template>
   <f7-toolbar
+    :class="{ 'custom-scroll-nav': !isZero }"
     tabbar
     scrollable
     no-hairline
@@ -26,6 +46,22 @@
       active: {
         type: Number,
         default: 0
+      }
+    },
+    data () {
+      return {
+        isZero: false
+      }
+    },
+    created () {
+      this.$channel.$on('scroll-banner-zero', this.traceOn)
+    },
+    beforeDestroy () {
+      this.$channel.$off('scroll-banner-zero', this.traceOn)
+    },
+    methods: {
+      traceOn (isZero) {
+        this.isZero = isZero
       }
     }
   }

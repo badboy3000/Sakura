@@ -26,6 +26,16 @@
         @include filter-blur();
       }
     }
+
+    .tabs .tab {
+      padding-bottom: 0;
+    }
+  }
+
+  .ios-edge #bangumi-show {
+    .tabs-animated-wrap {
+      margin-top: -44px;
+    }
   }
 </style>
 
@@ -36,14 +46,23 @@
       back-link
       sliding
     />
-    <menu-bar
-      v-if="bangumi"
-      :list="computedMenu"
-      :active="0"
-    />
     <template v-if="bangumi">
+      <scroll-banner
+        height="180"
+        class="banner"
+      >
+        <div
+          :style="{ backgroundImage: `url(${$resize(bangumi.banner, { width: $width, height: 360 })})` }"
+          class="background"
+        />
+      </scroll-banner>
+      <menu-bar
+        :list="computedMenu"
+        :active="0"
+      />
       <f7-tabs animated>
         <f7-tab
+          v-scroll-emit="180"
           id="bangumi-show-post"
           tab-active
           class="page-content"
@@ -53,6 +72,7 @@
           <post-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
+          v-scroll-emit="180"
           id="bangumi-show-image"
           class="page-content"
           @tab:show="handleTabShow(1)"
@@ -61,6 +81,7 @@
           <image-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
+          v-scroll-emit="180"
           id="bangumi-show-score"
           class="page-content"
           @tab:show="handleTabShow(2)"
@@ -69,6 +90,7 @@
           <score-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
+          v-scroll-emit="180"
           v-if="bangumi.has_video"
           id="bangumi-show-video"
           class="page-content"
@@ -78,6 +100,7 @@
           <bangumi-video-flow :id="id"/>
         </f7-tab>
         <f7-tab
+          v-scroll-emit="180"
           v-if="bangumi.has_cartoon"
           id="bangumi-show-cartoon"
           class="page-content"
@@ -87,6 +110,7 @@
           <cartoon-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
+          v-scroll-emit="180"
           id="bangumi-show-role"
           class="page-content"
           @tab:show="handleTabShow(5)"
@@ -95,6 +119,7 @@
           <role-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
+          v-scroll-emit="180"
           v-if="bangumi.is_master"
           id="bangumi-show-setting"
           class="page-content"
@@ -115,17 +140,19 @@
 </template>
 
 <script>
-  import MenuBar from 'components/MenuBar.vue'
+  import ScrollBanner from 'components/ScrollBanner'
+  import MenuBar from 'components/MenuBar'
   import PostFlowList from 'components/flow/list/PostFlowList'
   import ImageFlowList from 'components/flow/list/ImageFlowList'
   import ScoreFlowList from 'components/flow/list/ScoreFlowList'
-  import BangumiVideoFlow from 'components/bangumi/BangumiVideoFlow.vue'
+  import BangumiVideoFlow from 'components/bangumi/BangumiVideoFlow'
   import CartoonFlowList from 'components/flow/list/CartoonFlowList'
   import RoleFlowList from 'components/flow/list/RoleFlowList'
-  import BangumiSetting from 'components/bangumi/BangumiSetting.vue'
+  import BangumiSetting from 'components/bangumi/BangumiSetting'
 
   export default {
     components: {
+      ScrollBanner,
       MenuBar,
       PostFlowList,
       ImageFlowList,
