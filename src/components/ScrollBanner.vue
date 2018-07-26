@@ -5,6 +5,36 @@
     overflow: hidden;
     z-index: 0;
     transition: height .2s linear;
+
+    .fade-container {
+      width: 100%;
+      height: 100%;
+      transition: opacity .2s linear;
+    }
+
+    .background {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #ddd;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: .2;
+      }
+    }
   }
 </style>
 
@@ -13,7 +43,16 @@
     :style="containerHeight"
     class="scroll-banner"
   >
-    <slot/>
+    <div
+      :style="{ backgroundImage: `url(${$resize(background, { width: $width, height: height * 2 })})` }"
+      class="background"
+    />
+    <div
+      :style="{ opacity }"
+      class="fade-container"
+    >
+      <slot/>
+    </div>
   </div>
 </template>
 
@@ -24,6 +63,10 @@
       height: {
         required: true,
         type: [Number, String]
+      },
+      background: {
+        required: true,
+        type: String
       }
     },
     data () {
@@ -37,6 +80,9 @@
         return {
           height: `${this.size}px`
         }
+      },
+      opacity () {
+        return this.size / this.height
       }
     },
     created () {
