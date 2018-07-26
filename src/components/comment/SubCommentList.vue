@@ -70,7 +70,7 @@
           v-if="!comments.noMore || comments.list.length > 5"
           class="load-all-comment"
         >
-          查看全部{{ comments.total }}条评论
+          更多{{ comments.total }}条回复...
         </button>
       </div>
     </div>

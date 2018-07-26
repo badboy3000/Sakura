@@ -27,13 +27,9 @@
 
 <script>
   import { getVideoInfo } from 'api/videoApi'
-  import CommentMain from 'components/comment/CommentMain'
 
   export default {
     name: 'VideoShow',
-    components: {
-      CommentMain
-    },
     data () {
       return {
         loading: false,

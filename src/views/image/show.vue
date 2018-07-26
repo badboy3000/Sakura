@@ -27,13 +27,9 @@
 
 <script>
   import { getImageInfo } from 'api/imageApi'
-  import CommentMain from 'components/comment/CommentMain'
 
   export default {
     name: 'ImageShow',
-    components: {
-      CommentMain
-    },
     data () {
       return {
         loading: true,

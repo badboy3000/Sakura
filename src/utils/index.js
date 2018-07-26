@@ -9,6 +9,8 @@ import func from 'assets/js/func'
 import resize from 'assets/js/imageResize'
 import NoMore from 'components/NoMore'
 import 'src/mixins/computeImageAspect'
+import CommentMain from 'components/comment/CommentMain'
+import PageActions from 'components/PageActions'
 
 import {
   InfiniteScroll,
@@ -16,6 +18,8 @@ import {
 } from 'mint-ui';
 
 Vue.use(InfiniteScroll);
+Vue.component(CommentMain.name, CommentMain);
+Vue.component(PageActions.name, PageActions);
 Vue.component(Loadmore.name, Loadmore);
 Vue.component(ImageLazy.name, ImageLazy);
 Vue.component(TimeAgo.name, TimeAgo);

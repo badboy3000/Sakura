@@ -90,16 +90,19 @@
           class="other"
         >
           <f7-link
-            :icon-f7="liked ? 'heart-fill' : 'heart'"
-            icon-color="gray"
+            v-if="canLike"
+            :icon-f7="liked ? 'heart_fill' : 'heart'"
+            :icon-color="liked ? 'pink' : 'gray'"
           />
           <f7-link
+            v-if="canReward"
             :icon-f7="rewarded ? 'money_dollar_fill' : 'money_dollar'"
-            icon-color="gray"
+            :icon-color="rewarded ? 'pink' : 'gray'"
           />
           <f7-link
+            v-if="canMark"
             :icon-f7="marked ? 'star_fill' : 'star'"
-            icon-color="gray"
+            :icon-color="marked ? 'pink' : 'gray'"
           />
         </div>
       </slot>
@@ -125,8 +128,26 @@
 </template>
 
 <script>
+  import { likeApi, rewardApi, markApi } from 'api/toggleApi'
+
   export default {
     props: {
+      id: {
+        required: true,
+        type: Number
+      },
+      canLike: {
+        type: Boolean,
+        default: true
+      },
+      canMark: {
+        type: Boolean,
+        default: true
+      },
+      canReward: {
+        type: Boolean,
+        default: true
+      },
       liked: {
         type: Boolean,
         default: false

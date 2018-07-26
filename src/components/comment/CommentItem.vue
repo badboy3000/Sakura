@@ -3,7 +3,6 @@
     position: relative;
     margin-top: $container-padding;
     padding-bottom: $container-padding;
-    @include border-bottom();
 
     .avatar {
       float: left;
@@ -15,15 +14,6 @@
       overflow: hidden;
 
       .header {
-        .tools-btn {
-          float: right;
-          line-height: 16px;
-          font-size: 12px;
-          color: #535353;
-          margin-top: 9px;
-          margin-left: 4px;
-        }
-
         .user {
           .nickname {
             font-size: 14px;
@@ -62,18 +52,14 @@
       }
 
       .footer {
-        .social {
-          margin-top: 15px;
+        .extra {
+          color: #999;
+          line-height: 14px;
           font-size: 12px;
+        }
 
-          .reply-liked-btn {
-            color: $color-blue-deep;
-          }
-
-          button {
-            color: #666;
-            margin-left: 3px;
-          }
+        .comment-like-btn {
+          float: right;
         }
       }
     }
@@ -97,10 +83,6 @@
     </a>
     <div class="content">
       <div class="header">
-        <button
-          class="tools-btn"
-          @click="showControlPanel = true"
-        >···</button>
         <div class="user">
           <a
             :href="$alias.user(comment.from_user_zone)"
@@ -110,7 +92,6 @@
           <div class="info">
             <span>第{{ comment.floor_count - 1 }}楼</span>
             <span>·</span>
-            <v-time v-model="comment.created_at"/>
           </div>
         </div>
       </div>
@@ -119,34 +100,29 @@
         v-html="comment.content"
       />
       <div class="footer">
+        <div class="extra">
+          <v-time v-model="comment.created_at"/>
+          <f7-link
+            class="comment-like-btn"
+            @click.stop.prevent="toggleLike"
+          >
+            <span
+              v-if="comment.like_count"
+              v-text="comment.like_count"
+            />
+            <f7-icon
+              :f7="comment.liked ? 'heart_fill' : 'heart'"
+              :color="comment.liked ? 'pink' : 'gray'"
+              size="12"
+            />
+          </f7-link>
+        </div>
         <sub-comment-list
           :parent-comment="comment"
           :type="type"
           :show-all="showAll"
         />
-        <div class="social">
-          <button
-            :class="[ comment.liked ? 'reply-liked-btn' : 'reply-like-btn' ]"
-            @click="toggleLike"
-          >
-            <i class="iconfont icon-icon_good"/>
-            {{ comment.liked ? '已赞' : '赞' }}
-            <span v-if="comment.like_count">({{ comment.like_count }})</span>
-          </button>
-          <button
-            class="reply-btn fr"
-            @click="handleCommentBtnClick"
-          >
-            回复
-          </button>
-        </div>
       </div>
-      <!--
-      <mt-actionsheet
-        :actions="actions"
-        v-model="showControlPanel"
-      ></mt-actionsheet>
-      -->
     </div>
   </div>
 </template>
@@ -180,8 +156,7 @@
     data () {
       return {
         deleting: false,
-        liking: false,
-        showControlPanel: false
+        liking: false
       }
     },
     computed: {

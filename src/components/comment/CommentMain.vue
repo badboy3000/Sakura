@@ -58,12 +58,21 @@
       </f7-list-item>
     </f7-list>
     <no-more
-      :loading="loading && !!source.list.length"
+      :loading="loading && (reload || !!source.list.length)"
       :length="source.list.length"
       :no-more="source.noMore"
       :nothing-text="emptyText"
     />
-    <create-comment-bar @submit="createMainComment"/>
+    <create-comment-bar
+      :id="id"
+      :can-like="canLike"
+      :can-mark="canMark"
+      :can-reward="canReward"
+      :liked="liked"
+      :marked="marked"
+      :rewarded="rewarded"
+      @submit="createMainComment"
+    />
   </div>
 </template>
 
@@ -100,11 +109,36 @@
       masterId: {
         required: true,
         type: Number
+      },
+      canLike: {
+        type: Boolean,
+        default: true
+      },
+      canMark: {
+        type: Boolean,
+        default: true
+      },
+      canReward: {
+        type: Boolean,
+        default: true
+      },
+      liked: {
+        type: Boolean,
+        default: false
+      },
+      marked: {
+        type: Boolean,
+        default: false
+      },
+      rewarded: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
       return {
-        loading: false
+        loading: false,
+        reload: false
       }
     },
     computed: {
@@ -118,11 +152,17 @@
         return this.loading || this.source.noMore
       }
     },
+    watch: {
+      onlySeeMaster () {
+        this.reload = true
+        this.loadMoreMainComment(true)
+      }
+    },
     created () {
       this.loadMoreMainComment();
     },
     methods: {
-      async loadMoreMainComment () {
+      async loadMoreMainComment (refresh = false) {
         if (this.loading) {
           return
         }
@@ -132,7 +172,8 @@
             ctx: this,
             type: this.type,
             id: this.id,
-            onlySeeMaster: this.onlySeeMaster ? 1 : 0
+            onlySeeMaster: this.onlySeeMaster ? 1 : 0,
+            refresh
           })
         } catch (e) {
           this.$toast.error(e)

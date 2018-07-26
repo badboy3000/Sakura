@@ -150,8 +150,8 @@ const mutations = {
 }
 
 const actions = {
-  async getMainComments ({ state, commit }, { type, id, onlySeeMaster, seeReplyId }) {
-    if (state.type && state.id && (state.type !== type || state.id !== id)) {
+  async getMainComments ({ state, commit }, { type, id, onlySeeMaster, seeReplyId, refresh }) {
+    if (refresh || (state.type && state.id && (state.type !== type || state.id !== id))) {
       commit('RESET_STATE');
     }
     if (state.noMore) {

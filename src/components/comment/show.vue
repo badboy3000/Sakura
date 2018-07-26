@@ -1,14 +1,15 @@
-<style lang="scss">
-
-</style>
-
 <template>
   <f7-page>
-    <f7-navbar
-      title="comment show"
-      back-link
-      sliding
-    />
+    <f7-navbar sliding>
+      <f7-nav-left
+        back-link
+      />
+      <f7-nav-title>{{ comment.floor_count }}楼</f7-nav-title>
+      <page-actions
+        :id="id"
+        :type="`${type}-comment`"
+      />
+    </f7-navbar>
     <comment-item
       :type="type"
       :comment="comment"

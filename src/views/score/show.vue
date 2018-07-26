@@ -22,13 +22,9 @@
 
 <script>
   import { getScoreInfo } from 'api/scoreApi'
-  import CommentMain from 'components/comment/CommentMain'
 
   export default {
     name: 'ScoreShow',
-    components: {
-      CommentMain
-    },
     data () {
       return {
         loading: true,
