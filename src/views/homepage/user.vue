@@ -51,7 +51,6 @@
           <f7-col/>
         </f7-row>
       </f7-block>
-      <div class="hr"/>
       <f7-block-title>每日签到</f7-block-title>
       <f7-list>
         <f7-list-item :title="`${user.coin}`">
@@ -67,7 +66,6 @@
           <p>每日签到赚金币，1 金币 = 1 人民币，满 100 金币可提现 (。・∀・)ノ</p>
         </f7-block-footer>
       </f7-list>
-      <div class="hr"/>
       <user-setting-form/>
     </div>
   </div>

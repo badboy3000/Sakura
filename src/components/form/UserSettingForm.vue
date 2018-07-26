@@ -97,6 +97,7 @@
         <f7-button
           fill
           round
+          big
           @click="submit"
         >
           <f7-preloader

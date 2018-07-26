@@ -35,7 +35,11 @@
         height: 40px;
         line-height: 40px;
         margin-left: 4px;
-        color: #fff;
+
+        a {
+          color: #fff;
+          display: block;
+        }
 
         .review-btn {
           line-height: 38px;
@@ -116,7 +120,7 @@
       @click="pageChange(0)"
     >
       <f7-icon
-        :f7="selectedIndex ? 'compass_fill' : 'compass'"
+        :f7="selectedIndex === 0 ? 'compass_fill' : 'compass'"
         size="20"
       />
       <div>社区</div>
@@ -126,12 +130,13 @@
       @click="pageChange(1)"
     >
       <f7-icon
-        :f7="selectedIndex ? 'videocam_fill' : 'videocam'"
+        :f7="selectedIndex === 1 ? 'videocam_fill' : 'videocam'"
         size="20"
       />
       <div>番剧</div>
     </f7-link>
     <circle-menu
+      ref="creator"
       :number="3"
       :colors="[ '#fa7884', '#FAB962', '#9266f9', '#16c2c2', '#f00']"
       btn
@@ -141,36 +146,39 @@
       class="creator-btn"
       @click="createBtnClick"
     >
-      <div
+      <f7-link
         slot="item_1"
         data-text="发帖子"
         class="post-btn"
+        @click="goToCreator('post')"
       >
         <f7-icon
           f7="favorites_fill"
           size="13"
         />
-      </div>
-      <div
+      </f7-link>
+      <f7-link
         slot="item_2"
         data-text="传图片"
         class="image-btn"
+        @click="goToCreator('image')"
       >
         <f7-icon
           f7="images_fill"
           size="15"
         />
-      </div>
-      <div
+      </f7-link>
+      <f7-link
         slot="item_3"
         data-text="写漫评"
         class="review-btn"
+        @click="goToCreator('review')"
       >
         <f7-icon
           f7="document_text_fill"
           size="15"
         />
-      </div>
+      </f7-link>
     </circle-menu>
     <f7-link
       tab-link="#tab-notification"
@@ -189,7 +197,7 @@
       @click="pageChange(3)"
     >
       <f7-icon
-        :f7="selectedIndex ? 'home_fill' : 'home'"
+        :f7="selectedIndex === 3 ? 'home_fill' : 'home'"
         size="20"
       />
       <div>我</div>
@@ -217,6 +225,10 @@
       },
       createBtnClick (isOpen) {
         this.$channel.$emit('toggle-creator', isOpen)
+      },
+      goToCreator (type) {
+        this.$refs.creator.toggle();
+        this.$f7router.navigate(`/creator/${type}`)
       }
     }
   }

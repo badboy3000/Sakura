@@ -22,6 +22,23 @@ export default [
     ]
   },
   {
+    path: '/creator',
+    routes: [
+      {
+        path: 'post',
+        component: require('views/creator/post.vue'),
+      },
+      {
+        path: 'image',
+        component: require('views/creator/image.vue'),
+      },
+      {
+        path: 'review',
+        component: require('views/creator/score.vue')
+      }
+    ]
+  },
+  {
     path: '/',
     component: require('views/homepage/index.vue')
   },
