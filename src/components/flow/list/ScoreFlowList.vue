@@ -6,6 +6,7 @@
     @infinite="loadMore"
     @ptr:refresh="refresh"
   >
+    <slot/>
     <f7-list class="no-arrow">
       <score-flow-item
         v-for="item in source.list"

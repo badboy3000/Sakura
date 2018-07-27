@@ -4,7 +4,8 @@ class Http {
   init (token) {
     const http = axios.create({
       // baseURL: process.env.API_HOST,
-      baseURL: 'https://api.calibur.tv/',
+      baseURL: 'http://localhost:3099',
+      // baseURL: 'https://api.calibur.tv/',
       headers: { Accept: 'application/x.api.latest+json' },
       timeout: 10000
     })

@@ -3,7 +3,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    z-index: 0;
+    z-index: 1;
     transition: height .2s linear;
 
     .fade-container {

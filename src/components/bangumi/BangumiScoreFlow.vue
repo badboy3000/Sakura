@@ -1,53 +1,51 @@
 <style lang="scss">
-  #bangumi-score-flow {
-    #bangumi-score-panel {
+  #bangumi-score-panel {
 
-      .bangumi-score-wrap {
-        .ve-radar {
-          margin: 0 auto;
+    .bangumi-score-wrap {
+      .ve-radar {
+        margin: 0 auto;
+      }
+    }
+
+    .bangumi-score-total {
+      margin-top: $container-padding;
+      margin-bottom: 10px;
+
+      .intro {
+        float: right;
+        text-align: center;
+
+        .total {
+          font-size: 28px;
+          line-height: 56px;
+        }
+
+        .rate {
+          span {
+            font-size: 12px;
+            color: $color-text-normal;
+          }
         }
       }
 
-      .bangumi-score-total {
-        margin-top: $container-padding;
-        margin-bottom: 10px;
+      .ladder {
+        overflow: hidden;
 
-        .intro {
-          float: right;
-          text-align: center;
-
-          .total {
-            font-size: 28px;
-            line-height: 56px;
-          }
-
-          .rate {
-            span {
-              font-size: 12px;
-              color: $color-text-normal;
-            }
-          }
+        .label, .percent {
+          margin-right: 10px;
+          font-size: 13px;
+          line-height: 14px;
+          color: $color-text-normal;
+          vertical-align: middle;
         }
 
-        .ladder {
-          overflow: hidden;
-
-          .label, .percent {
-            margin-right: 10px;
-            font-size: 13px;
-            line-height: 14px;
-            color: $color-text-normal;
-            vertical-align: middle;
-          }
-
-          .score {
-            display: inline-block;
-            height: 10px;
-            background-color: rgb(247, 186, 42);
-            margin-right: 5px;
-            border-radius: 3px;
-            vertical-align: middle;
-          }
+        .score {
+          display: inline-block;
+          height: 10px;
+          background-color: rgb(247, 186, 42);
+          margin-right: 5px;
+          border-radius: 3px;
+          vertical-align: middle;
         }
       }
     }
@@ -55,7 +53,7 @@
 </style>
 
 <template>
-  <div id="bangumi-score-flow">
+  <score-flow-list :bangumi-id="bangumiId">
     <f7-block
       v-if="bangumiScore"
       id="bangumi-score-panel"
@@ -99,8 +97,7 @@
         />
       </div>
     </f7-block>
-    <score-flow-list :bangumi-id="bangumiId"/>
-  </div>
+  </score-flow-list>
 </template>
 
 <script>
@@ -137,10 +134,10 @@
       }
     },
     mounted () {
-      this.$channel.$on('bangumi-show-tab-2-switch', this.getScore)
+      this.$channel.$on('flow-list-fetch-score', this.getScore)
     },
     beforeDestroy () {
-      this.$channel.$off('bangumi-show-tab-2-switch')
+      this.$channel.$off('flow-list-fetch-score')
     },
     methods: {
       async getScore () {

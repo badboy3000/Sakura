@@ -13,14 +13,8 @@
       }
     }
 
-    .tabs .tab {
-      padding-bottom: 0;
-    }
-  }
-
-  .ios-edge #bangumi-show {
-    .tabs-animated-wrap {
-      margin-top: -44px;
+    .bangumi-tabs-wrap {
+      margin-top: 200px;
     }
   }
 </style>
@@ -46,75 +40,6 @@
         :list="computedMenu"
         :active="0"
       />
-      <f7-tabs animated>
-        <f7-tab
-          v-scroll-emit="200"
-          id="bangumi-show-post"
-          tab-active
-          class="page-content"
-          @tab:show="handleTabShow(0)"
-          @tab:hide="handleTabHide(0)"
-        >
-          <post-flow-list :bangumi-id="id"/>
-        </f7-tab>
-        <f7-tab
-          v-scroll-emit="200"
-          id="bangumi-show-image"
-          class="page-content"
-          @tab:show="handleTabShow(1)"
-          @tab:hide="handleTabHide(1)"
-        >
-          <image-flow-list :bangumi-id="id"/>
-        </f7-tab>
-        <f7-tab
-          v-scroll-emit="200"
-          id="bangumi-show-score"
-          class="page-content"
-          @tab:show="handleTabShow(2)"
-          @tab:hide="handleTabHide(2)"
-        >
-          <bangumi-score-flow :bangumi-id="id"/>
-        </f7-tab>
-        <f7-tab
-          v-scroll-emit="200"
-          v-if="bangumi.has_video"
-          id="bangumi-show-video"
-          class="page-content"
-          @tab:show="handleTabShow(3)"
-          @tab:hide="handleTabHide(3)"
-        >
-          <bangumi-video-flow :id="id"/>
-        </f7-tab>
-        <f7-tab
-          v-scroll-emit="200"
-          v-if="bangumi.has_cartoon"
-          id="bangumi-show-cartoon"
-          class="page-content"
-          @tab:show="handleTabShow(4)"
-          @tab:hide="handleTabHide(4)"
-        >
-          <cartoon-flow-list :bangumi-id="id"/>
-        </f7-tab>
-        <f7-tab
-          v-scroll-emit="200"
-          id="bangumi-show-role"
-          class="page-content"
-          @tab:show="handleTabShow(5)"
-          @tab:hide="handleTabHide(5)"
-        >
-          <role-flow-list :bangumi-id="id"/>
-        </f7-tab>
-        <f7-tab
-          v-scroll-emit="200"
-          v-if="bangumi.is_master"
-          id="bangumi-show-setting"
-          class="page-content"
-          @tab:show="handleTabShow(6)"
-          @tab:hide="handleTabHide(6)"
-        >
-          <bangumi-setting :id="id"/>
-        </f7-tab>
-      </f7-tabs>
     </template>
     <f7-block
       v-else
@@ -122,6 +47,61 @@
     >
       <f7-preloader/>
     </f7-block>
+    <f7-page
+      :page-content="true"
+      class="bangumi-tabs-wrap"
+    >
+      <f7-tabs>
+        <f7-tab
+          v-scroll-emit="200"
+          id="bangumi-show-post"
+          tab-active
+        >
+          <post-flow-list :bangumi-id="id"/>
+        </f7-tab>
+        <f7-tab
+          v-scroll-emit="200"
+          id="bangumi-show-image"
+          @tab:show="$channel.$emit('flow-list-fetch-image')"
+        >
+          <image-flow-list :bangumi-id="id"/>
+        </f7-tab>
+        <f7-tab
+          v-scroll-emit="200"
+          id="bangumi-show-score"
+          @tab:show="$channel.$emit('flow-list-fetch-score')"
+        >
+          <bangumi-score-flow :bangumi-id="id"/>
+        </f7-tab>
+        <f7-tab
+          v-scroll-emit="200"
+          v-if="hasVideo"
+          id="bangumi-show-video"
+        >
+          <bangumi-video-flow :id="id"/>
+        </f7-tab>
+        <f7-tab
+          v-scroll-emit="200"
+          v-if="hasCartoon"
+          id="bangumi-show-cartoon"
+        >
+          <cartoon-flow-list :bangumi-id="id"/>
+        </f7-tab>
+        <f7-tab
+          v-scroll-emit="200"
+          id="bangumi-show-role"
+        >
+          <role-flow-list :bangumi-id="id"/>
+        </f7-tab>
+        <f7-tab
+          v-scroll-emit="200"
+          v-if="isMaster"
+          id="bangumi-show-setting"
+        >
+          <bangumi-setting :id="id"/>
+        </f7-tab>
+      </f7-tabs>
+    </f7-page>
   </f7-page>
 </template>
 
@@ -150,7 +130,6 @@
     },
     data () {
       return {
-        loading: false,
         bangumi: null
       }
     },
@@ -173,13 +152,13 @@
             label: '漫评'
           }
         ];
-        if (this.bangumi.has_video) {
+        if (this.hasVideo) {
           result.push({
             value: 'bangumi-show-video',
             label: '视频'
           })
         }
-        if (this.bangumi.has_cartoon) {
+        if (this.hasCartoon) {
           result.push({
             value: 'bangumi-show-cartoon',
             label: '漫画'
@@ -189,33 +168,44 @@
           value: 'bangumi-show-role',
           label: '偶像'
         })
-        if (this.bangumi.is_master) {
+        if (this.isMaster) {
           result.push({
             value: 'bangumi-show-setting',
             label: '管理'
           })
         }
-
         return result
+      },
+      hasVideo () {
+        return this.bangumi
+          ? this.bangumi.has_video
+          : false
+      },
+      hasCartoon () {
+        return this.bangumi
+          ? this.bangumi.has_cartoon
+          : false
+      },
+      isMaster () {
+        return this.bangumi
+          ? this.bangumi.is_master
+          : false
       }
     },
     created () {
       this.getData();
     },
+    mounted () {
+      this.$channel.$emit('flow-list-fetch-post')
+    },
     methods: {
       async getData () {
-        if (this.loading) {
-          return
-        }
-        this.loading = true;
         try {
           this.bangumi = await this.$store.dispatch('bangumi/getInfo', {
             bangumiId: this.id
           })
         } catch (e) {
           this.$toast.error(e)
-        } finally {
-          this.loading = false
         }
       },
       handleTabShow (index) {
