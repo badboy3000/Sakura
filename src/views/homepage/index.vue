@@ -3,56 +3,33 @@
     @include avatar(32px)
   }
 
-  /*
-  #calibur {
-    .tab,
-    .page-current,
-    .page-content > .tabs {
-      height: 100%;
+  #calibur.showNavBorder {
+    &>.navbar:after {
+      opacity: 0;
     }
+  }
 
-    .homepage-container {
-      height: 100%;
-
-      .tabs-animated-wrap {
-        padding-bottom: $tab-height;
-
-        .tab {
-          overflow-y: auto;
-          -webkit-overflow-scrolling: touch;
-        }
+  .ios-edge {
+    #tab-world, #tab-bangumi {
+      .toolbar {
+        @include border-bottom();
       }
     }
   }
-
-  .ios #calibur {
-    .homepage-container {
-      margin-top: -$ios-tab-height;
-      padding-top: $ios-tab-height;
-    }
-  }
-
-  .md #calibur {
-    .homepage-container {
-      margin-top: -$md-tab-height;
-      padding-top: $md-tab-height;
-    }
-  }
-  */
 </style>
 
 <template>
-  <f7-page id="calibur">
-    <f7-navbar
-      no-hairline
-      no-shadow
-    >
+  <f7-page
+    id="calibur"
+    :class="{ showNavBorder }"
+  >
+    <f7-navbar no-hairline>
       <f7-nav-left>
+        <f7-link icon="fa fa-bars"/>
         <div class="nav-avatar">
           <img :src="$resize(avatar, { width: 100 })">
         </div>
       </f7-nav-left>
-      <div class="title">calibur.tv</div>
       <f7-nav-right>
         <f7-link
           icon="fa fa-search"
@@ -69,7 +46,6 @@
         <f7-toolbar
           tabbar
           no-hairline
-          no-shadow
         >
           <f7-link
             tab-link="#world-post"
@@ -82,15 +58,12 @@
             tab-link="#world-review"
           >漫评</f7-link>
         </f7-toolbar>
-        <the-world/>
+        <the-world class="sub-tab-page"/>
       </f7-tab>
-      <f7-tab
-        id="tab-bangumi"
-      >
+      <f7-tab id="tab-bangumi">
         <f7-toolbar
           tabbar
           no-hairline
-          no-shadow
         >
           <f7-link
             tab-link="#bangumi-release"
@@ -106,20 +79,16 @@
             tab-link="#cartoon-role-trending"
           >偶像排行榜</f7-link>
         </f7-toolbar>
-        <bangumi-area/>
+        <bangumi-area class="sub-tab-page"/>
       </f7-tab>
-      <f7-tab
-        id="tab-notification"
-      >
+      <f7-tab id="tab-notification">
         <notification/>
       </f7-tab>
-      <f7-tab
-        id="tab-user"
-      >
+      <f7-tab id="tab-user">
         <my-home/>
       </f7-tab>
     </f7-tabs>
-    <tab-bar/>
+    <tab-bar @tab-switch="handleTabSwitch"/>
   </f7-page>
 </template>
 
@@ -142,7 +111,8 @@
     },
     data () {
       return {
-        openSearchDialog: false
+        openSearchDialog: false,
+        showNavBorder: true
       }
     },
     computed: {
@@ -150,6 +120,11 @@
         return this.$store.state.user
           ? this.$store.state.user.avatar
           : ''
+      }
+    },
+    methods: {
+      handleTabSwitch (index) {
+        this.showNavBorder = index < 2
       }
     }
   }

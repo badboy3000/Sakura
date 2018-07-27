@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <f7-page :page-content="true">
     <f7-block
       v-if="loading"
       class="text-align-center"
@@ -55,7 +55,7 @@
         </f7-list-item>
       </f7-list>
     </div>
-  </div>
+  </f7-page>
 </template>
 
 <script>

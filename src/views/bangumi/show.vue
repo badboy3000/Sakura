@@ -17,6 +17,26 @@
       margin-top: 200px;
     }
   }
+
+  .ios-edge #bangumi-show {
+    .bangumi-tabs-wrap {
+      .page-content {
+        .page-content {
+          margin-top: 44px;
+        }
+      }
+    }
+  }
+
+  .md-edge #bangumi-show {
+    .bangumi-tabs-wrap {
+      .page-content {
+        .page-content {
+          margin-top: 48px;
+        }
+      }
+    }
+  }
 </style>
 
 <template>

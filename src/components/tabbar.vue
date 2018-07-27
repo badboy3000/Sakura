@@ -12,6 +12,18 @@
     justify-content: space-around;
     align-items: center;
 
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 1px;
+      background-color: #c4c4c4;
+      transform: scaleY(0.5);
+      transform-origin: 50% 100%;
+    }
+
     >* {
       flex-grow: 1;
     }
@@ -220,6 +232,7 @@
     methods: {
       pageChange (index) {
         this.selectedIndex = index
+        this.$emit('tab-switch', index)
         this.$channel.$emit(`tab-switch-${index}`)
       },
       createBtnClick (isOpen) {

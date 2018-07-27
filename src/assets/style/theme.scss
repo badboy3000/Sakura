@@ -48,12 +48,6 @@ input:-webkit-autofill {
   padding-right: 16px;
 }
 
-.navbar {
-  &:after {
-    content: none !important;
-  }
-}
-
 .sign-container {
   background-color: $theme-color !important;
 

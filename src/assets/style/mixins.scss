@@ -64,10 +64,11 @@
     right: 0;
     bottom: 0;
     height: 1px;
-    background-color: #F0F0F0;
+    background-color: #c4c4c4;
     transform: scaleY(0.5);
     margin-left: $margin;
     margin-right: $margin;
+    transform-origin: 50% 100%;
   }
 }
 
