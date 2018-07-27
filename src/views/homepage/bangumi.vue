@@ -1,24 +1,5 @@
 <template>
-  <div class="homepage-container">
-    <f7-toolbar
-      tabbar
-      no-hairline
-      no-shadow
-    >
-      <f7-link
-        tab-link="#bangumi-release"
-        tab-link-active
-      >新番时间表</f7-link>
-      <f7-link
-        tab-link="#bangumi-timeline"
-      >时间轴</f7-link>
-      <f7-link
-        tab-link="#bangumi-category"
-      >番剧索引</f7-link>
-      <f7-link
-        tab-link="#cartoon-role-trending"
-      >偶像排行榜</f7-link>
-    </f7-toolbar>
+  <f7-page :page-content="true">
     <f7-tabs
       animated
       swipeable
@@ -53,7 +34,7 @@
         <cartoon-role-trending/>
       </f7-tab>
     </f7-tabs>
-  </div>
+  </f7-page>
 </template>
 
 <script>

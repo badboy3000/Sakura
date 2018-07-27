@@ -3,6 +3,7 @@
     @include avatar(32px)
   }
 
+  /*
   #calibur {
     .tab,
     .page-current,
@@ -37,6 +38,7 @@
       padding-top: $md-tab-height;
     }
   }
+  */
 </style>
 
 <template>
@@ -64,11 +66,46 @@
         id="tab-world"
         tab-active
       >
+        <f7-toolbar
+          tabbar
+          no-hairline
+          no-shadow
+        >
+          <f7-link
+            tab-link="#world-post"
+            tab-link-active
+          >帖子</f7-link>
+          <f7-link
+            tab-link="#world-image"
+          >图片</f7-link>
+          <f7-link
+            tab-link="#world-review"
+          >漫评</f7-link>
+        </f7-toolbar>
         <the-world/>
       </f7-tab>
       <f7-tab
         id="tab-bangumi"
       >
+        <f7-toolbar
+          tabbar
+          no-hairline
+          no-shadow
+        >
+          <f7-link
+            tab-link="#bangumi-release"
+            tab-link-active
+          >新番时间表</f7-link>
+          <f7-link
+            tab-link="#bangumi-timeline"
+          >时间轴</f7-link>
+          <f7-link
+            tab-link="#bangumi-category"
+          >番剧索引</f7-link>
+          <f7-link
+            tab-link="#cartoon-role-trending"
+          >偶像排行榜</f7-link>
+        </f7-toolbar>
         <bangumi-area/>
       </f7-tab>
       <f7-tab
@@ -92,7 +129,6 @@
   import TheWorld from './world'
   import BangumiArea from './bangumi'
   import Notification from './notification'
-  import CartoonRoleTrending from './role'
   import MyHome from './user'
 
   export default {

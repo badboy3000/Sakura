@@ -12,16 +12,16 @@ import Framework7Vue from 'framework7-vue/framework7-vue.esm.bundle.js';
 import 'framework7-icons/css/framework7-icons.css'
 
 // Import Element-UI Styles
-import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/index.css'
 
 // Import Mint-UI Styles
-import 'mint-ui/lib/style.css'
+// import 'mint-ui/lib/style.css'
 
 // Import Fontawesome Theme Styles
 import 'font-awesome/css/font-awesome.css'
 
 // Import App Custom Styles
-import 'assets/style/main.scss'
+import 'styles/main.scss'
 
 // Import App Component
 import app from './app.vue'

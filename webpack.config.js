@@ -23,8 +23,14 @@ let config = function (env) {
         'vue$': 'vue/dist/vue.common.js',
         'src': path.resolve(__dirname, 'src/'),
         'assets': path.resolve(__dirname, 'src/assets/'),
+        'images': path.resolve(__dirname, 'src/assets/images/'),
+        'styles': path.resolve(__dirname, 'src/assets/style/'),
+        'vendor': path.resolve(__dirname, 'src/assets/js/'),
         'api': path.resolve(__dirname, 'src/api/'),
         'views': path.resolve(__dirname, 'src/views/'),
+        'mixins': path.resolve(__dirname, 'src/mixins/'),
+        'filters': path.resolve(__dirname, 'src/filters/'),
+        'directives': path.resolve(__dirname, 'src/directives/'),
         'components': path.resolve(__dirname, 'src/components/')
       }
     },
@@ -94,8 +100,7 @@ let config = function (env) {
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          // exclude: /node_modules(\/|\\)(?!(framework7|framework7-vue|template7|dom7)(\/|\\)).*/,
-          exclude: /node_modules/
+          exclude: /node_modules(\/|\\)(?!(framework7|framework7-vue|template7|dom7)(\/|\\)).*/
         }
       ]
     },

@@ -1,8 +1,10 @@
 <template>
-  <div
-    v-infinite-scroll="getData"
-    infinite-scroll-distance="50"
-    infinite-scroll-disabled="notFetch"
+  <f7-page
+    :page-content="true"
+    :infinite="!source.noMore"
+    ptr
+    @infinite="loadMore"
+    @ptr:refresh="refresh"
   >
     <f7-list>
       <cartoon-flow-item
@@ -16,17 +18,19 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </div>
+  </f7-page>
 </template>
 
 <script>
   import CartoonFlowItem from 'components/flow/item/CartoonFlowItem'
+  import flowMixin from 'mixins/flow'
 
   export default {
     name: 'CartoonFlowList',
     components: {
       CartoonFlowItem
     },
+    mixins: [flowMixin],
     props: {
       bangumiId: {
         type: Number,
@@ -36,34 +40,24 @@
     data () {
       return {
         loading: false,
-        lock: true
+        triggerKey: 'flow-list-fetch-cartoon'
       }
     },
     computed: {
       source () {
         return this.$store.state.bangumi.cartoon
-      },
-      notFetch () {
-        return this.lock || this.loading || this.source.noMore
       }
     },
-    mounted () {
-      this.$channel.$on('bangumi-show-tab-4-switch', (isShow) => {
-        this.lock = !isShow
-      })
-    },
-    beforeDestroy () {
-      this.$channel.$off('bangumi-show-tab-4-switch')
-    },
     methods: {
-      async getData () {
+      async getData (refresh = false) {
         if (this.loading) {
           return
         }
         this.loading = true
         try {
           await this.$store.dispatch('bangumi/getCartoons', {
-            bangumiId: this.bangumiId
+            bangumiId: this.bangumiId,
+            refresh
           })
         } catch (e) {
           this.$toast.error(e)

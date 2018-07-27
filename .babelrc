@@ -19,11 +19,11 @@
     ["component", [
       {
         "libraryName": "element-ui",
-        "styleLibraryName": false
+        "styleLibraryName": "theme-chalk"
       },
       {
         "libraryName": "mint-ui",
-        "style": false
+        "style": true
       }
     ]]
   ]

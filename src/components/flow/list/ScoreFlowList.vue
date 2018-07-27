@@ -1,10 +1,10 @@
 <template>
-  <mt-loadmore
-    v-infinite-scroll="loadMore"
-    ref="page"
-    :top-method="refresh"
-    infinite-scroll-distance="50"
-    infinite-scroll-disabled="notFetch"
+  <f7-page
+    :page-content="true"
+    :infinite="!source.noMore"
+    ptr
+    @infinite="loadMore"
+    @ptr:refresh="refresh"
   >
     <f7-list class="no-arrow">
       <score-flow-item
@@ -19,17 +19,19 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </mt-loadmore>
+  </f7-page>
 </template>
 
 <script>
   import ScoreFlowItem from 'components/flow/item/ScoreFlowItem.vue'
+  import flowMixin from 'mixins/flow'
 
   export default {
     name: 'ScoreFlowList',
     components: {
       ScoreFlowItem
     },
+    mixins: [flowMixin],
     props: {
       bangumiId: {
         type: Number,
@@ -42,7 +44,7 @@
     },
     data () {
       return {
-        lock: true
+        triggerKey: 'flow-list-fetch-score'
       }
     },
     computed: {
@@ -51,36 +53,10 @@
           return this.$store.state.flow.score.active
         }
         return this.$store.state.world.score.active
-      },
-      notFetch () {
-        return this.lock || this.source.loading || this.source.noMore
-      },
-      switchEvt () {
-        if (this.bangumiId) {
-          return 'bangumi-show-tab-2-switch'
-        }
-        if (this.userId) {
-          return 'user-show-tab-2-switch'
-        }
-        return 'the-world-tab-2-switch'
       }
     },
-    mounted () {
-      this.$channel.$on(this.switchEvt, (isShow) => {
-        this.lock = !isShow
-      })
-    },
-    beforeDestroy () {
-      this.$channel.$off(this.switchEvt)
-    },
     methods: {
-      loadMore () {
-        this.getData(false)
-      },
-      refresh () {
-        this.getData(true)
-      },
-      async getData (refresh) {
+      async getData (refresh = false) {
         try {
           const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
           await this.$store.dispatch(action, {
@@ -92,8 +68,6 @@
           })
         } catch (e) {
           this.$toast.error(e)
-        } finally {
-          refresh && this.$refs.page.onTopLoaded();
         }
       }
     }

@@ -20,7 +20,6 @@
           <f7-input
             type="text"
             placeholder="你的名字"
-            clear-button
             @input="nickname = $event.target.value"
           />
         </f7-list-item>
@@ -32,7 +31,6 @@
           <f7-input
             type="tel"
             placeholder="手机号"
-            clear-button
             @input="access = $event.target.value"
           />
         </f7-list-item>
@@ -44,7 +42,6 @@
           <f7-input
             type="password"
             placeholder="密码"
-            clear-button
             @input="secret = $event.target.value"
           />
         </f7-list-item>
@@ -58,7 +55,6 @@
           <f7-input
             type="number"
             placeholder="邀请码"
-            clear-button
             @input="inviteCode = $event.target.value"
           />
         </f7-list-item>

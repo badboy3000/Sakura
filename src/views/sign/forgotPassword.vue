@@ -20,7 +20,6 @@
           <f7-input
             type="tel"
             placeholder="我的手机号"
-            clear-button
             @input="access = $event.target.value"
           />
         </f7-list-item>
@@ -32,7 +31,6 @@
           <f7-input
             type="password"
             placeholder="我的新密码"
-            clear-button
             @input="secret = $event.target.value"
           />
         </f7-list-item>

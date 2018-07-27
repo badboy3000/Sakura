@@ -3,9 +3,9 @@
 </style>
 
 <template>
-  <div>
+  <f7-page>
     notification
-  </div>
+  </f7-page>
 </template>
 
 <script>

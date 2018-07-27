@@ -5,6 +5,7 @@
   "scripts": {
     "default": "echo \"There is no scripts you can run with npm run command.\" && exit 1",
     "dev": "cordova run browser -- --live-reload",
+    "android": "cordova run android -- --lr",
     "lint": "eslint --fix src .{js,vue}"
   },
   "keywords": [

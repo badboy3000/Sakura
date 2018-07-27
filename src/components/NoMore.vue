@@ -10,16 +10,6 @@
       color: $color-text-normal;
     }
   }
-
-  .no-more-loading {
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-  }
-
-  .no-more-shim {
-    height: 50px;
-  }
 </style>
 
 <template>
@@ -39,16 +29,6 @@
       v-text="noMoreText"
     />
   </div>
-  <div
-    v-else-if="loading"
-    class="no-more-loading"
-  >
-    <f7-preloader/>
-  </div>
-  <div
-    v-else
-    class="no-more-shim"
-  />
 </template>
 
 <script>

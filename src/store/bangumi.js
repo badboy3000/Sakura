@@ -186,8 +186,8 @@ export default {
       const data = await api.getTopPosts({ id })
       commit('SET_TOPIC_POST', data)
     },
-    async getCartoons ({ state, commit }, { bangumiId }) {
-      if (bangumiId !== state.cartoon.bangumiId) {
+    async getCartoons ({ state, commit }, { bangumiId, refresh = false }) {
+      if (refresh || bangumiId !== state.cartoon.bangumiId) {
         commit('RESET_CARTOON', { sort: state.cartoon.sort })
       }
       const data = await Api.cartoon({

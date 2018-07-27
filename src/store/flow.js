@@ -66,7 +66,7 @@ const actions = {
     if (bangumiId !== state.bangumiId) {
       commit('RESET_STATE', { type })
     }
-    if (state[type][sort].noMore || state[type][sort].loading) {
+    if ((state[type][sort].noMore && !refresh) || state[type][sort].loading) {
       return
     }
     commit('SET_LOADING', { type, sort })

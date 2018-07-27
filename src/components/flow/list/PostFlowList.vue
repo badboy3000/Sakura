@@ -1,10 +1,10 @@
 <template>
-  <mt-loadmore
-    v-infinite-scroll="loadMore"
-    ref="page"
-    :top-method="refresh"
-    infinite-scroll-distance="50"
-    infinite-scroll-disabled="notFetch"
+  <f7-page
+    :page-content="true"
+    :infinite="!source.noMore"
+    ptr
+    @infinite="loadMore"
+    @ptr:refresh="refresh"
   >
     <f7-list class="no-arrow">
       <post-flow-item
@@ -18,17 +18,19 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </mt-loadmore>
+  </f7-page>
 </template>
 
 <script>
-  import PostFlowItem from 'components/flow/item/PostFlowItem.vue'
+  import PostFlowItem from 'components/flow/item/PostFlowItem'
+  import flowMixin from 'mixins/flow'
 
   export default {
     name: 'PostFlowList',
     components: {
       PostFlowItem
     },
+    mixins: [flowMixin],
     props: {
       bangumiId: {
         type: Number,
@@ -41,7 +43,7 @@
     },
     data () {
       return {
-        lock: false
+        triggerKey: 'flow-list-fetch-post'
       }
     },
     computed: {
@@ -58,41 +60,10 @@
         return this.source
           ? this.topic.concat(this.source.list)
           : this.topic
-      },
-      notFetch () {
-        return this.lock || this.source.loading || this.source.noMore
-      },
-      switchEvt () {
-        if (this.bangumiId) {
-          return 'bangumi-show-tab-0-switch'
-        }
-        if (this.userId) {
-          return 'user-show-tab-0-switch'
-        }
-        return 'the-world-tab-0-switch'
       }
-    },
-    created () {
-      if (this.bangumiId || this.userId) {
-        this.$store.commit('flow/RESET_STATE', { type: 'post' })
-      }
-    },
-    mounted () {
-      this.$channel.$on(this.switchEvt, (isShow) => {
-        this.lock = !isShow
-      })
-    },
-    beforeDestroy () {
-      this.$channel.$off(this.switchEvt)
     },
     methods: {
-      loadMore () {
-        this.getData(false)
-      },
-      refresh () {
-        this.getData(true)
-      },
-      async getData (refresh) {
+      async getData (refresh = false) {
         try {
           const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
           if (this.bangumiId) {
@@ -119,8 +90,6 @@
           }
         } catch (e) {
           this.$toast.error(e)
-        } finally {
-          refresh && this.$refs.page.onTopLoaded();
         }
       }
     }

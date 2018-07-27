@@ -43,3 +43,11 @@ export const settingProfile = (params) => {
 export const settingImage = ({ type, url }) => {
   return http.post('user/setting/image', { type, url })
 };
+
+export const getUserInfo = ({ zone }) => {
+  return http.get(`user/${zone}/show`)
+}
+
+export const getNotificationCount = () => {
+  return http.get('user/notification/count')
+}

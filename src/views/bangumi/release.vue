@@ -1,8 +1,5 @@
 <template>
-  <f7-page
-    :page-content="true"
-    class="tab-layout-content-container"
-  >
+  <f7-page :page-content="true">
     <f7-block
       v-if="loading"
       class="text-align-center"
@@ -55,6 +52,9 @@
       source () {
         return this.$store.state.bangumi.released
       }
+    },
+    created () {
+      console.log('created');
     },
     mounted () {
       this.$channel.$on('tab-switch-1', this.getData)

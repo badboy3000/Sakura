@@ -1,10 +1,10 @@
 <template>
-  <mt-loadmore
-    v-infinite-scroll="loadMore"
-    ref="page"
-    :top-method="refresh"
-    infinite-scroll-distance="50"
-    infinite-scroll-disabled="notFetch"
+  <f7-page
+    :page-content="true"
+    :infinite="!source.noMore"
+    ptr
+    @infinite="loadMore"
+    @ptr:refresh="refresh"
   >
     <image-waterfall
       :list="source.list"
@@ -15,17 +15,19 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </mt-loadmore>
+  </f7-page>
 </template>
 
 <script>
   import ImageWaterfall from 'components/flow/item/ImageWaterfall.vue'
+  import flowMixin from 'mixins/flow'
 
   export default {
     name: 'ImageFlowList',
     components: {
       ImageWaterfall
     },
+    mixins: [flowMixin],
     props: {
       bangumiId: {
         type: Number,
@@ -38,7 +40,7 @@
     },
     data () {
       return {
-        lock: true
+        triggerKey: 'flow-list-fetch-image'
       }
     },
     computed: {
@@ -47,37 +49,10 @@
           return this.$store.state.flow.image.active
         }
         return this.$store.state.world.image.active
-      },
-      notFetch () {
-        return this.lock || this.source.loading || this.source.noMore
-      },
-      switchEvt () {
-        if (this.bangumiId) {
-          return 'bangumi-show-tab-1-switch'
-        }
-        if (this.userId) {
-          return 'user-show-tab-1-switch'
-        }
-        return 'the-world-tab-1-switch'
       }
     },
-    mounted () {
-      this.$channel.$on(this.switchEvt, (isShow) => {
-        this.lock = !isShow
-      })
-    },
-    beforeDestroy () {
-      this.$channel.$off(this.switchEvt)
-    },
     methods: {
-      loadMore () {
-        this.getData(false)
-      },
-      refresh () {
-        this.getData(true)
-      },
-      async getData (refresh) {
-        this.lock = true
+      async getData (refresh = false) {
         try {
           const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
           await this.$store.dispatch(action, {
@@ -89,12 +64,6 @@
           })
         } catch (e) {
           this.$toast.error(e)
-        } finally {
-          refresh && this.$refs.page.onTopLoaded();
-          // 瀑布流渲染太慢了，导致多次发请求
-          setTimeout(() => {
-            this.lock = false
-          }, 2000)
         }
       }
     }

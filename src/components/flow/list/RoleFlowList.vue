@@ -1,10 +1,10 @@
 <template>
-  <mt-loadmore
-    v-infinite-scroll="loadMore"
-    ref="page"
-    :top-method="refresh"
-    infinite-scroll-distance="50"
-    infinite-scroll-disabled="notFetch"
+  <f7-page
+    :page-content="true"
+    :infinite="!source.noMore"
+    ptr
+    @infinite="loadMore"
+    @ptr:refresh="refresh"
   >
     <f7-list
       media-list
@@ -22,17 +22,19 @@
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </mt-loadmore>
+  </f7-page>
 </template>
 
 <script>
   import RoleFlowItem from 'components/flow/item/RoleFlowItem'
+  import flowMixin from 'mixins/flow'
 
   export default {
     name: 'RoleFlowList',
     components: {
       RoleFlowItem
     },
+    mixins: [flowMixin],
     props: {
       bangumiId: {
         type: Number,
@@ -45,7 +47,7 @@
     },
     data () {
       return {
-        lock: true
+        triggerKey: 'flow-list-fetch-role'
       }
     },
     computed: {
@@ -54,36 +56,10 @@
           return this.$store.state.flow.role.hot
         }
         return this.$store.state.world.role.hot
-      },
-      notFetch () {
-        return this.lock || this.source.loading || this.source.noMore
-      },
-      switchEvt () {
-        if (this.bangumiId) {
-          return 'bangumi-show-tab-5-switch'
-        }
-        if (this.userId) {
-          return 'user-show-tab-2-switch'
-        }
-        return 'bangumi-tab-3-switch'
       }
     },
-    mounted () {
-      this.$channel.$on(this.switchEvt, (isShow) => {
-        this.lock = isShow === undefined ? false : !isShow
-      })
-    },
-    beforeDestroy () {
-      this.$channel.$off(this.switchEvt)
-    },
     methods: {
-      loadMore () {
-        this.getData(false)
-      },
-      refresh () {
-        this.getData(true)
-      },
-      async getData (refresh) {
+      async getData (refresh = false) {
         try {
           const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
           await this.$store.dispatch(action, {
@@ -95,8 +71,6 @@
           })
         } catch (e) {
           this.$toast.error(e)
-        } finally {
-          refresh && this.$refs.page.onTopLoaded();
         }
       }
     }

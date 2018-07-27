@@ -4,7 +4,10 @@
 
 <template>
   <f7-page>
-    launch screen
+    <f7-block-title>Introduction</f7-block-title>
+    <f7-block inner>
+      <p>This is template for Framework7 v2, Vue and Phonegap.</p>
+    </f7-block>
   </f7-page>
 </template>
 
