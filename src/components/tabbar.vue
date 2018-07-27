@@ -220,7 +220,6 @@
     methods: {
       pageChange (index) {
         this.selectedIndex = index
-        this.$channel.$emit('tab-switch', index)
         this.$channel.$emit(`tab-switch-${index}`)
       },
       createBtnClick (isOpen) {

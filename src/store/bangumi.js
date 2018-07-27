@@ -38,10 +38,10 @@ export default {
     SET_RELEASED (state, data) {
       state.released = data
     },
-    SET_TIMELINE (state, data) {
+    SET_TIMELINE (state, { data, refresh }) {
       const temp = state.timeline
-      state.timeline.list = temp.list.concat(data.list)
-      state.timeline.year = temp.year - 1
+      state.timeline.list = refresh ? data.list : temp.list.concat(data.list)
+      state.timeline.year = refresh ? new Date().getFullYear() - 1 : temp.year - 1
       state.timeline.noMore = data.noMore
     },
     SET_TAGS (state, tags) {
@@ -144,14 +144,14 @@ export default {
       const data = await Api.released()
       data && commit('SET_RELEASED', data)
     },
-    async getTimeline ({ state, commit }) {
-      if (state.timeline.noMore) {
+    async getTimeline ({ state, commit }, { refresh }) {
+      if (state.timeline.noMore && !refresh) {
         return
       }
       const data = await Api.timeline({
-        year: state.timeline.year
+        year: refresh ? new Date().getFullYear() : state.timeline.year
       })
-      data && commit('SET_TIMELINE', data)
+      commit('SET_TIMELINE', { data, refresh })
     },
     async getTags ({ state, commit }) {
       if (state.tags.length) {

@@ -7,29 +7,24 @@
       <f7-tab
         id="bangumi-release"
         tab-active
-        @tab:show="handleTabShow(0)"
-        @tab:hide="handleTabHide(0)"
       >
         <bangumi-release/>
       </f7-tab>
       <f7-tab
         id="bangumi-timeline"
-        @tab:show="handleTabShow(1)"
-        @tab:hide="handleTabHide(1)"
+        @tab:show="$channel.$emit('bangumi-tab-fetch-timeline')"
       >
         <bangumi-timeline/>
       </f7-tab>
       <f7-tab
         id="bangumi-category"
-        @tab:show="handleTabShow(2)"
-        @tab:hide="handleTabHide(2)"
+        @tab:show="$channel.$emit('bangumi-tab-fetch-category')"
       >
         <bangumi-category/>
       </f7-tab>
       <f7-tab
         id="cartoon-role-trending"
-        @tab:show="handleTabShow(3)"
-        @tab:hide="handleTabHide(3)"
+        @tab:show="$channel.$emit('flow-list-fetch-role')"
       >
         <cartoon-role-trending/>
       </f7-tab>

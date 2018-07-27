@@ -54,10 +54,10 @@
       }
     },
     created () {
-      console.log('created');
-    },
-    mounted () {
       this.$channel.$on('tab-switch-1', this.getData)
+    },
+    beforeDestroy () {
+      this.$channel.$off('tab-switch-1')
     },
     methods: {
       async getData () {

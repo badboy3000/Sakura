@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <f7-page
+    :page-content="true"
+    :infinite="!source.noMore"
+    :infinite-preloader="!!source.list.length"
+    @infinite="getData"
+  >
     <f7-block-title>标签列表</f7-block-title>
     <f7-block strong>
       <f7-chip
@@ -16,13 +21,7 @@
         @click="getData"
       />
     </f7-block>
-    <div
-      v-infinite-scroll="getData"
-      v-if="source.list.length"
-      infinite-scroll-distance="50"
-      infinite-scroll-disabled="notFetch"
-      infinite-scroll-immediate-check="false"
-    >
+    <template v-if="source.list.length">
       <f7-block-title>番剧列表</f7-block-title>
       <f7-list media-list>
         <f7-list-item
@@ -39,13 +38,13 @@
           >
         </f7-list-item>
       </f7-list>
-    </div>
-    <no-more
-      :loading="searching"
-      :length="source.list.length"
-      :no-more="source.noMore"
-    />
-  </div>
+      <no-more
+        :loading="searching"
+        :length="source.list.length"
+        :no-more="source.noMore"
+      />
+    </template>
+  </f7-page>
 </template>
 
 <script>
@@ -62,13 +61,10 @@
       },
       tags () {
         return this.$store.state.bangumi.tags
-      },
-      notFetch () {
-        return this.searching || this.source.noMore
       }
     },
-    mounted () {
-      this.$channel.$on('bangumi-tab-2-switch', this.getTags)
+    created () {
+      this.$channel.$on('bangumi-tab-fetch-category', this.getTags)
     },
     methods: {
       async getTags () {

@@ -1,76 +1,61 @@
 <template>
-  <div
-    v-infinite-scroll="getData"
-    infinite-scroll-distance="50"
-    infinite-scroll-disabled="notFetch"
+  <f7-page
+    :page-content="true"
+    :infinite="!source.noMore"
+    ptr
+    @infinite="loadMore"
+    @ptr:refresh="refresh"
   >
-    <div>
-      <div
-        v-for="(col, index) in source.list"
-        :key="index"
-      >
-        <f7-block-title v-text="col.date"/>
-        <f7-list media-list>
-          <f7-list-item
-            v-for="item in col.list"
-            :key="item.id"
-            :title="item.name"
-            :text="item.summary"
-            link="#"
+    <div
+      v-for="(col, index) in source.list"
+      :key="index"
+    >
+      <f7-block-title v-text="col.date"/>
+      <f7-list media-list>
+        <f7-list-item
+          v-for="item in col.list"
+          :key="item.id"
+          :title="item.name"
+          :text="item.summary"
+          link="#"
+        >
+          <img
+            slot="media"
+            :src="$resize(item.avatar, { width: 160 })"
+            width="80"
           >
-            <img
-              slot="media"
-              :src="$resize(item.avatar, { width: 160 })"
-              width="80"
-            >
-          </f7-list-item>
-        </f7-list>
-      </div>
+        </f7-list-item>
+      </f7-list>
     </div>
     <no-more
-      :loading="loading"
+      :loading="false"
       :length="source.list.length"
       :no-more="source.noMore"
     />
-  </div>
+  </f7-page>
 </template>
 
 <script>
+  import flowMixin from 'mixins/flow'
+
   export default {
+    mixins: [flowMixin],
     data () {
       return {
-        lock: true,
-        loading: false
+        triggerKey: 'bangumi-tab-fetch-timeline'
       }
     },
     computed: {
       source () {
         return this.$store.state.bangumi.timeline
-      },
-      notFetch () {
-        return this.lock || this.loading || this.source.noMore
       }
     },
-    mounted () {
-      this.$channel.$on('bangumi-tab-1-switch', (isShow) => {
-        this.lock = !isShow
-      })
-    },
-    beforeDestroy () {
-      this.$channel.$off('bangumi-tab-1-switch')
-    },
     methods: {
-      async getData () {
-        if (this.loading) {
-          return
-        }
-        this.loading = true
+      async getData (refresh = false) {
         try {
-          await this.$store.dispatch('bangumi/getTimeline')
+          await this.$store.dispatch('bangumi/getTimeline', { refresh })
         } catch (e) {
           this.$toast.error(e)
-        } finally {
-          this.loading = false
         }
       }
     }
