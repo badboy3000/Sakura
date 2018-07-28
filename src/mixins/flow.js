@@ -23,6 +23,7 @@ export default {
     },
     async refresh (event, done) {
       await this.getData(true);
+      this.$toast.info('刷新成功');
       done && done()
     }
   }

@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Cookies from 'js-cookie';
-import BaseApi from 'api/_baseApi.js'
 import { refresh } from 'api/userApi.js'
 import flow from './flow'
 import bangumi from './bangumi'
@@ -28,12 +26,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async initialize ({ commit }) {
-      const token = Cookies.get('JWT-TOKEN');
-      BaseApi.init(token);
-      if (!token) {
-        return
-      }
+    async login ({ commit }) {
       try {
         const user = await refresh();
         user && commit('SET_LOGGED_USER', user)

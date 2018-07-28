@@ -23,6 +23,7 @@ export default {
   },
 
   error (txt) {
+    console.log(txt);
     this.stop()
     Toast({
       message: txt || '操作失败',

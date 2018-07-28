@@ -65,6 +65,7 @@
 
 <script>
   import { login } from 'api/userApi'
+  import BaseApi from 'api/_baseApi.js'
 
   export default {
     data () {
@@ -90,32 +91,21 @@
           return
         }
         this.loading = true
-        this.$captcha({
-          success: ({ data }) => {
-            login({
-              access,
-              secret,
-              remember: true,
-              geetest: data
-            }).then(async (token) => {
-              this.$cache.set('JWT-TOKEN', token)
-              await this.$store.dispatch('initialize')
-              this.$f7router.navigate('/', {
-                animate: false
-              })
-              this.$channel.$emit('clear-router-history', this)
-            }).catch((err) => {
-              this.$toast.error(err)
-              this.loading = false
-            })
-          },
-          close: () => {
-            this.loading = false
-          },
-          error: (err) => {
-            this.loading = false
-            this.$toast.error(err)
-          }
+        login({
+          access,
+          secret,
+          remember: true
+        }).then(async (token) => {
+          this.$cache.set('JWT-TOKEN', token)
+          BaseApi.setToken(token);
+          await this.$store.dispatch('login')
+          this.$f7router.navigate('/', {
+            animate: false
+          })
+          this.$channel.$emit('clear-router-history', this)
+        }).catch((err) => {
+          this.$toast.error(err)
+          this.loading = false
         })
       }
     }

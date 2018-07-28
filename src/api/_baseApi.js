@@ -1,52 +1,91 @@
-import axios from 'axios'
+import Vue from 'vue'
+import md5 from 'vendor/md5'
+import { APP_HTTP_SECRET_KEY } from 'env'
+const baseURL = 'https://api.calibur.tv/'
+
+const convertGetQuery = (params) => {
+  const result = {}
+  Object.keys(params).forEach(key => {
+    result[key] = params[key].toString()
+  })
+  return result;
+}
 
 class Http {
-  init (token) {
-    const http = axios.create({
-      // baseURL: process.env.API_HOST,
-      // baseURL: 'http://localhost:3099',
-      baseURL: 'http://test-api.calibur.tv/',
-      headers: { Accept: 'application/x.api.latest+json' },
-      timeout: 10000
-    })
-
-    http.interceptors.request.use(config => {
-      Object.assign(config.headers, {
-        Authorization: `Bearer ${token}`,
-        Test: Date.now()
-      })
-      return config
-    })
-
-    http.interceptors.response.use(res => res.data.data, err => {
-      if (err.message === `timeout of 10000ms exceeded`) {
-        return Promise.reject('网路请求超时，请稍候再试！')
-      }
-      try {
-        if (!err.response) {
-          return Promise.reject('网络错误，请刷新网页重试！')
+  init () {
+    this.timeout = 10
+    const timer = setInterval(async () => {
+      if (cordova && cordova.plugin && cordova.plugin.http) {
+        clearInterval(timer)
+        this.http = cordova.plugin.http
+        this.http.setDataSerializer('json');
+        this.http.setHeader('Accept', 'application/x.api.v1+json');
+        this.http.setHeader('Content-Type', 'application/json');
+        this.http.setHeader('Authorization', `Bearer ${Vue.prototype.$cache.get('JWT-TOKEN')}`);
+        const promise1 = new Promise((resolve, reject) => {
+          this.http.enableSSLPinning(true, resolve, reject);
+        })
+        const promise2 = new Promise((resolve, reject) => {
+          this.http.acceptAllCerts(true, resolve, reject);
+        })
+        try {
+          await Promise.all([promise1, promise2])
+          Vue.prototype.$channel.$emit('request-module-init-success')
+        } catch (e) {
+          Vue.prototype.$channel.$emit('request-module-init-failed')
         }
-        let message = err.response.data.message
-        if (typeof message === 'string') {
-          return Promise.reject(message)
-        }
-        return Promise.reject(message[Object.keys(message)[0]][0])
-      } catch (e) {
-        console.error(e.message)
       }
-    })
-
-    this.http = http
+    }, 250)
   }
 
-  get (url, data) {
-    return this.http.get(url, {
-      params: data
+  setToken(token) {
+    this.http.setHeader('Authorization', `Bearer ${token}`);
+  }
+
+  computeAuthHeader(headers) {
+    const ts = Date.now()
+
+    return convertGetQuery(Object.assign({
+      'X-Auth-Time': ts,
+      'X-Auth-Value': md5(ts + APP_HTTP_SECRET_KEY)
+    }, headers))
+  }
+
+  get (url, params = {}, headers = {}) {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${baseURL}${url}`, convertGetQuery(params), this.computeAuthHeader(headers), function(res) {
+        try {
+          resolve(JSON.parse(res.data).data)
+        } catch(e) {
+          reject('网络请求失败')
+        }
+      }, function(err) {
+        try {
+          const errorObj = JSON.parse(err.error)
+          reject(errorObj.message)
+        } catch (e) {
+          reject('网络请求失败')
+        }
+      });
     })
   }
 
-  post (url, params) {
-    return this.http.post(url, params)
+  post (url, data = {}, headers = {}) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`${baseURL}${url}`, data, this.computeAuthHeader(headers), function(res) {
+        try {
+          resolve(JSON.parse(res.data).data)
+        } catch(e) {
+          reject('网络请求失败')
+        }
+      }, function(err) {
+        try {
+          reject(JSON.parse(err.error).message)
+        } catch (e) {
+          reject('网络请求失败')
+        }
+      });
+    })
   }
 }
 

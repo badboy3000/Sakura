@@ -62,7 +62,7 @@ const actions = {
     const data = await meta({ type })
     commit('SET_META', { data, type })
   },
-  async getData ({ state, commit }, { sort, type, take, bangumiId = 0, refresh = false }) {
+  async getData ({ state, commit }, { sort, type, take = 10, bangumiId = 0, refresh = false }) {
     if (bangumiId !== state.bangumiId) {
       commit('RESET_STATE', { type })
     }
@@ -77,6 +77,7 @@ const actions = {
         sort,
         type,
         take,
+        seenIds: '',
         minId: refresh ? 0 : list.length ? list[list.length - 1].id : 0,
         bangumiId
       })
@@ -85,6 +86,7 @@ const actions = {
         sort,
         type,
         take,
+        minId: 0,
         seenIds: refresh ? '' : list.length ? list.map(_ => _.id).toString() : '',
         bangumiId
       })

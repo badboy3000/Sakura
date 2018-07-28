@@ -1,7 +1,3 @@
-<style lang="scss">
-
-</style>
-
 <template>
   <f7-page
     id="sign-up"
@@ -183,39 +179,27 @@
           this.openConfirmModal()
         }
       },
-      getRegisterAuthCode () {
+      async getRegisterAuthCode () {
         this.step = 1
-        this.$captcha({
-          success: async ({ data }) => {
-            try {
-              await sendMessage({
-                type: 'sign_up',
-                phone_number: this.access,
-                geetest: data
-              })
-              this.step = 2
-              this.openConfirmModal()
-            } catch (err) {
-              this.$toast.error(err)
+        try {
+          await sendMessage({
+            type: 'sign_up',
+            phone_number: this.access
+          })
+          this.step = 2
+          this.openConfirmModal()
+        } catch (err) {
+          this.$toast.error(err)
+          this.step = 0
+        } finally {
+          this.timeout = 60
+          const timer = setInterval(() => {
+            if (!--this.timeout) {
               this.step = 0
-            } finally {
-              this.timeout = 60
-              const timer = setInterval(() => {
-                if (!--this.timeout) {
-                  this.step = 0
-                  clearInterval(timer)
-                }
-              }, 1000)
+              clearInterval(timer)
             }
-          },
-          close: () => {
-            this.step = 0
-          },
-          error: (err) => {
-            this.step = 0
-            this.$toast.error(err)
-          }
-        })
+          }, 1000)
+        }
       },
       openConfirmModal () {
         this.$f7.dialog.prompt('请输入收到的验证码', '短信已发送', (value) => {

@@ -22,6 +22,7 @@ let config = function (env) {
       alias: {
         'vue$': 'vue/dist/vue.common.js',
         'src': path.resolve(__dirname, 'src/'),
+        'env': path.resolve(__dirname, '.env.js'),
         'assets': path.resolve(__dirname, 'src/assets/'),
         'images': path.resolve(__dirname, 'src/assets/images/'),
         'styles': path.resolve(__dirname, 'src/assets/style/'),

@@ -1964,6 +1964,14 @@ cordova-ios@^4.5.4:
     xcode "^0.9.0"
     xml-escape "^1.1.0"
 
+cordova-plugin-advanced-http@^1.11.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-advanced-http/-/cordova-plugin-advanced-http-1.11.1.tgz#56b76d37486500f357ee511c0fadcd126e167002"
+
+cordova-plugin-file@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-6.0.1.tgz#49606b8c15a5688d4728f92e4a7325a061de07f5"
+
 "cordova-plugin-streaming-media@git+https://github.com/nchutchind/cordova-plugin-streaming-media.git":
   version "2.1.2"
   resolved "git+https://github.com/nchutchind/cordova-plugin-streaming-media.git#89d62d03f0b7903577219fc0fa9c7763845b3e2a"
