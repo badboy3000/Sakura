@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import md5 from 'vendor/md5'
-import { APP_HTTP_SECRET_KEY } from 'env'
-const baseURL = 'https://api.calibur.tv/'
+import { APP_HTTP_SECRET_KEY, env } from 'env'
+const baseURL = process.env.API_HOST
 
 const convertGetQuery = (params) => {
   const result = {}
@@ -22,6 +22,10 @@ class Http {
         this.http.setHeader('Accept', 'application/x.api.v1+json');
         this.http.setHeader('Content-Type', 'application/json');
         this.http.setHeader('Authorization', `Bearer ${Vue.prototype.$cache.get('JWT-TOKEN')}`);
+        if (env !== 'production') {
+          Vue.prototype.$channel.$emit('request-module-init-success')
+          return
+        }
         const promise1 = new Promise((resolve, reject) => {
           this.http.enableSSLPinning(true, resolve, reject);
         })
@@ -54,6 +58,9 @@ class Http {
   get (url, params = {}, headers = {}) {
     return new Promise((resolve, reject) => {
       this.http.get(`${baseURL}${url}`, convertGetQuery(params), this.computeAuthHeader(headers), function(res) {
+        if (!res.data) {
+          resolve()
+        }
         try {
           resolve(JSON.parse(res.data).data)
         } catch(e) {
@@ -73,6 +80,9 @@ class Http {
   post (url, data = {}, headers = {}) {
     return new Promise((resolve, reject) => {
       this.http.post(`${baseURL}${url}`, data, this.computeAuthHeader(headers), function(res) {
+        if (!res.data) {
+          resolve()
+        }
         try {
           resolve(JSON.parse(res.data).data)
         } catch(e) {

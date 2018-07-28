@@ -11,6 +11,10 @@ input:-webkit-autofill {
   background-color: $color-gray-light;
 }
 
+li {
+  list-style-type: none;
+}
+
 .mint-toast {
   z-index: 100000 !important;
 }

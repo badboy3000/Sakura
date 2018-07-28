@@ -4,9 +4,9 @@
 
 <template>
   <f7-page>
-    <f7-block-title>Introduction</f7-block-title>
+    <f7-block-title>calibur.tv</f7-block-title>
     <f7-block inner>
-      <p>This is template for Framework7 v2, Vue and Phonegap.</p>
+      <p>天下漫友是一家</p>
     </f7-block>
   </f7-page>
 </template>
@@ -24,11 +24,6 @@
       this.$channel.$on('request-module-init-success', this.initialize)
       this.$channel.$on('request-module-init-failed', this.appInitFailed)
       BaseApi.init();
-    },
-    mounted () {
-      document.addEventListener('deviceready', () => {
-        console.log(device.platform);
-      }, false);
     },
     methods: {
       async initialize () {

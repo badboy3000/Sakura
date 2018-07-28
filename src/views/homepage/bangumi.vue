@@ -1,9 +1,6 @@
 <template>
   <f7-page :page-content="true">
-    <f7-tabs
-      animated
-      swipeable
-    >
+    <f7-tabs>
       <f7-tab
         id="bangumi-release"
         tab-active

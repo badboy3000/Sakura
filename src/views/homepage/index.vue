@@ -1,6 +1,6 @@
 <style lang="scss">
   .nav-avatar {
-    @include avatar(32px)
+    @include avatar(22px)
   }
 
   #calibur.showNavBorder {
@@ -9,10 +9,25 @@
     }
   }
 
-  .ios-edge {
+  .ios-edge #calibur {
     #tab-world, #tab-bangumi {
       .toolbar {
         @include border-bottom();
+      }
+    }
+  }
+
+  .md-edge #calibur {
+    #tab-world, #tab-bangumi {
+      & .tab .page-content {
+        padding-top: 114px;
+        padding-bottom: $tab-height;
+      }
+    }
+
+    #tab-notification, #tab-user {
+      .page-content {
+        padding-bottom: $tab-height;
       }
     }
   }
@@ -27,7 +42,7 @@
       <f7-nav-left>
         <f7-link icon="fa fa-bars"/>
         <div class="nav-avatar">
-          <img :src="$resize(avatar, { width: 100 })">
+          <img :src="$resize(avatar, { width: 50 })">
         </div>
       </f7-nav-left>
       <f7-nav-right>

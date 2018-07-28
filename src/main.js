@@ -11,8 +11,6 @@ import Framework7Vue from 'framework7-vue/framework7-vue.esm.bundle.js';
 // Import F7 iOS Icons
 import 'framework7-icons/css/framework7-icons.css'
 
-import vConsole from 'vconsole'
-
 // Import Fontawesome Theme Styles
 import 'font-awesome/css/font-awesome.css'
 
@@ -30,7 +28,6 @@ import 'src/utils'
 // Different F7-Vue plugin initialization with f7 v3.0
 Framework7.use(Framework7Vue)
 
-new vConsole();
 // Init Vue App
 export default new Vue({
   // Root Element
