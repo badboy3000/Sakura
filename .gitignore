@@ -6,3 +6,4 @@ dist/*
 *.log
 platforms/
 plugins/
+*.apk

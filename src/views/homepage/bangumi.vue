@@ -9,7 +9,7 @@
       </f7-tab>
       <f7-tab
         id="bangumi-timeline"
-        @tab:show="$channel.$emit('bangumi-tab-fetch-timeline')"
+        @tab:show="$channel.$emit('world-fetch-bangumi-timeline')"
       >
         <bangumi-timeline/>
       </f7-tab>
@@ -41,14 +41,6 @@
       BangumiTimeline,
       BangumiCategory,
       CartoonRoleTrending
-    },
-    methods: {
-      handleTabShow (index) {
-        this.$channel.$emit(`bangumi-tab-${index}-switch`, true)
-      },
-      handleTabHide (index) {
-        this.$channel.$emit(`bangumi-tab-${index}-switch`, false)
-      }
     }
   };
 </script>

@@ -4,8 +4,8 @@ export const star = ({ bangumiId, roleId }) => {
   return http.post(`/bangumi/${bangumiId}/role/${roleId}/star`)
 }
 
-export const fans = ({ bangumiId, roleId, seenIds, minId, sort }) => {
-  return http.get(`/bangumi/${bangumiId}/role/${roleId}/fans`, {
+export const fans = ({ roleId, seenIds, minId, sort }) => {
+  return http.get(`/bangumi/0/role/${roleId}/fans`, {
     params: { seenIds, minId, sort }
   })
 }

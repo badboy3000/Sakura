@@ -5,11 +5,12 @@
       min-height: 80px;
 
       .avatar {
-        width: 80px;
-        height: 80px;
-        float: left;
+        width: 81px;
+        height: 81px;
         margin-right: 10px;
         margin-bottom: $container-padding;
+        border-radius: 3px;
+        float: left;
       }
 
       .info {
@@ -17,7 +18,9 @@
 
         .name {
           font-size: 18px;
-          margin-bottom: 5px;
+          line-height: 18px;
+          margin-bottom: 4px;
+          margin-top: 0;
         }
 
         .lover {
@@ -30,12 +33,10 @@
             border-radius: 50%;
             @include avatar(26px);
           }
-        }
 
-        .star {
-          /*
-          @include btn-empty(#000)
-          */
+          a {
+            color: #333;
+          }
         }
       }
 
@@ -49,6 +50,7 @@
         line-height: 20px;
         font-size: 13px;
         margin-bottom: 5px;
+        padding-left: 0;
 
         strong {
           float: left;
@@ -65,6 +67,16 @@
         line-height: 20px;
         font-size: 13px;
         margin-bottom: 5px;
+      }
+    }
+
+    .fans-item {
+      .avatar {
+        @include avatar(28px)
+      }
+
+      .item-inner {
+        display: flex;
       }
     }
   }
@@ -84,55 +96,87 @@
     </f7-navbar>
     <template v-if="source">
       <div class="profile clearfix">
-        <h3 class="sub-title">角色信息</h3>
-        <div>
-          <div class="clearfix">
-            <img
-              :src="$resize(role.avatar, { width: 80 })"
+        <f7-block-title>角色信息</f7-block-title>
+        <f7-block class="clearfix">
+          <img
+            :src="$resize(role.avatar, { width: 162 })"
+            class="avatar"
+          >
+          <div class="info">
+            <h1
+              class="name"
+              v-text="role.name"
+            />
+            <div class="lover">
+              <template v-if="role.lover">
+                <a :href="$alias.user(role.lover.zone)">
+                  守护者：
+                  <img :src="$resize(role.lover.avatar, { width: 52 })">
+                  {{ role.lover.nickname }}
+                </a>
+              </template>
+            </div>
+            <f7-button
+              outline
+              round
+              small
+              fill
+              class="star"
+              @click="handleStarRole"
+            >为TA应援</f7-button>
+          </div>
+        </f7-block>
+        <f7-block-title>角色简介</f7-block-title>
+        <f7-block>
+          <p class="summary">
+            <strong>介绍：</strong>{{ role.intro }}
+          </p>
+          <ul class="alias clearfix">
+            <strong>别名：</strong>
+            <li
+              v-for="(name, index) in computeRoleAlias"
+              :key="index"
+              v-text="name"
+            />
+          </ul>
+          <p
+            v-if="role.star_count"
+            class="coin"
+          >
+            <strong>粉丝：</strong>共有 {{ role.fans_count }} 个粉丝，收获了 {{ role.star_count }} 个金币
+          </p>
+        </f7-block>
+      </div>
+      <template v-if="fans.list.length">
+        <f7-block-title>应援团</f7-block-title>
+        <f7-list class="no-arrow">
+          <f7-list-item
+            v-for="item in fans.list"
+            :key="item.id"
+            :title="item.nickname"
+            :link="$alias.user(item.zone)"
+            class="fans-item"
+          >
+            <div
+              slot="media"
               class="avatar"
             >
-            <div class="info">
-              <h1
-                class="name"
-                v-text="role.name"
-              />
-              <div class="lover">
-                <template v-if="role.lover">
-                  <a :href="$alias.user(role.lover.zone)">
-                    守护者：
-                    <img :src="$resize(role.lover.avatar, { width: 52 })">
-                    {{ role.lover.nickname }}
-                  </a>
-                </template>
-              </div>
-              <button
-                class="star"
-                @click="handleStarRole"
-              >为TA应援</button>
+              <img
+                :src="$resize(item.avatar, { width: 58 })"
+              >
             </div>
-          </div>
-          <div>
-            <h3 class="sub-title">角色简介</h3>
-            <p class="summary">
-              <strong>介绍：</strong>{{ role.intro }}
-            </p>
-            <ul class="alias clearfix">
-              <strong>别名：</strong>
-              <li
-                v-for="(name, index) in computeRoleAlias"
-                :key="index"
-                v-text="name"
-              />
-            </ul>
-            <p
-              v-if="role.star_count"
-              class="coin"
-            >
-              <strong>粉丝：</strong>共有 {{ role.fans_count }} 个粉丝，收获了 {{ role.star_count }} 个金币
-            </p>
-          </div>
-        </div>
-      </div>
+            <v-time
+              slot="after"
+              v-model="item.score"
+            />
+          </f7-list-item>
+        </f7-list>
+        <no-more
+          :loading="false"
+          :length="fans.list.length"
+          :no-more="fans.noMore"
+        />
+      </template>
     </template>
     <f7-block
       v-else
@@ -144,10 +188,13 @@
 </template>
 
 <script>
-  import { getRoleInfo } from 'api/roleApi'
-
   export default {
     name: 'RoleShow',
+    data () {
+      return {
+        sort: 'new'
+      }
+    },
     computed: {
       id () {
         return +this.$f7route.params.id
@@ -161,18 +208,33 @@
       bangumi () {
         return this.source.bangumi
       },
+      fans () {
+        return this.$store.state.role.fans.new
+      },
       computeRoleAlias () {
         return this.role.alias.split(',')
       }
     },
     created () {
       this.getData()
+      this.getFans()
     },
     methods: {
       async getData () {
         try {
           await this.$store.dispatch('role/getRoleInfo', {
             roleId: this.id
+          })
+        } catch (e) {
+          this.$toast.error(e)
+        }
+      },
+      async getFans () {
+        try {
+          await this.$store.dispatch('role/getFansList', {
+            roleId: this.id,
+            sort: this.sort,
+            reset: false
           })
         } catch (e) {
           this.$toast.error(e)

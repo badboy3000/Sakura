@@ -47,7 +47,7 @@ export default {
     }
   },
   actions: {
-    async getFansList ({ state, commit }, { bangumiId, roleId, sort, reset }) {
+    async getFansList ({ state, commit }, { roleId, sort, reset }) {
       if (state.fans[sort].noMore && !reset) {
         return
       }
@@ -55,16 +55,16 @@ export default {
       const length = list.length
       const data = await Api.fans(Object.assign({
         sort,
-        bangumiId,
         roleId
       }, sort === 'new' ? {
-        minId: reset ? null : length ? list[length - 1].id : null
+        minId: reset ? 0 : length ? list[length - 1].id : 0
       } : {
-        seenIds: reset ? null : length ? list.map(_ => _.id).toString() : null
+        seenIds: reset ? '' : length ? list.map(_ => _.id).toString() : ''
       }))
       commit('SET_FANS_LIST', { data, reset, sort })
     },
     async getRoleInfo ({ commit }, { roleId }) {
+      commit('SET_ROLE_INFO', null)
       const data = await Api.getRoleInfo({ roleId })
       commit('SET_ROLE_INFO', data)
     },

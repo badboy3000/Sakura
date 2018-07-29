@@ -42,7 +42,7 @@
     mixins: [flowMixin],
     data () {
       return {
-        triggerKey: 'bangumi-tab-fetch-timeline'
+        triggerKey: 'fetch-bangumi-timeline'
       }
     },
     computed: {
