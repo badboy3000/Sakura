@@ -75,10 +75,10 @@
       }
     },
     mounted () {
-      this.$channel.$on('flow-list-fetch-video', this.getData)
+      this.$channel.$on('bangumi-flow-list-fetch-video', this.getData)
     },
     beforeDestroy () {
-      this.$channel.$off('flow-list-fetch-video')
+      this.$channel.$off('bangumi-flow-list-fetch-video')
     },
     methods: {
       async getData () {

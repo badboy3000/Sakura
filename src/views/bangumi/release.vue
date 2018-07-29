@@ -27,7 +27,7 @@
               :key="item.id"
               :title="item.name"
               :text="item.summary"
-              link="#"
+              :link="$alias.bangumi(item.id)"
             >
               <img
                 slot="media"

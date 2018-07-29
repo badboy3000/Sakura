@@ -10,12 +10,14 @@
         :type="`${type}-comment`"
       />
     </f7-navbar>
-    <comment-item
-      :type="type"
-      :comment="comment"
-      :master-id="masterId"
-      :show-all="true"
-    />
+    <f7-block>
+      <comment-item
+        :type="type"
+        :comment="comment"
+        :master-id="masterId"
+        :show-all="true"
+      />
+    </f7-block>
   </f7-page>
 </template>
 

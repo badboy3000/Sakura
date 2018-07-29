@@ -64,9 +64,6 @@
       ScrollBanner,
       MenuBar
     },
-    props: {
-
-    },
     data () {
       return {
         user: null,

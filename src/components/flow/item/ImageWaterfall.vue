@@ -1,7 +1,6 @@
 <style lang="scss">
   #image-waterfall-flow {
     margin-right: -5px;
-    padding-top: 10px;
     width: 100%;
 
     .vue-waterfall {

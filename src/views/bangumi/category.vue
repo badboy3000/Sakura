@@ -36,7 +36,10 @@
     </f7-block>
     <template>
       <f7-block-title>番剧列表</f7-block-title>
-      <f7-list media-list>
+      <f7-list
+        media-list
+        class="no-arrow"
+      >
         <f7-list-item
           v-for="item in source.list"
           :key="item.id"
