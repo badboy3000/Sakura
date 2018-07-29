@@ -48,6 +48,7 @@
       width="80"
     >
     <a
+      v-if="item.lover_id"
       slot="subtitle"
       :href="$alias.user(item.lover_zone)"
       class="lover"

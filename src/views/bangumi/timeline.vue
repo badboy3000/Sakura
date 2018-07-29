@@ -11,13 +11,16 @@
       :key="index"
     >
       <f7-block-title v-text="col.date"/>
-      <f7-list media-list>
+      <f7-list
+        media-list
+        class="no-arrow"
+      >
         <f7-list-item
           v-for="item in col.list"
           :key="item.id"
           :title="item.name"
           :text="item.summary"
-          link="#"
+          :link="$alias.bangumi(item.id)"
         >
           <img
             slot="media"

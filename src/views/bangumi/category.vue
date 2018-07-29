@@ -1,3 +1,13 @@
+<style lang="scss">
+  .bangumi-tag-wrap {
+    .color-pink {
+      border: 1px solid $theme-color;
+      margin-right: 4px;
+      margin-bottom: 3px;
+    }
+  }
+</style>
+
 <template>
   <f7-page
     :page-content="true"
@@ -6,7 +16,10 @@
     @infinite="getData"
   >
     <f7-block-title>标签列表</f7-block-title>
-    <f7-block strong>
+    <f7-block
+      strong
+      class="bangumi-tag-wrap"
+    >
       <f7-chip
         v-for="item in tags"
         :key="item.id"
@@ -21,7 +34,7 @@
         @click="getData"
       />
     </f7-block>
-    <template v-if="source.list.length">
+    <template>
       <f7-block-title>番剧列表</f7-block-title>
       <f7-list media-list>
         <f7-list-item

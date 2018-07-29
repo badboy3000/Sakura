@@ -18,7 +18,10 @@
         accordion-item
       >
         <f7-accordion-content>
-          <f7-list media-list>
+          <f7-list
+            media-list
+            class="no-arrow"
+          >
             <f7-list-item
               v-for="item in list"
               :key="item.id"
@@ -31,6 +34,14 @@
                 :src="$resize(item.avatar, { width: 160 })"
                 width="80"
               >
+              <a
+                slot="after-title"
+                :href="$alias.video(item.released_video_id)"
+              >
+                <f7-badge :color="item.update ? 'pink' : 'gray'">
+                  {{ item.end ? '已完结' : `${item.released_part}话` }}
+                </f7-badge>
+              </a>
             </f7-list-item>
           </f7-list>
         </f7-accordion-content>
