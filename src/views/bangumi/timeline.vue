@@ -52,7 +52,6 @@
     },
     methods: {
       async getData (refresh = false) {
-        console.log('getData');
         try {
           await this.$store.dispatch('bangumi/getTimeline', { refresh })
         } catch (e) {

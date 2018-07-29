@@ -67,10 +67,9 @@
     methods: {
       async getData (refresh = false) {
         try {
-          const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
           if (this.bangumiId) {
             await Promise.all([
-              this.$store.dispatch(action, {
+              this.$store.dispatch(this.dispatchAction, {
                 type: 'post',
                 sort: 'active',
                 refresh,
@@ -82,7 +81,7 @@
               })
             ])
           } else {
-            await this.$store.dispatch(action, {
+            await this.$store.dispatch(this.dispatchAction, {
               type: 'post',
               sort: 'active',
               refresh,

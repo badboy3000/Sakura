@@ -17,9 +17,9 @@ class Http {
   init () {
     this.timeout = 10
     const timer = setInterval(async () => {
-      if (cordova && cordova.plugin && cordova.plugin.http) {
+      if (window.cordova && window.cordova.plugin && window.cordova.plugin.http) {
         clearInterval(timer)
-        this.http = cordova.plugin.http
+        this.http = window.cordova.plugin.http
         this.http.setDataSerializer('json');
         this.http.setHeader('Accept', 'application/x.api.v1+json');
         this.http.setHeader('Content-Type', 'application/json');

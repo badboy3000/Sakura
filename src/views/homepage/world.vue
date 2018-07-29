@@ -9,13 +9,13 @@
       </f7-tab>
       <f7-tab
         id="world-image"
-        @tab:show="$channel.$emit('flow-list-fetch-image')"
+        @tab:show="$channel.$emit('world-flow-list-fetch-image')"
       >
         <image-flow-list/>
       </f7-tab>
       <f7-tab
         id="world-review"
-        @tab:show="$channel.$emit('flow-list-fetch-score')"
+        @tab:show="$channel.$emit('world-flow-list-fetch-score')"
       >
         <score-flow-list/>
       </f7-tab>
@@ -35,7 +35,7 @@
       ScoreFlowList
     },
     mounted () {
-      this.$channel.$emit('flow-list-fetch-post')
+      this.$channel.$emit('world-flow-list-fetch-post')
     }
   };
 </script>

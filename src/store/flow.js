@@ -2,6 +2,7 @@ import { fetch, meta } from 'api/flowApi'
 import { merge } from 'lodash'
 
 const trendingFlowStore = {
+  bangumiId: 0,
   news: {
     list: [],
     total: 0,
@@ -27,7 +28,6 @@ const trendingFlowStore = {
 }
 
 const state = () => ({
-  bangumiId: 0,
   post: merge({}, trendingFlowStore),
   image: merge({}, trendingFlowStore),
   score: merge({}, trendingFlowStore),
@@ -50,7 +50,7 @@ const mutations = {
     state[type][sort].noMore = data.noMore
     state[type][sort].nothing = !list.length
     state[type][sort].loading = false
-    state.bangumiId = bangumiId
+    state[type].bangumiId = bangumiId
   },
   SET_LOADING (state, { type, sort }) {
     state[type][sort].loading = true
@@ -63,7 +63,7 @@ const actions = {
     commit('SET_META', { data, type })
   },
   async getData ({ state, commit }, { sort, type, take = 10, bangumiId = 0, refresh = false }) {
-    if (bangumiId !== state.bangumiId) {
+    if (bangumiId !== state[type].bangumiId) {
       commit('RESET_STATE', { type })
     }
     if ((state[type][sort].noMore && !refresh) || state[type][sort].loading) {

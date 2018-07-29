@@ -4,11 +4,24 @@ export default {
       fetched: false
     }
   },
+  computed: {
+    listenKey() {
+      if (this.userId) {
+        return `user-${this.triggerKey}`
+      } else if (this.bangumiId) {
+        return `bangumi-${this.triggerKey}`
+      }
+      return `world-${this.triggerKey}`
+    },
+    dispatchAction() {
+      return this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
+    }
+  },
   created () {
-    this.$channel.$on(this.triggerKey, this.initData)
+    this.$channel.$on(this.listenKey, this.initData)
   },
   beforeDestroy () {
-    this.$channel.$off(this.triggerKey)
+    this.$channel.$off(this.listenKey)
   },
   methods: {
     initData () {

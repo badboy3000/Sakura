@@ -21,7 +21,7 @@
       </f7-tab>
       <f7-tab
         id="cartoon-role-trending"
-        @tab:show="$channel.$emit('flow-list-fetch-role')"
+        @tab:show="$channel.$emit('world-flow-list-fetch-role')"
       >
         <cartoon-role-trending/>
       </f7-tab>

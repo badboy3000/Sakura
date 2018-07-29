@@ -61,8 +61,7 @@
     methods: {
       async getData (refresh = false) {
         try {
-          const action = this.bangumiId || this.userId ? 'flow/getData' : 'world/getData'
-          await this.$store.dispatch(action, {
+          await this.$store.dispatch(this.dispatchAction, {
             type: 'score',
             sort: 'active',
             refresh,

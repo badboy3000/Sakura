@@ -75,33 +75,33 @@
         </f7-tab>
         <f7-tab
           id="bangumi-show-image"
-          @tab:show="$channel.$emit('flow-list-fetch-image')"
+          @tab:show="$channel.$emit('bangumi-flow-list-fetch-image')"
         >
           <image-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-score"
-          @tab:show="$channel.$emit('flow-list-fetch-score')"
+          @tab:show="$channel.$emit('bangumi-flow-list-fetch-score')"
         >
           <bangumi-score-flow :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           v-if="hasVideo"
           id="bangumi-show-video"
-          @tab:show="$channel.$emit('flow-list-fetch-video')"
+          @tab:show="$channel.$emit('bangumi-flow-list-fetch-video')"
         >
           <bangumi-video-flow :id="id"/>
         </f7-tab>
         <f7-tab
           v-if="hasCartoon"
           id="bangumi-show-cartoon"
-          @tab:show="$channel.$emit('flow-list-fetch-cartoon')"
+          @tab:show="$channel.$emit('bangumi-flow-list-fetch-cartoon')"
         >
           <cartoon-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-role"
-          @tab:show="$channel.$emit('flow-list-fetch-role')"
+          @tab:show="$channel.$emit('bangumi-flow-list-fetch-role')"
         >
           <role-flow-list :bangumi-id="id"/>
         </f7-tab>
@@ -207,7 +207,7 @@
       this.getData();
     },
     mounted () {
-      this.$channel.$emit('flow-list-fetch-post')
+      this.$channel.$emit('bangumi-flow-list-fetch-post')
     },
     methods: {
       async getData () {
