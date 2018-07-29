@@ -8,11 +8,13 @@
 
       .author {
         font-size: 13px;
+        color: #333;
 
         .avatar {
           vertical-align: middle;
           border: 1px solid $color-gray-normal;
           border-radius: 50%;
+          margin-right: 5px;
           @include avatar(30px);
         }
       }

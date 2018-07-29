@@ -12,6 +12,8 @@
         v-for="item in source.list"
         :key="item.id"
         :item="item"
+        :bangumi-id="bangumiId"
+        :user-id="userId"
         show="all"
       />
     </f7-list>

@@ -3,73 +3,110 @@
     .header {
       margin-bottom: 10px;
 
-      .created-at {
-        float: right;
-        color: #99a2aa;
-        font-size: 12px;
-        line-height: 30px;
+      .user-avatar {
+        display: block;
+        margin-right: 5px;
+        float: left;
+        @include avatar(35px);
       }
 
-      .about {
+      .header-content {
         overflow: hidden;
 
-        .user-avatar,
-        .bangumi-avatar {
-          display: inline-block;
-          vertical-align: middle;
-          margin-right: 10px;
-          line-height: 30px;
-        }
+        .about {
+          overflow: hidden;
 
-        .user-avatar {
-          @include avatar(25px);
-        }
-
-        .bangumi-avatar {
-          width: 25px;
-          height: 25px;
-
-          img {
+          .bangumi-name {
+            overflow: hidden;
             display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: 3px;
-            border: 1px solid #e5e9ef;
+            line-height: 23px;
+            font-size: 12px;
+            vertical-align: middle;
+            color: #333;
+          }
+
+          .el-rate {
+            display: inline-block;
+            vertical-align: middle;
+            height: 23px;
+            margin-left: 10px;
+            float: right;
           }
         }
 
-        .name {
-          line-height: 30px;
-          font-size: 12px;
-          display: inline-block;
-          vertical-align: middle;
-          margin-right: 10px;
+        .meta {
+          color: #999;
+          font-size: 11px;
+          line-height: 11px;
+
+          a {
+            color: #999;
+          }
+        }
+      }
+    }
+
+    .body {
+      .title {
+        margin-bottom: 5px;
+
+        .top_badge, .nice_badge {
+          float: left;
+          height: 16px;
+          line-height: 18px;
+          color: #fff;
+          cursor: default;
+          font-size: 11px;
+          font-weight: bold;
+          text-align: center;
+          border-radius: 4px;
+          padding: 0 4px;
+          margin-right: 5px;
+        }
+
+        .top_badge {
+          background-color: $color-blue-normal;
+        }
+
+        .nice_badge {
+          background-color: $color-pink-deep;
+        }
+
+        .oneline {
+          color: #4c4c4c;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 14px;
+          margin-top: 0;
+          margin-bottom: 0;
         }
       }
 
-      .el-rate {
-        display: inline-block;
-        vertical-align: middle;
-        height: 23px;
+      .content {
+        color: #333;
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: 8px;
+        @include twoline(18px)
       }
     }
 
-    .intro {
-      display: block;
-      font-size: 14px;
-      @include twoline(22px);
-    }
-
     .footer {
-      margin-top: 10px;
-      line-height: 16px;
-      font-size: 13px;
-      color: #99a2aa;
-      text-align: right;
+      height: 30px;
+      line-height: 30px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
 
       span {
-        width: 40px;
-        display: inline-block;
+        font-size: 12px;
+        color: #666;
+      }
+
+      .done {
+        color: $color-blue-normal;
       }
     }
   }
@@ -79,62 +116,68 @@
   <div class="score-flow-item">
     <f7-list-item :link="$alias.score(item.id)">
       <div class="header">
-        <v-time
-          v-model="item.created_at"
-          class="created-at"
-        />
-        <div
-          class="about"
+        <a
+          :href="$alias.user(item.user.zone)"
+          class="user-avatar"
         >
-          <a
-            v-if="show !== 'bangumi'"
-            :href="$alias.bangumi(item.bangumi.id)"
-          >
-            <div class="bangumi-avatar">
-              <img :src="$resize(item.bangumi.avatar, { width: 50 })">
-            </div>
-            <span
-              class="name"
+          <img :src="$resize(item.user.avatar, { width: 50 })">
+        </a>
+        <div class="header-content">
+          <div class="about">
+            <el-rate
+              v-if="starCount"
+              v-model="starCount"
+              disabled
+            />
+            <el-rate
+              v-else
+              v-model="zero"
+              disabled
+            />
+            <a
+              :href="$alias.bangumi(item.bangumi.id)"
+              class="bangumi-name oneline"
               v-text="item.bangumi.name"
             />
-          </a>
-          <a
-            v-else
-            :href="$alias.user(item.user.zone)"
-          >
-            <div class="user-avatar">
-              <img :src="$resize(item.user.avatar, { width: 50 })">
-            </div>
-            <span
-              class="name"
+          </div>
+          <div class="meta">
+            <a
+              :href="$alias.user(item.user.zone)"
+              class="author"
               v-text="item.user.nickname"
             />
-          </a>
-          <el-rate
-            v-if="starCount"
-            v-model="starCount"
-            disabled
-          />
-          <el-rate
-            v-else
-            v-model="zero"
-            disabled
-          />
+            &nbsp;·&nbsp;
+            <v-time
+              v-model="item.created_at"
+              class="created-at"
+            />
+          </div>
         </div>
       </div>
-      <a
-        :href="$alias.score(item.id)"
-        class="intro"
-        v-text="item.intro"
-      />
+      <div class="body">
+        <div class="title">
+          <p
+            class="oneline"
+            v-text="item.title"
+          />
+        </div>
+        <div
+          class="content"
+          v-text="item.intro"
+        />
+      </div>
       <div class="footer">
         <span>
-          <i class="iconfont icon-guanzhu"/>
+          喜欢
           {{ item.like_count }}
         </span>
         <span>
-          <i class="iconfont icon-pinglun1"/>
+          评论
           {{ item.comment_count }}
+        </span>
+        <span>
+          收藏
+          0
         </span>
       </div>
     </f7-list-item>
@@ -150,10 +193,13 @@
         required: true,
         type: Object
       },
-      show: {
-        required: true,
-        type: String,
-        validator: val => ~['all', 'user', 'bangumi'].indexOf(val)
+      bangumiId: {
+        type: Number,
+        default: 0
+      },
+      userId: {
+        type: Number,
+        default: 0
       }
     },
     data () {

@@ -55,8 +55,6 @@
     }
 
     .body {
-      display: block;
-
       .title {
         margin-bottom: 5px;
 

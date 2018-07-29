@@ -25,6 +25,10 @@
           font-size: 12px;
           margin-bottom: $container-padding;
 
+          a {
+            color: #333;
+          }
+
           .avatar {
             margin-right: 10px;
             display: inline-block;
