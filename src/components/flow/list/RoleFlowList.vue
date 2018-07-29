@@ -11,10 +11,12 @@
       class="no-arrow"
     >
       <role-flow-item
-        v-for="item in source.list"
+        v-for="(item, index) in source.list"
         :key="item.id"
+        :index="index"
         :item="item"
-        show="trending"
+        :bangumi-id="bangumiId"
+        :user-id="userId"
       />
     </f7-list>
     <no-more
