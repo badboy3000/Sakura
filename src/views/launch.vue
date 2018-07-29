@@ -1,14 +1,14 @@
 <style lang="scss">
-
+  #launch {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(~images/splash.png);
+    background-size: cover;
+  }
 </style>
 
 <template>
-  <f7-page>
-    <f7-block-title>calibur.tv</f7-block-title>
-    <f7-block inner>
-      <p>天下漫友是一家</p>
-    </f7-block>
-  </f7-page>
+  <f7-page id="launch"/>
 </template>
 
 <script>
@@ -36,6 +36,7 @@
           }
           this.$channel.$emit('clear-router-history', this)
           this.$channel.$off('request-module-init-success')
+          navigator.splashscreen.hide()
         }, 0)
       },
       appInitFailed () {

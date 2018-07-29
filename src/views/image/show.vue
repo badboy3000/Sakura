@@ -195,6 +195,7 @@
           </ul>
         </div>
       </div>
+      <bangumi-panel :bangumi="bangumi"/>
     </template>
     <f7-block
       v-else
@@ -202,7 +203,6 @@
     >
       <f7-preloader/>
     </f7-block>
-    <div class="hr"/>
     <comment-main
       :id="id"
       :only-see-master="false"

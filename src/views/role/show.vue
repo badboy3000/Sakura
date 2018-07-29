@@ -147,6 +147,8 @@
           </p>
         </f7-block>
       </div>
+      <bangumi-panel :bangumi="bangumi"/>
+      <div class="hr"/>
       <template v-if="fans.list.length">
         <f7-block-title>应援团</f7-block-title>
         <f7-list class="no-arrow">

@@ -1,15 +1,66 @@
 <style lang="scss">
+  #video-show {
+    .video-poster {
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 200px;
+      display: block;
+      overflow: hidden;
+      position: relative;
 
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .3);
+      }
+
+      .icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -25px;
+        margin-top: -25px;
+      }
+    }
+  }
 </style>
 
 <template>
-  <f7-page>
+  <f7-page id="video-show">
     <f7-navbar
-      title="video show"
       back-link
       sliding
     />
-    <div class="hr"/>
+    <f7-block
+      v-if="loading"
+      class="text-align-center"
+    >
+      <f7-preloader/>
+    </f7-block>
+    <template v-else>
+      <f7-block-title>
+        {{ bangumi.name }} 第{{ video.part }}话：{{ video.name }}
+      </f7-block-title>
+      <f7-link
+        :style="{ backgroundImage: `url(${$resize(video.poster, { width: $width, height: 400 })})` }"
+        class="video-poster"
+        href="#"
+        @click="playVideo"
+      >
+        <f7-icon
+          f7="play_round_fill"
+          color="white"
+          size="50"
+        />
+      </f7-link>
+      <bangumi-panel :bangumi="bangumi"/>
+    </template>
     <comment-main
       :id="id"
       :only-see-master="false"
@@ -102,7 +153,6 @@
           this.source = await getVideoInfo({
             videoId: this.id
           })
-          this.playVideo()
         } catch (e) {
           this.$toast.error(e)
         } finally {
@@ -115,6 +165,7 @@
             console.log("Video was closed without error.");
           },
           errorCallback: (errMsg) => {
+            this.$toast.error('视频加载失败');
             console.log("Error! " + errMsg);
           },
           orientation: 'landscape',

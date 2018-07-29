@@ -13,6 +13,7 @@ import NoMore from 'components/NoMore'
 import CommentMain from 'components/comment/CommentMain'
 import PageActions from 'components/PageActions'
 import JsonContent from 'components/jsonEditor/JsonContent'
+import BangumiPanel from 'components/bangumi/BangumiPanel'
 import VCharts from 'v-charts'
 
 import {
@@ -25,6 +26,7 @@ import { Rate } from 'element-ui';
 Vue.use(VCharts);
 Vue.use(InfiniteScroll);
 Vue.component(Rate.name, Rate);
+Vue.component(BangumiPanel.name, BangumiPanel);
 Vue.component(DatetimePicker.name, DatetimePicker);
 Vue.component(JsonContent.name, JsonContent);
 Vue.component(CommentMain.name, CommentMain);

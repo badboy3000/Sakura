@@ -95,79 +95,78 @@
         </f7-actions-button>
       </page-actions>
     </f7-navbar>
-    <f7-block
-      v-if="source"
-      class="post"
-    >
-      <h1 class="title">
-        <div
-          v-if="post.is_nice"
-          class="nice_badge"
-        >精</div>
-        {{ post.title }}
-      </h1>
-      <div class="user">
-        <a
-          :href="$alias.user(master.zone)"
-          class="avatar"
-        >
-          <img :src="$resize(master.avatar, { width: 70 })">
-        </a>
-        <div class="summary">
+    <template v-if="source">
+      <f7-block class="post">
+        <h1 class="title">
+          <div
+            v-if="post.is_nice"
+            class="nice_badge"
+          >精</div>
+          {{ post.title }}
+        </h1>
+        <div class="user">
           <a
             :href="$alias.user(master.zone)"
-            class="nickname"
-            v-text="master.nickname"
-          />
-          <div class="info">
-            <span>第1楼</span>
-            <span>·</span>
-            <template v-if="total > 1">
-              <span>共{{ total }}楼</span>
-              <span>·</span>
-            </template>
-            <v-time v-model="post.created_at"/>
-            <span v-if="post.view_count">
-              &nbsp;·&nbsp;
-              阅读
-              {{ $func.shortenNumber(post.view_count) }}
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div
-          class="text-area"
-          v-html="post.content"
-        />
-        <div class="image-area">
-          <div
-            v-for="(img, idx) in post.images"
-            :key="idx"
-            class="image-package"
+            class="avatar"
           >
-            <!--
-            @click="$previewImages(post.preview_images, img)"
-            -->
-            <v-img
-              :src="img.url"
-              :full="true"
-              :source="img"
-              :aspect="$computeImageAspect(img)"
-              width="300"
-              mode="2"
+            <img :src="$resize(master.avatar, { width: 70 })">
+          </a>
+          <div class="summary">
+            <a
+              :href="$alias.user(master.zone)"
+              class="nickname"
+              v-text="master.nickname"
             />
+            <div class="info">
+              <span>第1楼</span>
+              <span>·</span>
+              <template v-if="total > 1">
+                <span>共{{ total }}楼</span>
+                <span>·</span>
+              </template>
+              <v-time v-model="post.created_at"/>
+              <span v-if="post.view_count">
+                &nbsp;·&nbsp;
+                阅读
+                {{ $func.shortenNumber(post.view_count) }}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </f7-block>
+        <div class="content">
+          <div
+            class="text-area"
+            v-html="post.content"
+          />
+          <div class="image-area">
+            <div
+              v-for="(img, idx) in post.images"
+              :key="idx"
+              class="image-package"
+            >
+              <!--
+              @click="$previewImages(post.preview_images, img)"
+              -->
+              <v-img
+                :src="img.url"
+                :full="true"
+                :source="img"
+                :aspect="$computeImageAspect(img)"
+                width="300"
+                mode="2"
+              />
+            </div>
+          </div>
+        </div>
+      </f7-block>
+      <bangumi-panel :bangumi="bangumi"/>
+    </template>
     <f7-block
       v-else
       class="text-align-center"
     >
       <f7-preloader/>
     </f7-block>
-    <div class="hr"/>
     <comment-main
       :id="id"
       :only-see-master="onlySeeMaster"

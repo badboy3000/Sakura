@@ -19,7 +19,10 @@
           :key="index"
         >
           <f7-block-title v-text="col.name"/>
-          <f7-list media-list>
+          <f7-list
+            media-list
+            class="no-arrow"
+          >
             <f7-list-item
               v-for="item in col.data"
               :key="item.id"
@@ -39,6 +42,7 @@
       <f7-list
         v-else
         media-list
+        class="no-arrow"
       >
         <f7-list-item
           v-for="item in source.videos"

@@ -176,6 +176,7 @@
       <div class="score-body">
         <json-content :content="source.content"/>
       </div>
+      <bangumi-panel :bangumi="bangumi"/>
       <!--
       <div class="score-footer">
         <button
@@ -200,7 +201,6 @@
     >
       <f7-preloader/>
     </f7-block>
-    <div class="hr"/>
     <comment-main
       :id="id"
       :only-see-master="false"
