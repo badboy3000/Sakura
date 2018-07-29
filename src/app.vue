@@ -45,6 +45,9 @@
         creatorDialogIsOpen: false
       }
     },
+    created () {
+      document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
     mounted () {
       this.$channel.$on('toggle-creator', (isOpen) => {
         this.creatorDialogIsOpen = isOpen
@@ -54,6 +57,20 @@
           ctx.$f7router.clearPreviousHistory();
         }, 0)
       })
+    },
+    methods: {
+      onDeviceReady () {
+        this.listenerBackButtonClick()
+      },
+      listenerBackButtonClick () {
+        document.addEventListener('backbutton', (e) => {
+          if (this.$f7router.history.length > 1) {
+            this.$f7router.back();
+            e.preventDefault();
+            return false;
+          }
+        }, false);
+      }
     }
   }
 </script>
