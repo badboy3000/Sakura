@@ -11,6 +11,8 @@
         v-for="item in posts"
         :key="item.id"
         :item="item"
+        :bangumi-id="bangumiId"
+        :user-id="userId"
       />
     </f7-list>
     <no-more

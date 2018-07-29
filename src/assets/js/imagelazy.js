@@ -51,26 +51,26 @@ export default {
     }
   },
   render: function (h) {
-    const containSize = this.full && this.source && this.source.width < window.innerWidth
-    if (containSize) {
-      return h('div',
-        [
-          h(this.tag, {
-            'class': [
-              'image-shim',
-              {
-                'image-lazy-init': this.aspect,
-                'image-loading': this.loading
-              }
-            ],
-            style: {
-              width: `${this.source.width}px`,
-              height: `${this.source.height}px`
-            }
-          })
-        ]
-      )
-    }
+    // const containSize = this.full && this.source && this.source.width < window.innerWidth
+    // if (containSize) {
+    //   return h('div',
+    //     [
+    //       h(this.tag, {
+    //         'class': [
+    //           'image-shim',
+    //           {
+    //             'image-lazy-init': this.aspect,
+    //             'image-loading': this.loading
+    //           }
+    //         ],
+    //         style: {
+    //           width: `${this.source.width}px`,
+    //           height: `${this.source.height}px`
+    //         }
+    //       })
+    //     ]
+    //   )
+    // }
     return h(this.tag)
     /*
     return h(this.tag, {

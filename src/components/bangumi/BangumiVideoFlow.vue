@@ -75,12 +75,10 @@
       }
     },
     mounted () {
-      this.$channel.$on('bangumi-show-tab-3-switch', (isShow) => {
-        isShow && this.getData()
-      })
+      this.$channel.$on('flow-list-fetch-video', this.getData)
     },
     beforeDestroy () {
-      this.$channel.$off('bangumi-show-tab-3-switch')
+      this.$channel.$off('flow-list-fetch-video')
     },
     methods: {
       async getData () {

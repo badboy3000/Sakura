@@ -3,3 +3,9 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.oneline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

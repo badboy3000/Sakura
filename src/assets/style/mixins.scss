@@ -72,6 +72,22 @@
   }
 }
 
+@mixin border-top($margin: 0) {
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background-color: #c4c4c4;
+    transform: scaleY(0.5);
+    margin-left: $margin;
+    margin-right: $margin;
+    transform-origin: 50% 100%;
+  }
+}
+
 @mixin filter-blur($size: 5) {
   filter: blur($size + px);
   filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=$size, MakeShadow=false);

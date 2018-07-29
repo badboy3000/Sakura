@@ -6,7 +6,7 @@
     @infinite="loadMore"
     @ptr:refresh="refresh"
   >
-    <f7-list>
+    <f7-list class="no-arrow">
       <cartoon-flow-item
         v-for="item in source.list"
         :key="item.id"

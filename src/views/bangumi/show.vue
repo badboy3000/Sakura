@@ -88,17 +88,20 @@
         <f7-tab
           v-if="hasVideo"
           id="bangumi-show-video"
+          @tab:show="$channel.$emit('flow-list-fetch-video')"
         >
           <bangumi-video-flow :id="id"/>
         </f7-tab>
         <f7-tab
           v-if="hasCartoon"
           id="bangumi-show-cartoon"
+          @tab:show="$channel.$emit('flow-list-fetch-cartoon')"
         >
           <cartoon-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
           id="bangumi-show-role"
+          @tab:show="$channel.$emit('flow-list-fetch-role')"
         >
           <role-flow-list :bangumi-id="id"/>
         </f7-tab>

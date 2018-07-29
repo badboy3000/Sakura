@@ -2,9 +2,9 @@
   .post-flow-item {
     .header {
       height: 35px;
-      margin-bottom: 9px;
+      margin-bottom: 10px;
 
-      .avatar {
+      .user-avatar {
         margin-right: 7px;
         display: block;
         float: left;
@@ -13,7 +13,7 @@
         @include border($color-gray-normal, 50%);
       }
 
-      .face {
+      .bangumi-avatar {
         margin-right: 10px;
         display: block;
         float: left;
@@ -32,43 +32,24 @@
         vertical-align: middle;
         display: block;
         overflow: hidden;
+        height: 35px;
 
-        time, span {
-          color: #999;
-          font-size: 11px;
+        .nickname {
+          font-size: 14px;
+          line-height: 14px;
+          overflow: hidden;
+          margin-top: 4px;
+          margin-bottom: 0;
+          color: #333;
         }
 
-        .title {
-          .top_badge, .nice_badge {
-            float: left;
-            height: 15px;
-            line-height: 15px;
-            color: #fff;
-            cursor: default;
-            font-size: 11px;
-            font-weight: bold;
-            text-align: center;
-            border-radius: 4px;
-            padding: 0 4px;
-            margin-right: 5px;
-          }
-
-          .top_badge {
-            background-color: $color-blue-normal;
-          }
-
-          .nice_badge {
-            background-color: $color-pink-deep;
-          }
-
-          p {
-            margin-bottom: 2px;
-            margin-top: 2px;
-            font-size: 14px;
-            line-height: 15px;
-            overflow: hidden;
-            color: #333;
-          }
+        a, time, span {
+          display: block;
+          color: #999;
+          font-size: 11px;
+          line-height: 11px;
+          margin-top: 4px;
+          float: left;
         }
       }
     }
@@ -76,14 +57,54 @@
     .body {
       display: block;
 
+      .title {
+        margin-bottom: 5px;
+
+        .top_badge, .nice_badge {
+          float: left;
+          height: 16px;
+          line-height: 18px;
+          color: #fff;
+          cursor: default;
+          font-size: 11px;
+          font-weight: bold;
+          text-align: center;
+          border-radius: 4px;
+          padding: 0 4px;
+          margin-right: 5px;
+        }
+
+        .top_badge {
+          background-color: $color-blue-normal;
+        }
+
+        .nice_badge {
+          background-color: $color-pink-deep;
+        }
+
+        .oneline {
+          color: #4c4c4c;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 14px;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+
       .content {
-        color: #000;
-        font-size: 16px;
-        margin-bottom: 4px;
-        @include twoline(24px)
+        color: #333;
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: 8px;
+        @include twoline(18px)
       }
 
       .images {
+        position: relative;
+        margin-bottom: 8px;
+        z-index: -2;
+
         .image-full {
           height: 190px;
           width: 100%;
@@ -91,10 +112,14 @@
         }
 
         .image-list {
+          @extend %clearfix;
+
           img {
             width: 32%;
             max-height: 93px;
             height: auto;
+            display: block;
+            float: left;
 
             &:not(:last-child) {
               margin-right: 2%;
@@ -105,43 +130,21 @@
     }
 
     .footer {
-      height: 44px;
-      line-height: 44px;
-      display: block;
+      height: 30px;
+      line-height: 30px;
       width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
 
-      .bangumi {
-        color: #999;
+      span {
         font-size: 12px;
-        display: block;
-        margin-right: 8px;
+        color: #666;
       }
 
-      .stats {
-        height: 100%;
-        color: #666;
-        float: right;
-        margin-top: -2px;
-
-        span {
-          margin-left: 10px;
-          font-size: 12px;
-          margin-right: 2px;
-        }
-
-        i {
-          font-size: 12px;
-          display: inline-block;
-          vertical-align: middle;
-        }
-
-        .done {
-          color: $color-blue-normal;
-        }
-
-        .icon-shoucang {
-          margin-top: -3px;
-        }
+      .done {
+        color: $color-blue-normal;
       }
     }
   }
@@ -154,7 +157,7 @@
         <a
           v-if="item.user"
           :href="$alias.user(item.user.zone)"
-          class="avatar"
+          class="user-avatar"
         >
           <v-img
             :src="item.user.avatar"
@@ -164,7 +167,7 @@
         <a
           v-else
           :href="$alias.bangumi(item.bangumi.id)"
-          class="face"
+          class="bangumi-avatar"
         >
           <v-img
             :src="item.bangumi.avatar"
@@ -172,32 +175,45 @@
           />
         </a>
         <div class="name">
-          <div class="title">
-            <div
-              v-if="item.top_at"
-              class="top_badge"
-            >置顶</div>
-            <div
-              v-if="item.is_nice"
-              class="nice_badge"
-            >精</div>
-            <p
-              class="oneline"
-              v-text="item.title"
+          <p
+            class="nickname"
+            v-text="item.user.nickname"
+          />
+          <template v-if="bangumiId">
+            <span>发表于&nbsp;·&nbsp;</span>
+          </template>
+          <template v-else>
+            <a
+              :href="$alias.bangumi(item.bangumi.id)"
+              v-text="item.bangumi.name"
             />
-          </div>
-          <span>{{ item.user ? item.user.nickname : '发表于' }}&nbsp;·&nbsp;</span>
+            <span>&nbsp;·&nbsp;</span>
+          </template>
           <v-time v-model="item.created_at"/>
         </div>
       </div>
       <div class="body">
+        <div class="title">
+          <div
+            v-if="item.top_at"
+            class="top_badge"
+          >置顶</div>
+          <div
+            v-if="item.is_nice"
+            class="nice_badge"
+          >精</div>
+          <p
+            class="oneline"
+            v-text="item.title"
+          />
+        </div>
         <p
           class="content"
           v-text="item.desc"
         />
         <div
           v-if="item.images.length"
-          class="images clearfix"
+          class="images"
         >
           <v-img
             v-if="item.images.length === 1"
@@ -221,30 +237,26 @@
         </div>
       </div>
       <div class="footer">
-        <div class="stats">
-          <span :class="{ 'done' : item.liked }">
-            <i class="iconfont icon-guanzhu"/>
-            {{ $func.shortenNumber(item.like_count) }}
-          </span>
-          <span :class="{ 'done' : item.marked }">
-            <i class="iconfont icon-shoucang"/>
-            {{ $func.shortenNumber(item.mark_count) }}
-          </span>
-          <span :class="{ 'done' : item.commented }">
-            <i class="iconfont icon-pinglun1"/>
-            {{ $func.shortenNumber(item.comment_count) }}
-          </span>
-          <span>
-            <i class="iconfont icon-yuedu"/>
-            {{ $func.shortenNumber(item.view_count) }}
-          </span>
-        </div>
+        <span :class="{ 'done' : item.liked }">
+          赞赏
+          {{ $func.shortenNumber(item.like_count) }}
+        </span>
+        <span :class="{ 'done' : item.marked }">
+          收藏
+          {{ $func.shortenNumber(item.mark_count) }}
+        </span>
+        <span :class="{ 'done' : item.commented }">
+          评论
+          {{ $func.shortenNumber(item.comment_count) }}
+        </span>
+        <!--
         <a
           v-if="item.bangumi && item.user"
           :href="$alias.bangumi(item.bangumi.id)"
           class="bangumi oneline"
           v-text="item.bangumi.name"
         />
+        -->
       </div>
     </f7-list-item>
     <div class="hr"/>
@@ -258,6 +270,14 @@
       item: {
         required: true,
         type: Object
+      },
+      bangumiId: {
+        type: Number,
+        default: 0
+      },
+      userId: {
+        type: Number,
+        default: 0
       }
     },
     methods: {

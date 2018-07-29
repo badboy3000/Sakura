@@ -25,6 +25,7 @@
         position: relative;
         overflow: hidden;
         border-radius: 5px;
+        z-index: -2;
 
         &.album-box:after {
           content: '';
@@ -74,13 +75,17 @@
       }
 
       .intro {
-        height: 55px;
         padding: 5px 15px;
 
         .name, .social {
           height: 20px;
-          font-size: 12px;
           line-height: 20px;
+          font-size: 12px;
+          color: #333;
+        }
+
+        .name {
+          margin: 0;
         }
 
         .social {
@@ -195,6 +200,7 @@
               class="name oneline"
               v-text="item.name"
             />
+            <!--
             <div class="social">
               <span
                 v-if="item.like_count"
@@ -215,7 +221,9 @@
                 {{ item.view_count }}
               </span>
             </div>
+            -->
           </div>
+          <!--
           <div class="about">
             <template v-if="show === 'bangumi'">
               <a
@@ -269,6 +277,7 @@
               </div>
             </template>
           </div>
+          -->
         </f7-link>
       </waterfall-slot>
     </waterfall>
@@ -290,15 +299,18 @@
         type: Array,
         default: () => []
       },
-      show: {
-        required: true,
-        type: String,
-        validator: val => ~['all', 'user', 'bangumi'].indexOf(val)
+      bangumiId: {
+        type: Number,
+        default: 0
+      },
+      userId: {
+        type: Number,
+        default: 0
       }
     },
     methods: {
       computeBoxHeight (image) {
-        return this.computeImageHeight(image) + 106
+        return this.computeImageHeight(image) + 30
       },
       computeImageHeight (image) {
         return parseInt(image.height / image.width * 145, 10)

@@ -8,7 +8,8 @@
   >
     <image-waterfall
       :list="source.list"
-      show="all"
+      :bangumi-id="bangumiId"
+      :user-id="userId"
     />
     <no-more
       :loading="source.loading"

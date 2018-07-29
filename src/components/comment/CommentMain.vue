@@ -111,7 +111,7 @@
       },
       emptyText: {
         type: String,
-        default: '暂无评论，快来抢沙发吧╮(￣▽￣)╭！'
+        default: 'App内评论功能正在开发中...' /*'暂无评论，快来抢沙发吧╮(￣▽￣)╭！'*/
       },
       masterId: {
         required: true,

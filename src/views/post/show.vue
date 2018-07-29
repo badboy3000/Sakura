@@ -26,39 +26,37 @@
 
       .user {
         position: relative;
+
         .avatar {
           float: left;
           margin-right: 9px;
           @include avatar(35px)
         }
 
-        .tool-btn {
-          position: absolute;
-          right: 5px;
-          top: 0;
-          line-height: 16px;
-          font-size: 12px;
-          color: #535353;
-        }
-
         .summary {
+          vertical-align: middle;
+          display: block;
           overflow: hidden;
+          height: 35px;
 
           .nickname {
-            overflow: hidden;
-            display: inline-block;
             font-size: 14px;
+            line-height: 14px;
+            overflow: hidden;
+            margin-top: 4px;
+            margin-bottom: 0;
             color: #333;
+            display: block;
           }
 
-          .info {
-            line-height: 16px;
-            font-size: 12px;
+          time, span {
+            display: block;
             color: #999;
-
-            span {
-              margin-right: 5px;
-            }
+            font-size: 11px;
+            line-height: 11px;
+            margin-top: 4px;
+            margin-right: 5px;
+            float: left;
           }
         }
       }
@@ -129,11 +127,9 @@
               <span>·</span>
             </template>
             <v-time v-model="post.created_at"/>
-            <span
-              v-if="post.view_count"
-              class="fr"
-            >
-              <i class="iconfont icon-yuedu"/>
+            <span v-if="post.view_count">
+              &nbsp;·&nbsp;
+              阅读
               {{ $func.shortenNumber(post.view_count) }}
             </span>
           </div>
