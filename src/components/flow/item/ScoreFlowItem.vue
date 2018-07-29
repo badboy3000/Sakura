@@ -3,6 +3,16 @@
     .header {
       margin-bottom: 10px;
 
+      .el-rate {
+        display: inline-block;
+        vertical-align: middle;
+        height: 23px;
+        margin-left: 10px;
+        float: right;
+      }
+    }
+
+    .trending-header {
       .user-avatar {
         display: block;
         margin-right: 5px;
@@ -24,14 +34,6 @@
             vertical-align: middle;
             color: #333;
           }
-
-          .el-rate {
-            display: inline-block;
-            vertical-align: middle;
-            height: 23px;
-            margin-left: 10px;
-            float: right;
-          }
         }
 
         .meta {
@@ -42,6 +44,29 @@
           a {
             color: #999;
           }
+        }
+      }
+    }
+
+    .bangumi-header {
+      .user {
+        display: block;
+        overflow: hidden;
+
+        .user-avatar {
+          display: block;
+          margin-right: 5px;
+          float: left;
+          @include avatar(23px);
+        }
+
+        .nickname {
+          overflow: hidden;
+          display: block;
+          line-height: 23px;
+          vertical-align: middle;
+          color: #333;
+          font-size: 11px;
         }
       }
     }
@@ -115,12 +140,42 @@
 <template>
   <div class="score-flow-item">
     <f7-list-item :link="$alias.score(item.id)">
-      <div class="header">
+      <div
+        v-if="bangumiId"
+        class="header bangumi-header"
+      >
+        <el-rate
+          v-if="starCount"
+          v-model="starCount"
+          disabled
+        />
+        <el-rate
+          v-else
+          v-model="zero"
+          disabled
+        />
+        <a
+          :href="$alias.user(item.user.zone)"
+          class="user"
+        >
+          <div class="user-avatar">
+            <img :src="$resize(item.user.avatar, { width: 50 })">
+          </div>
+          <div
+            class="nickname oneline"
+            v-text="item.user.nickname"
+          />
+        </a>
+      </div>
+      <div
+        v-else
+        class="header trending-header"
+      >
         <a
           :href="$alias.user(item.user.zone)"
           class="user-avatar"
         >
-          <img :src="$resize(item.user.avatar, { width: 50 })">
+          <img :src="$resize(item.user.avatar, { width: 70 })">
         </a>
         <div class="header-content">
           <div class="about">

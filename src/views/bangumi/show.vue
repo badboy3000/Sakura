@@ -190,12 +190,12 @@
       hasVideo () {
         return this.bangumi
           ? this.bangumi.has_video
-          : false
+          : true
       },
       hasCartoon () {
         return this.bangumi
           ? this.bangumi.has_cartoon
-          : false
+          : true
       },
       isMaster () {
         return this.bangumi

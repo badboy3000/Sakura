@@ -10,6 +10,7 @@
       :list="source.list"
       :bangumi-id="bangumiId"
       :user-id="userId"
+      :watch-key="count"
     />
     <no-more
       :loading="source.loading"
@@ -41,7 +42,8 @@
     },
     data () {
       return {
-        triggerKey: 'flow-list-fetch-image'
+        triggerKey: 'flow-list-fetch-image',
+        count: 0
       }
     },
     computed: {
@@ -51,6 +53,11 @@
         }
         return this.$store.state.world.image.active
       }
+    },
+    mounted () {
+      this.$channel.$on(this.listenKey, () => {
+        this.count++
+      })
     },
     methods: {
       async getData (refresh = false) {

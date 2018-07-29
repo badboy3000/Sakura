@@ -1,3 +1,11 @@
+<style lang="scss">
+  #cartoon-flow-list {
+    width: 310px;
+    margin: 0 auto;
+    @extend %clearfix;
+  }
+</style>
+
 <template>
   <f7-page
     :page-content="true"
@@ -6,7 +14,10 @@
     @infinite="loadMore"
     @ptr:refresh="refresh"
   >
-    <f7-list class="no-arrow">
+    <f7-list
+      id="cartoon-flow-list"
+      class="no-arrow"
+    >
       <cartoon-flow-item
         v-for="item in source.list"
         :key="item.id"

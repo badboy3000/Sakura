@@ -2,17 +2,19 @@
   #image-waterfall-flow {
     margin-right: -5px;
     padding-top: 10px;
+    width: 100%;
 
     .vue-waterfall {
       width: 310px;
+      max-width: 100%;
       margin: 0 auto;
     }
 
     .vue-waterfall-slot {
       padding-right: 10px;
       padding-bottom: 10px;
-      margin-left: 3px;
-      margin-top: 3px;
+      margin-left: 5px;
+      margin-top: 5px;
     }
 
     .image {
@@ -159,6 +161,7 @@
     <waterfall
       :line-gap="155"
       :auto-resize="false"
+      :watch="watchKey"
     >
       <waterfall-slot
         v-for="(item, index) in list"
@@ -304,6 +307,10 @@
         default: 0
       },
       userId: {
+        type: Number,
+        default: 0
+      },
+      watchKey: {
         type: Number,
         default: 0
       }

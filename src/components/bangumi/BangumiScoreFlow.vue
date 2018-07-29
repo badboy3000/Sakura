@@ -134,10 +134,10 @@
       }
     },
     mounted () {
-      this.$channel.$on('flow-list-fetch-score', this.getScore)
+      this.$channel.$on('bangumi-flow-list-fetch-score', this.getScore)
     },
     beforeDestroy () {
-      this.$channel.$off('flow-list-fetch-score')
+      this.$channel.$off('bangumi-flow-list-fetch-score')
     },
     methods: {
       async getScore () {

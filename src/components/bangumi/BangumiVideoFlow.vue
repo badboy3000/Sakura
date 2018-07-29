@@ -6,12 +6,12 @@
     >
       <f7-preloader/>
     </f7-block>
-    <f7-block
+    <no-more
       v-else-if="!source"
-      class="text-align-center"
-    >
-      还什么都没有
-    </f7-block>
+      :loading="false"
+      :length="0"
+      :no-more="true"
+    />
     <div v-else>
       <div v-if="source.has_season">
         <div

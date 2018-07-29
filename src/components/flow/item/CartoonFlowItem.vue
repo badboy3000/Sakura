@@ -1,15 +1,21 @@
 <style lang="scss">
   .cartoon {
     width: 145px;
-    height: 316px;
+    height: 250px;
     float: left;
-    box-shadow: 0 1px 3px rgba(0,0,0,.2);
-    margin: 3px 3px 10px;
+    margin: 5px 5px 10px;
+    border-radius: 5px;
     overflow: hidden;
+
+    .item-content,
+    .item-inner {
+      padding: 0 !important;
+    }
 
     .poster-wrap {
       position: relative;
       display: block;
+      z-index: -2;
 
       &:after {
         content: '';
@@ -51,9 +57,7 @@
     }
 
     .intro {
-      height: 55px;
       padding: 5px 15px;
-      background-color: #fff;
 
       .name, .social {
         height: 20px;
@@ -63,6 +67,7 @@
 
       .name {
         margin-top: 3px;
+        margin-bottom: 0;
       }
 
       .social {
@@ -120,6 +125,7 @@
       </div>
       <div class="intro">
         <p class="name oneline">【 {{ item.part }} 】{{ item.name }}</p>
+        <!--
         <div class="social">
           <span
             v-if="item.like_count"
@@ -140,8 +146,10 @@
             {{ item.view_count }}
           </span>
         </div>
+        -->
       </div>
     </div>
+    <!--
     <div class="about">
       <a
         :href="$alias.user(item.user.zone)"
@@ -155,6 +163,7 @@
         v-text="item.user.nickname"
       />
     </div>
+    -->
   </f7-list-item>
 </template>
 
