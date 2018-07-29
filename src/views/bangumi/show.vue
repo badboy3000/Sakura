@@ -13,11 +13,14 @@
       }
     }
 
+    /*
     .bangumi-tabs-wrap {
       margin-top: 200px;
     }
+    */
   }
 
+  /*
   .ios-edge #bangumi-show {
     .bangumi-tabs-wrap {
       .page-content {
@@ -27,14 +30,10 @@
       }
     }
   }
-
+  */
   .md-edge #bangumi-show {
-    .bangumi-tabs-wrap {
-      .page-content {
-        .page-content {
-          margin-top: 48px;
-        }
-      }
+    .tab .page-content {
+      padding-top: 114px;
     }
   }
 </style>
@@ -47,6 +46,7 @@
       sliding
     />
     <template v-if="bangumi">
+      <!--
       <scroll-banner
         :height="200"
         :background="bangumi.banner"
@@ -56,65 +56,53 @@
           <img :src="$resize(bangumi.avatar, { width: 120 })">
         </div>
       </scroll-banner>
+      -->
       <menu-bar
         :list="computedMenu"
         :active="0"
       />
     </template>
-    <f7-block
-      v-else
-      class="text-align-center"
-    >
-      <f7-preloader/>
-    </f7-block>
     <f7-page
       :page-content="true"
       class="bangumi-tabs-wrap"
     >
       <f7-tabs>
         <f7-tab
-          v-scroll-emit="200"
           id="bangumi-show-post"
           tab-active
         >
           <post-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
-          v-scroll-emit="200"
           id="bangumi-show-image"
           @tab:show="$channel.$emit('flow-list-fetch-image')"
         >
           <image-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
-          v-scroll-emit="200"
           id="bangumi-show-score"
           @tab:show="$channel.$emit('flow-list-fetch-score')"
         >
           <bangumi-score-flow :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
-          v-scroll-emit="200"
           v-if="hasVideo"
           id="bangumi-show-video"
         >
           <bangumi-video-flow :id="id"/>
         </f7-tab>
         <f7-tab
-          v-scroll-emit="200"
           v-if="hasCartoon"
           id="bangumi-show-cartoon"
         >
           <cartoon-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
-          v-scroll-emit="200"
           id="bangumi-show-role"
         >
           <role-flow-list :bangumi-id="id"/>
         </f7-tab>
         <f7-tab
-          v-scroll-emit="200"
           v-if="isMaster"
           id="bangumi-show-setting"
         >

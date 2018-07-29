@@ -4,7 +4,14 @@
 
 <template>
   <f7-page>
-    create post
+    <f7-navbar sliding>
+      <f7-nav-left
+        back-link
+      />
+    </f7-navbar>
+    <f7-block>
+      发帖，施工中...
+    </f7-block>
   </f7-page>
 </template>
 

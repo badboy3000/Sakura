@@ -34,10 +34,15 @@
           <img :src="$resize(user.avatar, { width: 120 })">
         </div>
       </scroll-banner>
+      <!--
       <menu-bar
         :list="menu"
         :active="0"
       />
+      -->
+      <f7-block>
+        施工中...
+      </f7-block>
     </template>
     <f7-block
       v-else

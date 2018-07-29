@@ -39,6 +39,15 @@ export default [
     ]
   },
   {
+    path: '/my',
+    routes: [
+      {
+        path: 'draft',
+        component: require('views/user/draft.vue')
+      }
+    ]
+  },
+  {
     path: '/',
     component: require('views/homepage/index.vue')
   },

@@ -6,7 +6,9 @@ const baseURL = process.env.API_HOST
 const convertGetQuery = (params) => {
   const result = {}
   Object.keys(params).forEach(key => {
-    result[key] = params[key].toString()
+    if (params[key] !== undefined && params[key] !== null) {
+      result[key] = params[key].toString()
+    }
   })
   return result;
 }

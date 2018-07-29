@@ -16,12 +16,14 @@ import JsonContent from 'components/jsonEditor/JsonContent'
 import VCharts from 'v-charts'
 
 import {
-  DatetimePicker
+  DatetimePicker,
+  InfiniteScroll
 } from 'mint-ui';
 
 import { Rate } from 'element-ui';
 
 Vue.use(VCharts);
+Vue.use(InfiniteScroll);
 Vue.component(Rate.name, Rate);
 Vue.component(DatetimePicker.name, DatetimePicker);
 Vue.component(JsonContent.name, JsonContent);

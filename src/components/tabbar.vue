@@ -200,7 +200,9 @@
         :f7="selectedIndex === 2 ? 'bell_fill' : 'bell'"
         size="20"
       >
+        <!--
         <f7-badge color="red">7</f7-badge>
+        -->
       </f7-icon>
       <div>消息</div>
     </f7-link>

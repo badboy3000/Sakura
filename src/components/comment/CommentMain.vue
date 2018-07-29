@@ -28,9 +28,9 @@
     <!-- 主列表的头部 -->
     <slot name="header">
       <div class="hr"/>
-      <h3 class="sub-title">
+      <f7-block-title>
         评论{{ total ? `(${total})` : '' }}
-      </h3>
+      </f7-block-title>
     </slot>
     <!-- 主列表的 list -->
     <f7-list
@@ -68,6 +68,7 @@
       :no-more="source.noMore"
       :nothing-text="emptyText"
     />
+    <!--
     <create-comment-bar
       :id="id"
       :can-like="canLike"
@@ -78,6 +79,7 @@
       :rewarded="rewarded"
       @submit="createMainComment"
     />
+    -->
   </div>
 </template>
 

@@ -1,8 +1,6 @@
 <style lang="scss">
   #score-show {
     .score-header {
-      margin-top: 15px;
-
       .title {
         font-size: 24px;
         line-height: 32px;

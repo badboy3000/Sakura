@@ -41,7 +41,7 @@
         </f7-col>
         <f7-col>
           <f7-link
-            href="#"
+            href="/my/draft"
             color="gray"
             class="menu-item"
           >

@@ -4,8 +4,13 @@
 
 <template>
   <f7-page>
+    <f7-navbar sliding>
+      <f7-nav-left
+        back-link
+      />
+    </f7-navbar>
     <f7-block>
-      暂时还收不到消息通知
+      草稿箱，施工中...
     </f7-block>
   </f7-page>
 </template>

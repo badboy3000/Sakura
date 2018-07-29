@@ -4,7 +4,14 @@
 
 <template>
   <f7-page>
-    create score
+    <f7-navbar sliding>
+      <f7-nav-left
+        back-link
+      />
+    </f7-navbar>
+    <f7-block>
+      写漫评，施工中...
+    </f7-block>
   </f7-page>
 </template>
 

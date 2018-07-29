@@ -1,9 +1,6 @@
 <style lang="scss">
   #image-show {
     .album-header {
-      margin-top: $container-padding;
-      margin-bottom: $container-padding;
-
       .title {
         font-size: 20px;
         margin-bottom: 15px;
@@ -108,7 +105,7 @@
       />
     </f7-navbar>
     <template v-if="info">
-      <div class="album-header">
+      <f7-block class="album-header">
         <h1 class="title oneline">
           {{ info.is_creator ? '[原创]' : '[转载]' }}
           [{{ info.is_cartoon ? '漫画' : '相册' }}]
@@ -126,7 +123,7 @@
           ·
           <v-time v-model="info.created_at"/>
         </a>
-      </div>
+      </f7-block>
       <div class="album-body">
         <div
           v-if="info.is_album"

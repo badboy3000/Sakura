@@ -2,7 +2,6 @@
   <f7-nav-right>
     <f7-link
       icon-f7="tape_fill"
-      icon-color="pink"
       @click="actionGridOpened = true"
     />
     <f7-actions
@@ -11,7 +10,7 @@
     >
       <f7-actions-group>
         <slot/>
-        <f7-actions-button>
+        <f7-actions-button @click="report">
           {{ org ? '报错' : '举报' }}
         </f7-actions-button>
       </f7-actions-group>
@@ -42,6 +41,11 @@
     data () {
       return {
         actionGridOpened: false
+      }
+    },
+    methods: {
+      report () {
+        this.$toast.info('施工中...')
       }
     }
   }

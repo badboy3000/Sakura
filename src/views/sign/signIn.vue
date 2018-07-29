@@ -38,11 +38,6 @@
         class="submit-btn"
         @click="submit"
       >
-        <f7-preloader
-          v-if="loading"
-          :size="20"
-          color="white"
-        />
         登录
       </f7-button>
       <f7-block>
@@ -76,7 +71,7 @@
       }
     },
     methods: {
-      submit () {
+      async submit () {
         const access = this.access
         const secret = this.secret
         if (!access || access.length !== 11) {
@@ -91,22 +86,26 @@
           return
         }
         this.loading = true
-        login({
-          access,
-          secret,
-          remember: true
-        }).then(async (token) => {
+        this.$f7.preloader.show();
+        try {
+          const token = await login({
+            access,
+            secret,
+            remember: true
+          });
           this.$cache.set('JWT-TOKEN', token)
           BaseApi.setToken(token);
-          await this.$store.dispatch('login')
+          await this.$store.dispatch('login');
           this.$f7router.navigate('/', {
             animate: false
           })
           this.$channel.$emit('clear-router-history', this)
-        }).catch((err) => {
-          this.$toast.error(err)
+        } catch (e) {
+          this.$toast.error(e)
+        } finally {
           this.loading = false
-        })
+          this.$f7.preloader.hide();
+        }
       }
     }
   }
