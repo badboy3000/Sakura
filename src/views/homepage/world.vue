@@ -34,8 +34,16 @@
       ImageFlowList,
       ScoreFlowList
     },
-    mounted () {
-      this.$channel.$emit('world-flow-list-fetch-post')
+    created () {
+      this.initFetch()
+    },
+    methods: {
+      initFetch () {
+        this.$channel.$on('init-D', () => {
+          this.$channel.$emit('world-flow-list-fetch-post')
+          this.$channel.$off('init-D')
+        })
+      }
     }
   };
 </script>

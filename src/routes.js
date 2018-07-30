@@ -1,7 +1,7 @@
 export default [
   {
-    path: '/launch',
-    component: require('views/launch.vue'),
+    path: '/',
+    component: require('views/index.vue')
   },
   {
     path: '/sign',
@@ -46,10 +46,6 @@ export default [
         component: require('views/user/draft.vue')
       }
     ]
-  },
-  {
-    path: '/',
-    component: require('views/homepage/index.vue')
   },
   {
     path: '/user/:zone',

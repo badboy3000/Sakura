@@ -7,6 +7,10 @@ export default (url, options = {}) => {
     return url;
   }
 
+  if (/^data:/.test(url)) {
+    return url;
+  }
+
   const link = /^http/.test(url) ? url : `https://image.calibur.tv/${url}`;
   const canUseWebP = () => {
     if (window.supportWebP !== undefined) {

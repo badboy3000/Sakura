@@ -20,6 +20,7 @@
 
 <template>
   <f7-page
+    v-if="user"
     id="home"
     :page-content="true"
   >
