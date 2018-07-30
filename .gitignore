@@ -7,3 +7,4 @@ dist/*
 platforms/
 plugins/
 *.apk
+www/
