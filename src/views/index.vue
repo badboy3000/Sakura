@@ -169,6 +169,10 @@
       },
       onDeviceReady () {
         document.addEventListener('backbutton', this.listenerBackButtonClick, false);
+        if (cordova.platformId === 'android') {
+          StatusBar.overlaysWebView(false);
+          StatusBar.backgroundColorByHexString('#fa7884');
+        }
       },
       listenerBackButtonClick () {
         if (this.$f7router.history.length > 1) {
