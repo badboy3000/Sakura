@@ -49,25 +49,6 @@
             margin-left: 2px;
           }
         }
-
-        >* {
-          position: relative;
-
-          &:after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 100%;
-            width: 100px;
-            height: 40px;
-            line-height: 40px;
-            margin-left: 10px;
-            font-size: 14px;
-            color: #333;
-            text-align: left;
-            visibility: hidden;
-          }
-        }
       }
 
       .oy-mask-white {
@@ -145,11 +126,9 @@
       type="top"
       animate="animated jello"
       class="creator-btn"
-      @click="createBtnClick"
     >
       <f7-link
         slot="item_1"
-        data-text="发帖子"
         class="post-btn"
         @click="goToCreator('post')"
       >
@@ -160,7 +139,6 @@
       </f7-link>
       <f7-link
         slot="item_2"
-        data-text="传图片"
         class="image-btn"
         @click="goToCreator('image')"
       >
@@ -171,7 +149,6 @@
       </f7-link>
       <f7-link
         slot="item_3"
-        data-text="写漫评"
         class="review-btn"
         @click="goToCreator('review')"
       >
@@ -225,9 +202,6 @@
         this.selectedIndex = index
         this.$emit('tab-switch', index)
         this.$channel.$emit(`tab-switch-${index}`)
-      },
-      createBtnClick (isOpen) {
-        this.$channel.$emit('toggle-creator', isOpen)
       },
       goToCreator (type) {
         this.$refs.creator.toggle();

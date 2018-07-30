@@ -1,15 +1,3 @@
-<style lang="scss">
-  .creatorDialogIsOpen {
-    .navbar {
-      z-index: 0;
-    }
-
-    .creator-btn .oy-menu-item >*:after {
-      visibility: visible !important;
-    }
-  }
-</style>
-
 <template>
   <f7-app
     ref="app"
@@ -19,7 +7,7 @@
     <f7-statusbar/>
     <f7-view
       :main="true"
-      :class="{ creatorDialogIsOpen, 'ios-edge': $theme.ios, 'md-edge': $theme.md }"
+      :class="{ 'ios-edge': $theme.ios, 'md-edge': $theme.md }"
       url="/"
     />
   </f7-app>
@@ -41,14 +29,10 @@
           routes,
           name: 'calibur.tv',
           id: 'io.framework7.testapp',
-        },
-        creatorDialogIsOpen: false
+        }
       }
     },
     mounted () {
-      this.$channel.$on('toggle-creator', (isOpen) => {
-        this.creatorDialogIsOpen = isOpen
-      })
       this.$channel.$on('clear-router-history', (ctx) => {
         setTimeout(() => {
           ctx.$f7router.clearPreviousHistory();
