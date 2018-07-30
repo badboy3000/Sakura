@@ -36,7 +36,6 @@
 <template>
   <f7-list-item
     :title="item.name"
-    :text="item.intro"
     :after="!bangumiId && !userId ? index + 1 : ''"
     :link="$alias.cartoonRole(item.id)"
     :class="`role-item-${index + 1}`"
@@ -49,7 +48,7 @@
     >
     <a
       v-if="item.lover_id"
-      slot="subtitle"
+      slot="text"
       :href="$alias.user(item.lover_zone)"
       class="lover"
     >
@@ -61,11 +60,12 @@
     </a>
     <a
       v-if="!bangumiId"
-      slot="footer"
+      slot="subtitle"
       :href="$alias.bangumi(item.bangumi_id)"
       class="bangumi"
       v-text="item.bangumi_name"
     />
+    <span slot="footer">共获得 {{ item.star_count }} 枚金币</span>
   </f7-list-item>
 </template>
 

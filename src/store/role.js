@@ -5,6 +5,7 @@ export default {
   state: () => ({
     info: null,
     fans: {
+      id: 0,
       new: {
         list: [],
         noMore: false
@@ -29,25 +30,30 @@ export default {
     SET_ROLE_INFO (state, data) {
       state.info = data
     },
-    SET_FANS_LIST (state, { data, reset, sort }) {
-      if (reset) {
-        state.fans = {
-          new: {
-            list: [],
-            noMore: false
-          },
-          hot: {
-            list: [],
-            noMore: false
-          }
-        }
-      }
+    SET_FANS_LIST (state, { data, roleId, sort }) {
+      state.fans.id = roleId
       state.fans[sort].list = state.fans[sort].list.concat(data)
       state.fans[sort].noMore = data.length < 15
+    },
+    RESET_FANS_LIST (state) {
+      state.fans = {
+        id: 0,
+        new: {
+          list: [],
+          noMore: false
+        },
+        hot: {
+          list: [],
+          noMore: false
+        }
+      }
     }
   },
   actions: {
     async getFansList ({ state, commit }, { roleId, sort, reset }) {
+      if (roleId !== state.fans.id || reset) {
+        commit('RESET_FANS_LIST')
+      }
       if (state.fans[sort].noMore && !reset) {
         return
       }
@@ -61,7 +67,7 @@ export default {
       } : {
         seenIds: reset ? '' : length ? list.map(_ => _.id).toString() : ''
       }))
-      commit('SET_FANS_LIST', { data, reset, sort })
+      commit('SET_FANS_LIST', { data, sort, roleId })
     },
     async getRoleInfo ({ commit }, { roleId }) {
       commit('SET_ROLE_INFO', null)
