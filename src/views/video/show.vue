@@ -160,6 +160,10 @@
         }
       },
       playVideo () {
+        if (this.useOtherSiteSource) {
+          this.$f7.dialog.alert('该视频不支持站内播放', '提示')
+          return
+        }
         window.plugins.streamingMedia.playVideo(this.videoSrc, {
           successCallback: () => {
             console.log("Video was closed without error.");
