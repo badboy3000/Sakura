@@ -68,7 +68,6 @@
       :no-more="source.noMore"
       :nothing-text="emptyText"
     />
-    <!--
     <create-comment-bar
       :id="id"
       :can-like="canLike"
@@ -79,12 +78,10 @@
       :rewarded="rewarded"
       @submit="createMainComment"
     />
-    -->
   </div>
 </template>
 
 <script>
-  import CommentCreateForm from './CommentCreateForm'
   import CreateCommentBar from './CreateCommentBar'
   import CommentItem from './CommentItem'
 
@@ -92,7 +89,6 @@
     name: 'CommentMain',
     components: {
       CreateCommentBar,
-      CommentCreateForm,
       CommentItem
     },
     props: {

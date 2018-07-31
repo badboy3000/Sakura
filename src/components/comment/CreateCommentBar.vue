@@ -70,11 +70,12 @@
           slot="inner-start"
           :icon-f7="sheetVisible ? 'camera_fill' : 'camera'"
           :icon-color="sheetVisible ? 'pink' : 'gray'"
-          @click="sheetVisible = !sheetVisible"
+          @click="chooseImages"
         />
         <f7-link
           icon-f7="social_github"
           icon-color="gray"
+          @click="sheetVisible = !sheetVisible"
         />
       </div>
       <div slot="send-link"/>
@@ -192,6 +193,15 @@
       }
     },
     methods: {
+      chooseImages () {
+        this.$camera.selectImages().then((images) => {
+          this.attachments = this.attachments.concat(images);
+//          const result = this.$camera.uploadImages(images);
+          this.$f7.dialog.alert(JSON.stringify(images), 'image result')
+        }).catch((err) => {
+          this.$toast.error(err);
+        })
+      },
       handleInputFocus () {
         this.focused = true;
         this.$refs.chat.setValue(this.saveValue);

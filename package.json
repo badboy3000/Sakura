@@ -4,7 +4,7 @@
   "description": "Brand new cordova project with framework7 - vue - webpack!",
   "scripts": {
     "dev": "yarn && cross-env NODE_ENV=development API_HOST=http://127.0.0.1:3099/ cordova run browser -- --live-reload",
-    "android": "yarn && cross-env NODE_ENV=development API_HOST=https://api.calibur.tv/ cordova run android -- --lr",
+    "android": "cross-env NODE_ENV=development API_HOST=https://api.calibur.tv/ cordova run android -- --lr",
     "build:android": "cross-env NODE_ENV=production API_HOST=https://api.calibur.tv/ cordova build android --release",
     "build:ios": "cross-env NODE_ENV=production API_HOST=https://api.calibur.tv/ cordova build ios --release",
     "release:android": "cross-env NODE_ENV=production API_HOST=https://api.calibur.tv/ jarsigner -verbose -keystore android.keystore -signedjar calibur.apk /Users/yuistack/Documents/calibur/Sakura/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk alias.keystore",
@@ -64,11 +64,14 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cordova-android": "^7.0.0",
+    "cordova-android-support-gradle-release": "^1.4.4",
     "cordova-browser": "^5.0.3",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-advanced-http": "^1.11.1",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.1",
+    "cordova-plugin-file-transfer": "^1.7.1",
+    "cordova-plugin-imagepicker": "git+https://github.com/giantss/cordova-plugin-ImagePicker.git",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
@@ -105,7 +108,12 @@
       "cordova-plugin-network-information": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-statusbar": {}
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-imagepicker": {},
+      "cordova-android-support-gradle-release": {
+        "ANDROID_SUPPORT_VERSION": "27.+"
+      },
+      "cordova-plugin-file-transfer": {}
     },
     "platforms": [
       "ios",

@@ -15,6 +15,7 @@ import PageActions from 'components/PageActions'
 import JsonContent from 'components/jsonEditor/JsonContent'
 import BangumiPanel from 'components/bangumi/BangumiPanel'
 import VCharts from 'v-charts'
+import camera from 'vendor/camera'
 
 import {
   DatetimePicker,
@@ -40,6 +41,8 @@ Vue.use({
     Vue.prototype.$channel = new Vue();
 
     Vue.prototype.$alias = alias;
+
+    Vue.prototype.$camera = camera;
 
     Vue.prototype.$width = window.innerWidth * 2
 
