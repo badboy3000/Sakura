@@ -117,7 +117,7 @@
       </f7-messagebar-attachments>
       <f7-messagebar-sheet>
         <f7-messagebar-sheet-image
-          v-for="(image, index) in images"
+          v-for="(image, index) in emojis"
           :key="index"
           :image="image"
           :checked="attachments.indexOf(image) >= 0"
@@ -167,7 +167,7 @@
         focused: false,
         sheetVisible: false,
         attachments: [],
-        images: [
+        emojis: [
           'http://lorempixel.com/300/300/cats/1/',
           'http://lorempixel.com/200/300/cats/2/',
           'http://lorempixel.com/400/300/cats/3/',
@@ -195,7 +195,7 @@
     methods: {
       chooseImages () {
         this.$camera.selectImages().then((images) => {
-          this.attachments = this.attachments.concat(images);
+          this.attachments = ['//cdn.framework7.io/i/docs/messagebar-vue.jpg'];
 //          const result = this.$camera.uploadImages(images);
           this.$f7.dialog.alert(JSON.stringify(images), 'image result')
         }).catch((err) => {

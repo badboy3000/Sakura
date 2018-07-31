@@ -4,11 +4,31 @@ import md5 from 'vendor/md5'
 export default {
   selectImages(count = 9) {
     return new Promise((resolve, reject) => {
-      ImagePicker.getPictures((result) => {
+      ImagePicker.getPictures(async (result) => {
         try {
-          resolve(result.images.map(_ => `file://${_.path}`))
+          const images = [];
+          const pendding = result.images.map(_ => {
+            const path = `file://${_.path}`;
+            const ext = path.split('.').pop() || 'png';
+            const filename = `user/uploading/${new Date().getTime()}-${Math.random().toString(36).substring(3, 6)}/${md5(path.substr(path.lastIndexOf('/') + 1))}.${ext}`;
+            const mimeType = `image/${ext}`;
+            const options = new FileUploadOptions();
+            options.fileName = filename;
+            options.fileKey = 'file';
+            options.mimeType = mimeType;
+            return new Promise((success, failed) => {
+              const uplaoder = new FileTransfer();
+              uplaoder.upload(imgUrl, requestUrl, success, failed, options, true);
+              // window.resolveLocalFileSystemURL(path, (file) => {
+              //   images.push(path + '~~~' + file.toURL());
+              //   success()
+              // }, failed);
+            })
+          });
+          await Promise.all(pendding);
+          resolve(images)
         } catch (e) {
-          reject('图片读取失败.')
+          reject(e)
         }
       }, reject, {
         maximumImagesCount: count,
