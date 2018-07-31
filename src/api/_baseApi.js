@@ -15,12 +15,12 @@ const convertGetQuery = (params) => {
 
 class Http {
   init () {
-    this.timeout = 10
     const timer = setInterval(async () => {
       if (window.cordova && window.cordova.plugin && window.cordova.plugin.http) {
         clearInterval(timer)
         this.http = window.cordova.plugin.http
         this.http.setDataSerializer('json');
+        this.http.setRequestTimeout(10);
         this.http.setHeader('Accept', 'application/x.api.v1+json');
         this.http.setHeader('Content-Type', 'application/json');
         this.http.setHeader('Authorization', `Bearer ${Vue.prototype.$cache.get('JWT-TOKEN')}`);

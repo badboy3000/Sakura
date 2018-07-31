@@ -25,9 +25,9 @@ import store from './store/index.js'
 
 import 'src/utils'
 
-// import VConsole from 'vconsole'
-//
-// new VConsole()
+import VConsole from 'vconsole'
+
+new VConsole()
 
 // Different F7-Vue plugin initialization with f7 v3.0
 Framework7.use(Framework7Vue)
