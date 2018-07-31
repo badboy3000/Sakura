@@ -4,7 +4,9 @@
     <preference name="DisallowOverscroll" value="true" />
     <hook src="hooks/hookers.js" type="before_prepare" />
     <hook src="hooks/beforedep.js" type="before_deploy" />
-    <name>calibur</name>
+    <name>
+        calibur
+    </name>
     <description>
         calibur.tv - 天下漫友是一家
     </description>
@@ -12,7 +14,6 @@
         冰淤
     </author>
     <content src="index.html" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -44,18 +45,22 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <allow-navigation href="*" />
-    <plugin name="cordova-plugin-streaming-media" spec="https://github.com/nchutchind/cordova-plugin-streaming-media" />
-    <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
-    <plugin name="cordova-plugin-device" spec="^2.0.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <plugin name="cordova-plugin-imagepicker" spec="https://github.com/giantss/cordova-plugin-ImagePicker.git" />
-    <plugin name="cordova-android-support-gradle-release" spec="^1.4.4">
-        <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
-    </plugin>
-    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-streaming-media" spec="~2.1.2" />
+    <plugin name="cordova-plugin-http" spec="~1.2.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <engine name="ios" spec="^4.5.4" />
+    <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
+    <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.4.2" />
+    <plugin name="cordova-plugin-background-mode" />
+    <plugin name="cordova-plugin-backbutton" spec="~0.3.0" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-imagepicker" spec="~1.1.5" />
+    <plugin name="cordova-android-support-gradle-release" spec="~1.4.4" />
+    <plugin name="cordova-plugin-file-transfer" spec="~1.7.1" />
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="^7.0.0" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>
