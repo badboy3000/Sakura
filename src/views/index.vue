@@ -174,12 +174,15 @@
           StatusBar.backgroundColorByHexString('#fa7884');
         }
       },
-      listenerBackButtonClick () {
-        if (this.$f7router.history.length > 1) {
-          this.$f7router.back()
+      listenerBackButtonClick (e) {
+        if (this.$f7router.url === '/') {
+          cordova.plugins.backgroundMode.moveToBackground();
         } else {
-          navigator.app.exitApp()
+          this.$f7router.back()
         }
+        e.stopPropagation();
+        e.preventDefault();
+        return false;
       }
     }
   }
